@@ -1,0 +1,7 @@
+*.swp
+tags
+mongoid.yml
+secrets.yml
+elastic.yml
+redis.yml
+Session.vim
