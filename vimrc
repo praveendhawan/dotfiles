@@ -1,5 +1,5 @@
 set nocompatible
-filetype off  
+filetype off
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -14,8 +14,6 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'jistr/vim-nerdtree-tabs'
 " comment support
 Plugin 'scrooloose/nerdcommenter'
-" save  sessions
-Plugin 'xolox/vim-session'
 "autocomplete
 Plugin 'Valloric/YouCompleteMe'
 "fuxxy file finder
@@ -54,6 +52,8 @@ Plugin 'dhruvasagar/vim-prosession'
 Plugin 'airblade/vim-rooter'
 "git support
 Plugin 'tpope/vim-fugitive'
+" fuzzy finder for functions
+Plugin 'tacahiroy/ctrlp-funky'
 call vundle#end()            " required
 
 
@@ -89,7 +89,7 @@ let g:ycm_server_python_interpreter = '/usr/bin/python'
 
 " powerline fonts enabling in vim
 let g:airline_powerline_fonts = 1
-" theme set 
+" theme set
 let g:airline_theme='luna'
 
 " color
@@ -98,13 +98,17 @@ set t_Co=256
 " fontset for vim
 set guifont=Meslo\ LGL\ DZ\ for\ Powerline
 
-" powerline symbols 
+" powerline symbols
 let g:Powerline_symbols = 'fancy'
 
 " autosave true
 let g:auto_save = 1
 " multiple cursors setting
 let g:multi_cursor_next_key='<C-d>'
-  
-" root changer 
+
+" root changer
 let g:rooter_change_directory_for_non_project_files = '' " dont change to root for non project folders
+"ctrlpfunky ctrl r for method search
+nnoremap <C-R> :CtrlPFunky<CR>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<CR>

@@ -158,5 +158,8 @@ export NVM_DIR="/home/dhawan/.nvm"
 
 source <(kubectl completion bash)
 
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+# Load rvm as a function
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

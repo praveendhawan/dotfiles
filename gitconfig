@@ -11,3 +11,7 @@
 	visual = !gitk
 [core]
 	excludesfile = /home/dhawan/.gitignore_global
+[diff]
+	tool = bc3
+[difftool "bc3"]
+	trustExitCode = true
