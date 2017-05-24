@@ -1,1 +1,1 @@
-/home/dhawan/.zprezto/runcoms/zshrc
+/home/dhawan/.dotfiles/zshrc
