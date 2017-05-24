@@ -11,7 +11,11 @@
 	visual = !gitk
 [core]
 	excludesfile = /home/dhawan/.gitignore_global
+[merge]
+	    tool = kdiff3
+[mergetool "kdiff3"]
+	    trustExitCode = false
 [diff]
-	tool = bc3
-[difftool "bc3"]
-	trustExitCode = true
+	    tool = kdiff3
+[difftool "kdiff3"]
+	    trustExitCode = false
