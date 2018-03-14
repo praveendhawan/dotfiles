@@ -1,1 +1,0 @@
-/home/dhawan/.zprezto/runcoms/zprofile
