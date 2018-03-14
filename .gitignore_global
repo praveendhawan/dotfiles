@@ -1,0 +1,9 @@
+.vscode
+.vscode/*
+.idea/*
+.idea/
+./docker/elastic/data_bak/0/*
+./docker/elastic/data_bak/0
+./docker/elastic/data_bak/*
+./docker/elastic/data_bak/
+config/elastic.yml
