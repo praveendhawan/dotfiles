@@ -1,0 +1,43 @@
+" Set runtime path to enable python support for powerline fonts
+set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
+"----------------------------------------------------------------------------------------
+" Set fonts
+set guifont=Meslo\ LG\ S\ for\ Powerline
+" ---------------------------------------------------------------------------------------
+" Set Netrw For Tree like NERDTree FIle Explorer
+" This config is here because netrw is inbuilt in vim
+" This config is for hiding the banner which explained what is netrw
+let g:netrw_banner = 0
+" This config is to show file explorer in Tree like structure
+let g:netrw_liststyle = 3
+" This tell to open file in previous window
+" 1 - open files in a new horizontal split
+" 2 - open files in a new vertical split
+" 3 - open files in a new tab
+" 4 - open in previous window
+let g:netrw_browse_split = 4
+" this option will make the cursur to go to the file opened instead of keeping it there
+" in the netrw
+let g:netrw_altv = 1
+" This will set the width of netrw to be 25% of the width of view
+let g:netrw_winsize = 25
+" Add netrw to run on vimenter
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
+"----------------------------------------------------------------------------------------
+" See the 100th Column width line
+if (exists('+colorcolumn'))
+    set colorcolumn=100
+    highlight ColorColumn ctermbg=9
+endif
+
+" Enable Tab completion in commands
+set wildmenu
+
+" Set Colorscheme for vim - inbuilt
+colorscheme elflord
+
+" Set syntx highlighing on
+syntax on

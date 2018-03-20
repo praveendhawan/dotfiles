@@ -101,6 +101,11 @@ source $ZSH/oh-my-zsh.sh
 if [ -f ~/.bash_aliases ]; then
     source ~/.bash_aliases
 fi
+
 if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
   . ~/.config/exercism/exercism_completion.zsh
+fi
+
+if [ -f ~/.config/nvim/pack/minpac/start/fzf/bin/fzf ]; then
+  export PATH=$PATH:~/.config/nvim/pack/minpac/start/fzf/bin
 fi

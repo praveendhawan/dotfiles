@@ -1,55 +1,47 @@
-" This file is used for plugins for nvim
+" Package Managament with Minpac
+packadd minpac
 
-" Setup vundle path
-set rtp+=~/.config/nvim/bundle/Vundle.vim
 
-" Start vundle 
-call vundle#begin('~/.config/nvim/bundle')
-  " Plugin Manager for Vim
-  Plugin 'VundleVim/Vundle.vim'
-  " Git wrapper
-  Plugin 'tpope/vim-fugitive'
-  " File system explorer
-  Plugin 'scrooloose/nerdtree'
-  " change and add brackets surroundings in pairs
-  Plugin 'tpope/vim-surround'
-  " Syntax Checking
-  Plugin 'scrooloose/syntastic'
-  " Git Gutter
-  Plugin 'airblade/vim-gitgutter'
-  " browse the tags of the current file
-  Plugin 'majutsushi/tagbar'
-  " Lean & mean status/tabline for vim
-  Plugin 'vim-airline/vim-airline'
-  " official theme repository for vim-airline
-  Plugin 'vim-airline/vim-airline-themes'
-  " Full path fuzzy file, buffer, mru, tag, ... finder for Vim
-  Plugin 'ctrlpvim/ctrlp.vim'
-  " For text filtering and alignment
-  Plugin 'godlygeek/tabular'
-  " Emmet for Vim
-  Plugin 'mattn/emmet-vim'
-  " Code completion Engine for VIm
-  Plugin 'shougo/deoplete.nvim'
-  " Coffescript support for vim
-  Plugin 'kchmck/vim-coffee-script'
-  " Rails support for vim
-  Plugin 'tpope/vim-rails'
-  " Indent Guide for vim
-  Plugin 'nathanaelkane/vim-indent-guides'
-  " Multiple cursors support for vim
-  Plugin 'terryma/vim-multiple-cursors'
-  " Git status in NERDTree
-  Plugin 'xuyuanp/nerdtree-git-plugin'
-  " Elixir support for vim
-  Plugin 'elixir-lang/vim-elixir'
-  " trailing whitespace highlighting
-  Plugin 'bronson/vim-trailing-whitespace'
-  " Dockerfile syntax
-  Plugin 'ekalinin/dockerfile.vim'
-  " Grep support for Vim
-  Plugin 'grep.vim'
-  " Session Mgmt. for Vim
-  Plugin 'xolox/vim-session'
-call vundle#end()
-" End Vundle
+"-------------------------------------------------------------------------------------------
+" Packges are added in ~/.config/nvim/pack/minpac directory
+" opt - Optional plugins
+" start - By default, minpac installs plugins to the this directory
+"
+" To install plugin run
+"                       :call minpac#update()
+" To unistall a plugin remove the corresponding line from here and run
+"                       :call minpac#clean()
+"
+"-------------------------------------------------------------------------------------------
+
+"init minpac
+call minpac#init()
+
+" Package mgmt with Minmac (Auto update itself)
+call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+" complementary pairs of mappings
+call minpac#add('tpope/vim-unimpaired')
+
+" Fuzzy File Finder
+" Activate it usinf :FZF command or ctrl + p in normal mode
+call minpac#add('junegunn/fzf')
+
+" granular project configuration using projections
+" projections are specific triggers to browse files in specific directory
+call minpac#add('tpope/vim-projectionist')
+
+" Airline Fonts and themes
+" Airline status bar etc
+call minpac#add('vim-airline/vim-airline')
+call minpac#add('vim-airline/vim-airline-themes')
+
+" Git support for vim
+" This ia also necessary for showing the branch in ailine status bar
+call minpac#add('tpope/vim-fugitive')
+
+" Fix trailing Whitespace and highlight whitespace
+call minpac#add('bronson/vim-trailing-whitespace')
+
+" git gutter in files
+call minpac#add('airblade/vim-gitgutter')

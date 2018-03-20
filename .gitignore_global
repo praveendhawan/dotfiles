@@ -7,3 +7,5 @@
 ./docker/elastic/data_bak/*
 ./docker/elastic/data_bak/
 config/elastic.yml
+.projections.json
+snowflake-odbc-2.13.20.x86_64.deb
