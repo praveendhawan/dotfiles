@@ -10,8 +10,8 @@ alias up_dekeo="cd ~/workspace/Office/spree-jiffyshirt && vagrant up && vagrant 
 alias reload_zsh="source ~/.zshrc"
 alias reload_bash="source ~/.bashrc"
 alias my_qa_ssh="ssh -i ~/.ssh/qa.pem ubuntu@praveen.sdtechdev.com"
-alias stage_ssh="ssh praveen@52.72.163.48"
-alias prod_ssh="ssh praveen@54.158.156.149"
+alias stage_ssh="ssh jiffy-stage"
+alias prod_ssh="ssh jiffy-prod"
 
 if [ -f ~/.jiffy-docker-aliases ]; then
         source ~/.jiffy-docker-aliases
