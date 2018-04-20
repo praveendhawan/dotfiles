@@ -2,10 +2,9 @@
 .vscode/*
 .idea/*
 .idea/
-./docker/elastic/data_bak/0/*
-./docker/elastic/data_bak/0
-./docker/elastic/data_bak/*
-./docker/elastic/data_bak/
 config/elastic.yml
 .projections.json
 snowflake-odbc-2.13.20.x86_64.deb
+.ctagsignore
+./docker/elastic_backup/
+./docker/elastic_backup/*
