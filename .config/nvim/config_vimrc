@@ -28,10 +28,10 @@ let g:netrw_winsize = 25
 "augroup END
 "----------------------------------------------------------------------------------------
 " See the 100th Column width line
-if (exists('+colorcolumn'))
-    set colorcolumn=100
-    highlight ColorColumn ctermbg=9
-endif
+"if (exists('+colorcolumn'))
+"  set colorcolumn=100
+"  highlight ColorColumn ctermbg=9
+"endif
 
 " Enable Tab completion in commands
 set wildmenu
@@ -40,4 +40,26 @@ set wildmenu
 colorscheme elflord
 
 " Set syntx highlighing on
-syntax on
+if has("syntax")
+  syntax on
+endif
+
+" invisible characters symbols
+set lcs=tab:▸\ ,eol:¬
+",space:.
+
+"show invisible characters by default
+set list
+
+" spaces instead of tabs
+" tabstop - how many columns a tab counts for
+" shiftwidth - how many columns text is indeneted
+" expandtab - convert tabs to spaces
+set tabstop=2 shiftwidth=2 expandtab
+
+
+" set ctags diectory to be used by nvim
+set tags=./.git/.tags
+
+" show line numbers in vim
+set number
