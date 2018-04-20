@@ -1,17 +1,76 @@
-DOCKER_RAILS_COMMAND="docker-compose exec rails"
+function jd_attach() {
+  attach_to="rails"
+  docker attach $(docker ps | grep $attach_to | tr -s " " | cut -d " " -f 1)
+}
+
+function jd_stty_rows {
+  tputs lines
+}
+
+function jd_stty_cols {
+  tputs cols
+}
+
+DOCKER_RAILS_COMMAND="docker-compose exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
 alias dc="docker-compose"
 #alias d_exec_rails="$DOCKER_RAILS_COMMAND"
-alias j_d_be="$DOCKER_RAILS_COMMAND bundle exec"
-alias j_d_bi="$DOCKER_RAILS_COMMAND bundle"
-alias j_d_rails_bash="$DOCKER_RAILS_COMMAND bash"
-alias j_d_rails_c="$DOCKER_RAILS_COMMAND bundle exec rails c"
-alias j_d_up="docker-compose up"
-alias j_d_attach="docker attach $(docker ps | grep jiffyshirts_rails | tr -s " " | cut -d " " -f 1)"
-alias j_d_rspec="$DOCKER_RAILS_COMMAND bundle exec rspec"
-alias j_d_postgres="docker-compose exec postgres psql -U postgres -d jiffyshirts_development"
-alias j_d_solr_reindex="$DOCKER_RAILS_COMMAND bundle exec rake sunspot:reindex"
-alias j_d_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
-alias j_d_rubo2="$DOCKER_RAILS_COMMAND git diff --diff-filter=ACMRTUXB --name-only master|grep \"\.\(rake\|rb\)$\"|xargs bundle exec rubocop"
-alias j_d_build_upload_image="$DOCKER_RAILS_COMMAND bash; source ~/.vm_shell_settings; setup_docker; bundle exec rake oops:build oops:upload"
-alias j_d_stage_deploy="$DOCKER_RAILS_COMMAND bash; source ~/.vm_shell_settings; setup_docker; bundle exec rake \"oops:deploy[jiffyshirts,staging]\""
-alias j_d_stage_deploy="$DOCKER_RAILS_COMMAND bash; source ~/.vm_shell_settings; setup_docker; bundle exec rake \"oops:deploy[jiffyshirts,production]\""
+alias jd_be="$DOCKER_RAILS_COMMAND bundle exec"
+alias jd_bi="$DOCKER_RAILS_COMMAND bundle"
+alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
+alias jd_rails_c="$DOCKER_RAILS_COMMAND bundle exec rails c"
+alias jd_up="docker-compose up"
+alias jd_attach_rails="jd_attach"
+alias jd_rspec="$DOCKER_RAILS_COMMAND bundle exec rspec"
+alias jd_postgres="docker-compose exec postgres psql -U postgres -d jiffyshirts_development"
+alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
+alias jd_rubo2="$DOCKER_RAILS_COMMAND git diff --diff-filter=ACMRTUXB --name-only master|grep \"\.\(rake\|rb\)$\"|xargs bundle exec rubocop"
+
+# deploy and build functions
+
+function jd_build_upload_image() {
+  source ~/.jiffy-deploy-env
+  docker-compose exec \
+  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+  -e AWS_REGION=$AWS_REGION \
+  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
+  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
+  -e RAILS_ENV=deploy \
+  rails bundle exec rake oops:build oops:upload
+}
+
+function jd_deploy_hoth() {
+  source ~/.jiffy-deploy-env
+  docker-compose exec \
+  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+  -e AWS_REGION=$AWS_REGION \
+  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
+  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
+  -e RAILS_ENV=deploy \
+  rails bundle exec rake "oops:deploy[jiffyshirts,hoth]"
+}
+
+function jd_deploy_yavin() {
+  source ~/.jiffy-deploy-env
+  docker-compose exec \
+  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+  -e AWS_REGION=$AWS_REGION \
+  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
+  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
+  -e RAILS_ENV=deploy \
+  rails bundle exec rake "oops:deploy[jiffyshirts,yavin]"
+}
+
+function jd_deploy_prod() {
+  source ~/.jiffy-deploy-env
+  docker-compose exec \
+  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+  -e AWS_REGION=$AWS_REGION \
+  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
+  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
+  -e RAILS_ENV=deploy \
+  rails bundle exec rake "oops:deploy[jiffyshirts,production]"
+}
