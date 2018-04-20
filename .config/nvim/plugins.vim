@@ -45,3 +45,12 @@ call minpac#add('bronson/vim-trailing-whitespace')
 
 " git gutter in files
 call minpac#add('airblade/vim-gitgutter')
+
+" coffeescript support (syntax) etc.
+call minpac#add('kchmck/vim-coffee-script')
+
+" ale plugin for auto linting code
+call minpac#add('w0rp/ale')
+
+" to run grep asynchronously
+call minpac#add('mhinz/vim-grepper')
