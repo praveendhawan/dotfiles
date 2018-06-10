@@ -16,5 +16,6 @@ let g:airline_theme='sol'
 " Ale Setup
 let g:ale_linters = {
 \  'javascript': ['eslint'],
-\  'ruby': ['rubocop']
+\  'ruby': ['rubocop'],
+\  'elixir': ['credo']
 \}

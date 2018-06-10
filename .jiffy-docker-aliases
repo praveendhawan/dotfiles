@@ -1,5 +1,5 @@
 function jd_attach() {
-  attach_to="rails"
+  attach_to=$1
   docker attach $(docker ps | grep $attach_to | tr -s " " | cut -d " " -f 1)
 }
 
@@ -19,7 +19,7 @@ alias jd_bi="$DOCKER_RAILS_COMMAND bundle"
 alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
 alias jd_rails_c="$DOCKER_RAILS_COMMAND bundle exec rails c"
 alias jd_up="docker-compose up"
-alias jd_attach_rails="jd_attach"
+alias jd_attach_rails="jd_attach rails"
 alias jd_rspec="$DOCKER_RAILS_COMMAND bundle exec rspec"
 alias jd_postgres="docker-compose exec postgres psql -U postgres -d jiffyshirts_development"
 alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
