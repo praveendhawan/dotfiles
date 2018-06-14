@@ -13,7 +13,7 @@ function jd_stty_cols {
 
 DOCKER_RAILS_COMMAND="docker-compose exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
 alias dc="docker-compose"
-#alias d_exec_rails="$DOCKER_RAILS_COMMAND"
+#alias jd_exec_rails="$DOCKER_RAILS_COMMAND"
 alias jd_be="$DOCKER_RAILS_COMMAND bundle exec"
 alias jd_bi="$DOCKER_RAILS_COMMAND bundle"
 alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
@@ -25,6 +25,19 @@ alias jd_postgres="docker-compose exec postgres psql -U postgres -d jiffyshirts_
 alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
 alias jd_rubo2="$DOCKER_RAILS_COMMAND git diff --diff-filter=ACMRTUXB --name-only master|grep \"\.\(rake\|rb\)$\"|xargs bundle exec rubocop"
 alias jd_sync="dc run bg_sync bg-sync"
+
+# migrations runner
+function run_migrations() {
+  echo "Running Migrations for Dev Environment"
+  jd_be rails db:migrate
+  echo "Now Running migrations for Test Env"
+  jd_be rails db:migrate RAILS_ENV=test
+}
+
+alias jd_migrate="run_migrations"
+
+alias jd_co_sql="git co db/structure.sql"
+
 # deploy and build functions
 
 function jd_build_upload_image() {
