@@ -21,7 +21,7 @@ call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 " complementary pairs of mappings
-call minpac#add('tpope/vim-unimpaired')
+" call minpac#add('tpope/vim-unimpaired')
 
 " Fuzzy File Finder
 " Activate it usinf :FZF command or ctrl + p in normal mode
@@ -29,7 +29,7 @@ call minpac#add('junegunn/fzf')
 
 " granular project configuration using projections
 " projections are specific triggers to browse files in specific directory
-call minpac#add('tpope/vim-projectionist')
+" call minpac#add('tpope/vim-projectionist')
 
 " Airline Fonts and themes
 " Airline status bar etc
@@ -37,7 +37,7 @@ call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
 
 " Git support for vim
-" This ia also necessary for showing the branch in ailine status bar
+" This ia also necessary for showing the branch in airline status bar
 call minpac#add('tpope/vim-fugitive')
 
 " Fix trailing Whitespace and highlight whitespace
