@@ -54,3 +54,6 @@ call minpac#add('w0rp/ale')
 
 " to run grep asynchronously
 call minpac#add('mhinz/vim-grepper')
+
+" Ruby syntax highlight
+call minpac#add('vim-ruby/vim-ruby')
