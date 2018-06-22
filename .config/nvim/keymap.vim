@@ -1,4 +1,4 @@
-" Pressing F5 will show the buffers list in current worksapce
+" Pressing fn + F5 will show the buffers list in current worksapce
 :nnoremap <F5> :buffers<CR>:buffer<Space>
 " Press \l to toggle visibility of invisible characters (listchars)
 :nmap <leader>l :set list!<CR>
