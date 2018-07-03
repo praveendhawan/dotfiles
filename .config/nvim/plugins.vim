@@ -57,3 +57,9 @@ call minpac#add('mhinz/vim-grepper')
 
 " Ruby syntax highlight
 call minpac#add('vim-ruby/vim-ruby')
+
+" add 'end' to def, if, do etc.
+call minpac#add('tpope/vim-endwise')
+
+" ctags mgmt
+call minpac#add('ludovicchabant/vim-gutentags')

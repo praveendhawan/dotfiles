@@ -5,10 +5,10 @@ set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 set guifont=Meslo\ LG\ S\ for\ Powerline
 " ---------------------------------------------------------------------------------------
 " See the 100th Column width line
-"if (exists('+colorcolumn'))
-"  set colorcolumn=100
-"  highlight ColorColumn ctermbg=9
-"endif
+" if (exists('+colorcolumn'))
+"   set colorcolumn=100
+"   highlight ColorColumn ctermbg=9
+" endif
 
 " Enable Tab completion in commands
 set wildmenu
@@ -25,7 +25,7 @@ endif
 set lcs=tab:▸\ ,eol:¬
 ",space:.
 
-"show invisible characters by default
+" show invisible characters by default
 set list
 
 " spaces instead of tabs
@@ -36,7 +36,31 @@ set tabstop=2 shiftwidth=2 expandtab
 
 
 " set ctags diectory to be used by nvim
-set tags=./.git/.tags
+set autochdir
+set tags=./tags,tags;/
 
 " show line numbers in vim
 set number
+
+" Highlight current line
+set cursorline
+
+" Allow opening of new buffers when current buffer have unsaved changes
+" This will hide the current buffer instead of closing it
+set hidden
+
+" auto load file if its changed outside of vim
+set autoread
+
+" show matching parenthesis
+set showmatch
+
+" ignore case when searching
+set ignorecase
+
+" ignore case if search pattern is all lowercase,
+" case-sensitive otherwise
+set smartcase
+
+" show search matches as you type
+set incsearch
