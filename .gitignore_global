@@ -9,3 +9,4 @@ snowflake-odbc-2.13.20.x86_64.deb
 ./docker/elastic_backup/
 ./docker/elastic_backup/*
 .DS_Store
+tags
