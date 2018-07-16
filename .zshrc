@@ -101,7 +101,7 @@ fi
 
 # This will include exercism completetion script in zsh
 if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
-  . ~/.config/exercism/exercism_completion.zsh
+  source ~/.config/exercism/exercism_completion.zsh
 fi
 
 # This will include the fzf bin path to $PATH var
