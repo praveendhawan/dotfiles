@@ -52,6 +52,18 @@ function jd_build_upload_image() {
   rails bundle exec rake oops:build oops:upload
 }
 
+function jd_deploy_endor() {
+  source ~/.jiffy-deploy-env
+  docker-compose exec \
+  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+  -e AWS_REGION=$AWS_REGION \
+  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
+  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
+  -e RAILS_ENV=deploy \
+  rails bundle exec rake "oops:deploy[jiffyshirts,endor]"
+}
+
 function jd_deploy_hoth() {
   source ~/.jiffy-deploy-env
   docker-compose exec \
