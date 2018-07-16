@@ -63,3 +63,9 @@ call minpac#add('tpope/vim-endwise')
 
 " ctags mgmt
 call minpac#add('ludovicchabant/vim-gutentags')
+
+" Indent guide
+call minpac#add('Yggdroot/indentLine')
+
+" Elixir Language Support
+call minpac#add('elixir-editors/vim-elixir')
