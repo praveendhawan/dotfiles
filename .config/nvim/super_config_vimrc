@@ -1,4 +1,19 @@
+" This will be ignored by nvim as nvim is nocompatible
+" set it to not compatible with vi
 set nocompatible
+
+" autodetect filetype
 filetype on
+
+" auto load indent file according to filetype from vim runtime
 filetype indent on
+
+" auto load filetype plugin based on filetype from vim runtime
 filetype plugin on
+
+" the above line can also be written as
+" filetype plugin indent on
+" which will be equivalent to writing 3 lines
+" filetype on
+" filetype plugin on
+" filetype indent on
