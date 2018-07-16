@@ -36,7 +36,7 @@ set tabstop=2 shiftwidth=2 expandtab
 
 
 " set ctags diectory to be used by nvim
-set autochdir
+" set autochdir
 set tags=./tags,tags;/
 
 " show line numbers in vim

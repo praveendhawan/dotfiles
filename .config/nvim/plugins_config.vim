@@ -28,11 +28,11 @@ let g:ale_linters = {
 \  'elixir': ['credo']
 \}
 
-" Vim Ruby Config
 
+" Vim Ruby Config
 " Ruby: Operator highlighting
 let ruby_operators = 1
 " Ruby: Whitespace errors
 let ruby_space_errors = 1
 " Ruby: Folding
-let ruby_fold = 1
+" let ruby_fold = 1
