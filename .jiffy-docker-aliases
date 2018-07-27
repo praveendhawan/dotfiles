@@ -4,11 +4,11 @@ function jd_attach() {
 }
 
 function jd_stty_rows {
-  tputs lines
+  tput lines
 }
 
 function jd_stty_cols {
-  tputs cols
+  tput cols
 }
 
 DOCKER_RAILS_COMMAND="docker-compose exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
@@ -24,7 +24,6 @@ alias jd_rspec="$DOCKER_RAILS_COMMAND bundle exec rspec"
 alias jd_postgres="docker-compose exec postgres psql -U postgres -d jiffyshirts_development"
 alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
 alias jd_rubo2="$DOCKER_RAILS_COMMAND git diff --diff-filter=ACMRTUXB --name-only master|grep \"\.\(rake\|rb\)$\"|xargs bundle exec rubocop"
-alias jd_sync="dc run bg_sync bg-sync"
 
 # migrations runner
 function run_migrations() {
@@ -32,13 +31,29 @@ function run_migrations() {
   jd_be rails db:migrate
   echo "Now Running migrations for Test Env"
   jd_be rails db:migrate RAILS_ENV=test
+  echo "checking out db/structure.sql changes"
+  git co db/structure.sql
 }
 
 alias jd_migrate="run_migrations"
 
 alias jd_co_sql="git co db/structure.sql"
 
-# deploy and build functions
+# deploy and build functions & aliases
+
+# build, upload and deploy to stack mentioned in argument
+function jd_deploy() {
+  source ~/.jiffy-deploy-env
+
+  docker-compose exec \
+  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+  -e AWS_REGION=$AWS_REGION \
+  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
+  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
+  -e RAILS_ENV=deploy \
+  rails bash -l -c "bundle exec rake oops:build oops:upload \"oops:deploy[jiffyshirts,$1]\""
+}
 
 function jd_build_upload_image() {
   source ~/.jiffy-deploy-env
@@ -49,53 +64,11 @@ function jd_build_upload_image() {
   -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
   -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
   -e RAILS_ENV=deploy \
-  rails bundle exec rake oops:build oops:upload
+  rails bash -l -c "bundle exec rake oops:build oops:upload"
 }
 
-function jd_deploy_endor() {
-  source ~/.jiffy-deploy-env
-  docker-compose exec \
-  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-  -e AWS_REGION=$AWS_REGION \
-  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
-  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
-  -e RAILS_ENV=deploy \
-  rails bundle exec rake "oops:deploy[jiffyshirts,endor]"
-}
-
-function jd_deploy_hoth() {
-  source ~/.jiffy-deploy-env
-  docker-compose exec \
-  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-  -e AWS_REGION=$AWS_REGION \
-  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
-  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
-  -e RAILS_ENV=deploy \
-  rails bundle exec rake "oops:deploy[jiffyshirts,hoth]"
-}
-
-function jd_deploy_yavin() {
-  source ~/.jiffy-deploy-env
-  docker-compose exec \
-  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-  -e AWS_REGION=$AWS_REGION \
-  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
-  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
-  -e RAILS_ENV=deploy \
-  rails bundle exec rake "oops:deploy[jiffyshirts,yavin]"
-}
-
-function jd_deploy_prod() {
-  source ~/.jiffy-deploy-env
-  docker-compose exec \
-  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-  -e AWS_REGION=$AWS_REGION \
-  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
-  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
-  -e RAILS_ENV=deploy \
-  rails bundle exec rake "oops:deploy[jiffyshirts,production]"
-}
+alias jd_deploy_endor="jd_deploy endor"
+alias jd_deploy_hoth="jd_deploy hoth"
+alias jd_deploy_yavin="jd_deploy yavin"
+alias jd_deploy_jakku="jd_deploy jakku"
+alias jd_deploy_prod="jd_deploy production"
