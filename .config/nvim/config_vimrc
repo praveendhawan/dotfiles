@@ -14,7 +14,7 @@ set guifont=Meslo\ LG\ S\ for\ Powerline
 set wildmenu
 
 " Set Colorscheme for vim - inbuilt
-colorscheme elflord
+colorscheme zellner
 
 " Set syntx highlighing on
 if has("syntax")
