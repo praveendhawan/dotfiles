@@ -27,12 +27,23 @@ alias jd_rubo2="$DOCKER_RAILS_COMMAND git diff --diff-filter=ACMRTUXB --name-onl
 
 # migrations runner
 function run_migrations() {
+  checkout_changes = true
+  if [ git status | grep db/ ];then
+    checkout_changes = false
+  fi
+
   echo "Running Migrations for Dev Environment"
   jd_be rails db:migrate
+
   echo "Now Running migrations for Test Env"
   jd_be rails db:migrate RAILS_ENV=test
-  echo "checking out db/structure.sql changes"
-  git co db/structure.sql
+
+  if [ "$checkout_changes" == true]; then
+    echo "checking out db/structure.sql changes"
+    git co db/structure.sql
+  else
+    echo "not checking out structure file changes as we have added migrations"
+  fi
 }
 
 alias jd_migrate="run_migrations"
