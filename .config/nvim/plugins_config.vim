@@ -43,3 +43,14 @@ let ruby_operators = 1
 let ruby_space_errors = 1
 " Ruby: Folding
 " let ruby_fold = 1
+
+" Vim Gutentags config
+if executable('ripper-tags') && executable('ripper-tags-wrapper')
+  let g:gutentags_ctags_executable_ruby = 'rtags'
+else
+" TODO: Make it work
+"  git clone git@gist.github.com:9c3ddd7eb9be3227066980951afe7671.git
+"  mv rtags /usr/local/bin
+"  chmod +x /usr/local/bin/rtags
+"  let g:gutentags_ctags_executable_ruby = 'rtags'
+endif
