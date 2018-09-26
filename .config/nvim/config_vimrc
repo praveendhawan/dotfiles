@@ -64,3 +64,9 @@ set smartcase
 
 " show search matches as you type
 set incsearch
+
+" folding in vim
+set foldmethod=syntax
+set foldnestmax=5
+set nofoldenable
+set foldlevel=2
