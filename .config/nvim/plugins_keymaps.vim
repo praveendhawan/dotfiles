@@ -18,5 +18,12 @@ let g:grepper.tools = ['grep', 'git', 'rg']
 " Search for the current word
 nnoremap <Leader>* :Grepper -cword -noprompt<CR>
 " Search for the current selection
-nmap gs <plug>(GrepperOperator)
-xmap gs <plug>(GrepperOperator)
+" nmap gs <plug>(GrepperOperator)
+" xmap gs <plug>(GrepperOperator)
+
+" search shortcut - RipperGrep
+" ctrl + f to grep using rg
+" Fill the prompt with current word by default
+" add -noprompt option to start search without hitting Enter key
+" nnoremap <C-F> :Grepper -tool rg -cword -noprompt<CR>
+nnoremap <C-f> :Grepper -tool rg -cword<CR>
