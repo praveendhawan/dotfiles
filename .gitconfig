@@ -12,6 +12,7 @@
 	pretty = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	cb = rev-parse --abbrev-ref HEAD
 	undo = reset HEAD~
+	cp = cherry-pick
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
