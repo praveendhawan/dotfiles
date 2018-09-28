@@ -8,7 +8,13 @@ export ZSH=~/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
-ZSH_THEME="cloud"
+# ZSH_THEME="cloud"
+ZSH_THEME="spaceship"
+
+# spaceship theme configs
+if [ -f ~/.spaceship_config ]; then
+  source ~/.spaceship_config
+fi
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -37,7 +43,8 @@ CASE_SENSITIVE="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# After enabling it zsh became a little bit slow
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -76,11 +83,11 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -113,11 +120,11 @@ fi
 # highlight autosuggestions results
 if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
   source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
+#  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 else
   git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
   source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
+#  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
