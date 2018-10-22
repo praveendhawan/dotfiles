@@ -15,3 +15,6 @@ source ~/.config/nvim/plugins_config.vim
 source ~/.config/nvim/keymap.vim
 " Keymaps I want to override (which comes with plugins)
 source ~/.config/nvim/plugins_keymaps.vim
+
+" My custom commands
+source ~/.config/nvim/custom_commands.vim
