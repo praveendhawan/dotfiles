@@ -129,6 +129,5 @@ fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-
-# this is needed for tmux to support 256 colors
-export TERM=xterm-256color
+# for brew analytics
+export HOMEBREW_NO_ANALYTICS=1
