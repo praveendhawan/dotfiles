@@ -13,7 +13,7 @@ let g:airline_powerline_fonts = 1
 " Set airline theme
 " let g:airline_theme='dark_minimal'
 
-let g:airline_theme='molokai'
+let g:airline_theme='cool'
 
 
 " Show buffers as tabs on top
@@ -28,6 +28,10 @@ let g:ale_linters = {
 \  'ruby': ['rubocop'],
 \  'elixir': ['credo']
 \}
+
+" Vim Grepper plugin configurations
+let g:grepper = {}
+let g:grepper.tools = ['grep', 'git', 'rg']
 
 " custom highlight for ale warnings and errors
 " highlight ALEWarning term=inverse,bold cterm=bold ctermbg=darkred ctermfg=white gui=bold guibg=darkred guifg=white
