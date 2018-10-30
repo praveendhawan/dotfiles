@@ -26,8 +26,9 @@
 	excludesfile = ~/.gitignore_global
 # CRLF is replaced with LF when writing that file to the object database, and NOT vice versa
   autocrlf = input
+	editor = vim
 
-[diff]
+# [diff]
 	tool = vimdiff
 	# Detect copies as well as renames
 	renames = copies
@@ -61,7 +62,15 @@
   # force not to use pager for branches and status
   branch =
   status =
-
+  stash =
 [help]
 	# Automatically correct and execute mistyped commands
-	autocorrect = 1
+  autocorrect = 1
+
+# Auto added by Github Desktop
+# Not sure why will investigate when i get time
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
