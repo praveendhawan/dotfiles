@@ -18,3 +18,8 @@ source ~/.config/nvim/plugins_keymaps.vim
 
 " My custom commands
 source ~/.config/nvim/custom_commands.vim
+
+" My custom functions list
+for f in split(glob('~/.config/nvim/functions/*.vim'), '\n')
+    exe 'source' f
+endfor

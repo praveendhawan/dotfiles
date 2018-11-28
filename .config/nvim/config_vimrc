@@ -14,7 +14,7 @@ set guifont=Meslo\ LG\ S\ for\ Powerline
 set wildmenu
 
 " Set Colorscheme for vim - inbuilt
-colorscheme zellner
+colorscheme default
 
 " Set syntx highlighing on
 if has("syntax")
@@ -70,3 +70,7 @@ set foldmethod=syntax
 set foldnestmax=5
 set nofoldenable
 set foldlevel=2
+
+" treat - _ as part of word
+set iskeyword+=-
+set iskeyword+=_

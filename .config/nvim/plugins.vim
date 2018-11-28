@@ -61,11 +61,28 @@ call minpac#add('vim-ruby/vim-ruby')
 " add 'end' to def, if, do etc.
 call minpac#add('tpope/vim-endwise')
 
+" Add support for scratch buffers
+call minpac#add('vim-scripts/scratch.vim')
+
 " ctags mgmt
 call minpac#add('ludovicchabant/vim-gutentags')
+
+" Autocomplete Framework
+call minpac#add('Shougo/deoplete.nvim')
 
 " Indent guide
 call minpac#add('Yggdroot/indentLine')
 
 " Elixir Language Support
 call minpac#add('elixir-editors/vim-elixir')
+call minpac#add('slashmili/alchemist.vim')
+
+" parenthesizing made simple
+call minpac#add('tpope/vim-surround')
+
+" selecting ruby blocks made easy
+call minpac#add('kana/vim-textobj-user')
+call minpac#add('nelstrom/vim-textobj-rubyblock')
+
+" Solarized color scheme for vim
+call minpac#add('altercation/vim-colors-solarized')

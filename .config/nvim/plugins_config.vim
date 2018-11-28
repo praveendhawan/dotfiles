@@ -58,3 +58,13 @@ else
 "  chmod +x /usr/local/bin/rtags
 "  let g:gutentags_ctags_executable_ruby = 'rtags'
 endif
+
+set statusline+=%{gutentags#statusline()}
+let g:gutentags_ctags_exclude = ['./config/routes/dekeo_wildcard.rb', './config/routes/dekeo.rb', 'build', 'vendor', '.git', 'node_modules', '.sass-cache', '.vagrant', 'docs', 'log']
+
+" Use deoplete - Autocomplete Framework
+let g:deoplete#enable_at_startup = 1
+
+" Solarized Dark Theme
+" set background=dark
+"colorscheme solarized

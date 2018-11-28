@@ -2,5 +2,6 @@
 "
 command! BufCloseAllExceptCurrent execute "%bd|e#|bd#"
 ca bca BufCloseAllExceptCurrent
-" command BufCloseAllExceptCurrent! silent! execute "%bd|e#|bd#"
-" ca bca! BufCloseAllExceptCurrent!
+
+command! -nargs=* RenameFile :call Rename("<args>", "<bang>")
+ca rename RenameFile
