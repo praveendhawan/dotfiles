@@ -85,4 +85,4 @@ call minpac#add('kana/vim-textobj-user')
 call minpac#add('nelstrom/vim-textobj-rubyblock')
 
 " Solarized color scheme for vim
-call minpac#add('altercation/vim-colors-solarized')
+call minpac#add('iCyMind/NeoSolarized')
