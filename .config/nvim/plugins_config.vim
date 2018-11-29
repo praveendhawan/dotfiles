@@ -31,7 +31,7 @@ let g:ale_linters = {
 
 " Vim Grepper plugin configurations
 let g:grepper = {}
-let g:grepper.tools = ['grep', 'git', 'rg']
+let g:grepper.tools = ['rg', 'grep', 'git']
 
 " custom highlight for ale warnings and errors
 " highlight ALEWarning term=inverse,bold cterm=bold ctermbg=darkred ctermfg=white gui=bold guibg=darkred guifg=white
