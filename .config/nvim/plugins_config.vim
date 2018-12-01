@@ -31,6 +31,12 @@ let g:ale_linters = {
 
 " Vim Grepper plugin configurations
 let g:grepper = {}
+let g:grepper.rg = {
+\  'grepprg': 'rg -H --no-heading --smart-case --vimgrep',
+\  'grepformat':  '%f:%l:%m',
+\  'escape': '\+*^$()[]'
+\ }
+
 let g:grepper.tools = ['rg', 'grep', 'git']
 
 " custom highlight for ale warnings and errors
