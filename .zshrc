@@ -112,10 +112,13 @@ if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
   source ~/.config/exercism/exercism_completion.zsh
 fi
 
-# This will include the fzf bin path to $PATH var
-if [ -f ~/.config/nvim/pack/minpac/start/fzf/bin/fzf ]; then
-  export PATH=$PATH:~/.config/nvim/pack/minpac/start/fzf/bin
-fi
+# Installed via brew so its already included in path
+# adding config for default options
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+
+#if [ -f ~/.config/nvim/pack/minpac/start/fzf/bin/fzf ]; then
+#  export PATH=$PATH:~/.config/nvim/pack/minpac/start/fzf/bin
+#fi
 
 # highlight autosuggestions results
 if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
