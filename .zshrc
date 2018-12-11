@@ -134,3 +134,6 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # for brew analytics
 export HOMEBREW_NO_ANALYTICS=1
+
+# for elixir iex session history configs
+export ERL_AFLAGS="-kernel shell_history enabled"
