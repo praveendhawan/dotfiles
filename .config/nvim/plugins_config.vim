@@ -47,12 +47,19 @@ let g:grepper.tools = ['rg', 'grep', 'git']
 let g:airline#extensions#ale#enabled = 1
 
 " Vim Ruby Config
-" Ruby: Operator highlighting
-let ruby_operators = 1
-" Ruby: Whitespace errors
-let ruby_space_errors = 1
+" Ruby: Operator highlighting (not working)
+" let ruby_operators = 1
+" Ruby: Whitespace errors (not needed - rubocop enabled)
+" let ruby_space_errors = 1
 " Ruby: Folding
-" let ruby_fold = 1
+let ruby_fold = 1
+" Add config for what should be foldable
+let ruby_foldable_groups = 'def # if << %'
+" Ruby: use same color as do/def etc for 'end' keyword
+" NOTE: THIS DOES NOT WORKING WITH FOLDS
+" let ruby_no_expensive = 1
+" Ruby: completion
+let g:rubycomplete_rails = 1
 
 " Vim Gutentags config
 if executable('ripper-tags') && executable('ripper-tags-wrapper')

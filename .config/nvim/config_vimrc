@@ -68,10 +68,13 @@ set smartcase
 set incsearch
 
 " folding in vim
-set foldmethod=syntax
-set foldnestmax=5
-set nofoldenable
-set foldlevel=2
+" set foldmethod=syntax
+" The nesting of folds is limited with foldnestmax
+" if the current fold is nested -> class -> def -> if -> do etc
+" till how much it will be folded
+"set foldnestmax=5
+"set foldlevel=2
+highlight Folded ctermbg=None ctermfg=Red
 
 " treat - _ as part of word
 set iskeyword+=-
