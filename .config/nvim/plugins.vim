@@ -76,6 +76,8 @@ call minpac#add('Yggdroot/indentLine')
 " Elixir Language Support
 call minpac#add('elixir-editors/vim-elixir')
 call minpac#add('slashmili/alchemist.vim')
+" This formatter will only work in mix projects
+call minpac#add('mhinz/vim-mix-format')
 
 " parenthesizing made simple
 call minpac#add('tpope/vim-surround')
@@ -85,4 +87,4 @@ call minpac#add('kana/vim-textobj-user')
 call minpac#add('nelstrom/vim-textobj-rubyblock')
 
 " Solarized color scheme for vim
-call minpac#add('iCyMind/NeoSolarized')
+" call minpac#add('iCyMind/NeoSolarized')
