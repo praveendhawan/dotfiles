@@ -86,5 +86,5 @@ call minpac#add('tpope/vim-surround')
 call minpac#add('kana/vim-textobj-user')
 call minpac#add('nelstrom/vim-textobj-rubyblock')
 
-" Solarized color scheme for vim
-" call minpac#add('iCyMind/NeoSolarized')
+" running rspecs from vim
+call minpac#add('thoughtbot/vim-rspec')

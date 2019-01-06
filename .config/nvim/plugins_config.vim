@@ -77,3 +77,6 @@ let g:gutentags_ctags_exclude = ['./config/routes/dekeo_wildcard.rb', './config/
 
 " Use deoplete - Autocomplete Framework
 let g:deoplete#enable_at_startup = 1
+
+" vim-rspecs configuration
+let g:rspec_command = "jd_rspec {spec}"
