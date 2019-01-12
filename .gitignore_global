@@ -1,14 +1,25 @@
-.vscode
-.vscode/*
-.idea/*
-.idea/
-config/elastic.yml
-.projections.json
-snowflake-odbc-2.13.20.x86_64.deb
-.ctagsignore
-./docker/elastic_backup/
-./docker/elastic_backup/*
+# Ignore system specific files
 .DS_Store
+
+# ignore IDE specific folders
+.vscode
+.idea/
+.projections.json
+
+# ignore config files
+config/elastic.yml
+
+# Ignore tags related files
+.ctagsignore
 tags
+tags.lock
+tags.t*
+
+# Ignore pry/ruby/yard files
 .pryrc
 .byebug_history
+.yardoc/*
+doc/*
+
+# Ignore ripgrep ignore files
+.rgignore
