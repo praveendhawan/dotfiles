@@ -79,3 +79,11 @@ highlight Folded ctermbg=None ctermfg=Red
 " treat - _ as part of word
 set iskeyword+=-
 set iskeyword+=_
+
+" Omnicomplete Configurations
+" set omnifunc=syntaxcomplete#Complete
+" noinsert - don't select the first completion item,
+" menu - show select menu
+" menuone - show menu even if there is only one match
+" preview - Show extra information about the currently selected completion in the preview window
+set completeopt=menu,menuone,preview,noselect,noinsert

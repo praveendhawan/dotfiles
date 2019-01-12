@@ -68,7 +68,7 @@ call minpac#add('vim-scripts/scratch.vim')
 call minpac#add('ludovicchabant/vim-gutentags')
 
 " Autocomplete Framework
-call minpac#add('Shougo/deoplete.nvim')
+" call minpac#add('Shougo/deoplete.nvim')
 
 " Indent guide
 call minpac#add('Yggdroot/indentLine')
@@ -88,3 +88,13 @@ call minpac#add('nelstrom/vim-textobj-rubyblock')
 
 " running rspecs from vim
 call minpac#add('thoughtbot/vim-rspec')
+
+" New Autocomplete Framework
+" Install Node and yarn first
+" For ruby completion do - 'gem install solargraph'
+" Then Install coc plugin - https://www.npmjs.com/package/coc-solargraph - ':CocInstall coc-solargraph'
+" call minpac#add('neoclide/coc.nvim', {'do': { -> coc#util#install()}})
+
+" Dash support plugin for vim
+" NOTE: Only works on mac as Dash is only on Mac
+call minpac#add('rizzatti/dash.vim')

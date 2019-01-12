@@ -25,9 +25,22 @@ autocmd BufDelete * call airline#extensions#tabline#buflist#invalidate()
 " linters for different types of files
 let g:ale_linters = {
 \  'javascript': ['eslint'],
+\  'ruby': ['rubocop', 'ruby'],
+\  'elixir': ['credo', 'mix']
+\}
+
+" Configure Ale Fixers - to fix files use :ALEFix
+let g:ale_fixers = {
+\  'javascript': ['eslint'],
 \  'ruby': ['rubocop'],
 \  'elixir': ['credo']
 \}
+
+" Automatically fix files on save
+" let g:ale_fix_on_save = 1
+" autocompletion via ale
+" Add solargraph to ruby linters if you want to enable it
+" let g:ale_completion_enabled = 1
 
 " Vim Grepper plugin configurations
 let g:grepper = {}
@@ -59,7 +72,10 @@ let ruby_foldable_groups = 'def # if << %'
 " NOTE: THIS DOES NOT WORKING WITH FOLDS
 " let ruby_no_expensive = 1
 " Ruby: completion
-let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_include_object = 1
 
 " Vim Gutentags config
 if executable('ripper-tags') && executable('ripper-tags-wrapper')
@@ -76,7 +92,10 @@ set statusline+=%{gutentags#statusline()}
 let g:gutentags_ctags_exclude = ['./config/routes/dekeo_wildcard.rb', './config/routes/dekeo.rb', 'build', 'vendor', '.git', 'node_modules', '.sass-cache', '.vagrant', 'docs', 'log']
 
 " Use deoplete - Autocomplete Framework
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 " vim-rspecs configuration
 let g:rspec_command = "jd_rspec {spec}"
+
+"let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+"let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
