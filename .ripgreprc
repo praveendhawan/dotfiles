@@ -1,0 +1,8 @@
+--hidden
+--smart-case
+--follow
+--glob=!.git/*
+--glob=!node_modules/*
+--glob=!doc/*
+--glob=!vendor/*
+--glob=!pack/minpac/*
