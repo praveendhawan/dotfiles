@@ -115,6 +115,7 @@ fi
 # Installed via brew so its already included in path
 # adding config for default options
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_COMMAND='rg --files'
 
 #if [ -f ~/.config/nvim/pack/minpac/start/fzf/bin/fzf ]; then
 #  export PATH=$PATH:~/.config/nvim/pack/minpac/start/fzf/bin
@@ -137,3 +138,9 @@ export HOMEBREW_NO_ANALYTICS=1
 
 # for elixir iex session history configs
 export ERL_AFLAGS="-kernel shell_history enabled"
+
+# added by vim autocomplete plugin - coc
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# Settings for ripgrep
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
