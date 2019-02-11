@@ -95,3 +95,10 @@ alias jd_deploy_jakku="jd_deploy jakku"
 alias jd_deploy_naboo="jd_deploy naboo"
 alias jd_deploy_kamino="jd_deploy kamino"
 alias jd_deploy_prod="jd_deploy production"
+
+
+function run_in_docker() {
+ ruby_version=$1
+
+ docker run --rm -it -v ${PWD}:/home/app ruby:$ruby_version bash
+}
