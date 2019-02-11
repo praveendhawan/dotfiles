@@ -18,6 +18,7 @@ let g:airline_theme='cool'
 
 " Show buffers as tabs on top
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 " remove buffers from tabline after they are deleted
 autocmd BufDelete * call airline#extensions#tabline#buflist#invalidate()
 
@@ -95,7 +96,10 @@ let g:gutentags_ctags_exclude = ['./config/routes/dekeo_wildcard.rb', './config/
 " let g:deoplete#enable_at_startup = 1
 
 " vim-rspecs configuration
-let g:rspec_command = "jd_rspec {spec}"
+let g:rspec_command = "!jd_rspec {spec}"
 
 "let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 "let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+
+" Scratch buffers
+let g:scratch_persistence_file = './tmp/development_files/vim_scratch.rb'
