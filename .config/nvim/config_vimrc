@@ -4,7 +4,7 @@ set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 set rtp+=/usr/local/opt/fzf
 "----------------------------------------------------------------------------------------
 " Set fonts
-set guifont=Meslo\ LG\ S\ for\ Powerline
+set guifont=Source\ Code\ Pro\ for\ Powerline
 " ---------------------------------------------------------------------------------------
 " See the 100th Column width line
 " if (exists('+colorcolumn'))
