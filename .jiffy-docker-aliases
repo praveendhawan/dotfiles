@@ -102,3 +102,6 @@ function run_in_docker() {
 
  docker run --rm -it -v ${PWD}:/home/app ruby:$ruby_version bash
 }
+
+alias dekeo_portmap="ssh -i ~/.ssh/praveendhawan.portmaplocal.pem praveendhawan.portmaptest@praveendhawan-42092.portmap.host -N -R 30268:dekeo:3000"
+alias jiffy_webpack="docker-compose exec rails bash -l -c bin/webpack-dev-server &"
