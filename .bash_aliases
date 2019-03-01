@@ -9,6 +9,7 @@ alias reload_zsh="source ~/.zshrc"
 alias reload_bash="source ~/.bashrc"
 # this is added because I mistype it a lot ;)
 alias gti="git"
+alias ngrok="/Applications/ngrok"
 
 if [ -f ~/.jiffy-docker-aliases ]; then
   source ~/.jiffy-docker-aliases
