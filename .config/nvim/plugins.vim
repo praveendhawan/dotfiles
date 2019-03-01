@@ -55,7 +55,7 @@ call minpac#add('w0rp/ale')
 " to run grep asynchronously
 call minpac#add('mhinz/vim-grepper')
 
-" Ruby syntax highlight
+" Ruby and Rails syntax highlight
 call minpac#add('vim-ruby/vim-ruby')
 
 " add 'end' to def, if, do etc.
@@ -98,3 +98,9 @@ call minpac#add('thoughtbot/vim-rspec')
 " Dash support plugin for vim
 " NOTE: Only works on mac as Dash is only on Mac
 call minpac#add('rizzatti/dash.vim')
+
+" Vue JS syntax
+call minpac#add('posva/vim-vue')
+
+" NeoSolarized theme for vimr
+call minpac#add('iCyMind/NeoSolarized')

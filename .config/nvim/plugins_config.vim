@@ -103,3 +103,8 @@ let g:rspec_command = "!jd_rspec {spec}"
 
 " Scratch buffers
 let g:scratch_persistence_file = './tmp/development_files/vim_scratch.rb'
+
+" Enable NeoSolarized Colorscheme in vimR
+if has('gui_vimr')
+  colorscheme NeoSolarized
+endif
