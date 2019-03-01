@@ -4,7 +4,9 @@ set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 set rtp+=/usr/local/opt/fzf
 "----------------------------------------------------------------------------------------
 " Set fonts
-set guifont=Source\ Code\ Pro\ for\ Powerline
+if has('gui_vimr')
+  set guifont=Source\ Code\ Pro\ for\ Powerline
+endif
 " ---------------------------------------------------------------------------------------
 " See the 100th Column width line
 " if (exists('+colorcolumn'))
@@ -17,6 +19,11 @@ set wildmenu
 
 " Set Colorscheme for vim - inbuilt
 colorscheme default
+
+if has('gui_vimr')
+  set termguicolors
+  set background=dark
+endif
 
 " Set syntx highlighing on
 if has("syntax")
