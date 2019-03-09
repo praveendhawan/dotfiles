@@ -5,7 +5,9 @@ set rtp+=/usr/local/opt/fzf
 "----------------------------------------------------------------------------------------
 " Set fonts
 if has('gui_vimr')
-  set guifont=Source\ Code\ Pro\ for\ Powerline
+  " set guifont=Source\ Code\ Pro\ for\ Powerline
+  " guifont option not supported by vimr
+  " see this - https://github.com/qvacua/vimr/issues/259
 endif
 " ---------------------------------------------------------------------------------------
 " See the 100th Column width line
