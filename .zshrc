@@ -47,12 +47,12 @@ CASE_SENSITIVE="true"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -68,6 +68,7 @@ CASE_SENSITIVE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+#  auto-suggetsion will be installed manually in custom plugins folder
   zsh-autosuggestions
   docker
   tmux
@@ -83,11 +84,11 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -122,13 +123,13 @@ export FZF_DEFAULT_COMMAND='rg --files'
 #fi
 
 # highlight autosuggestions results
-if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-#  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
+if [ -f ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 else
-  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-#  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
+  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
