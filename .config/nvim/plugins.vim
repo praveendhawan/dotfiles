@@ -104,3 +104,6 @@ call minpac#add('posva/vim-vue')
 
 " NeoSolarized theme for vimr
 call minpac#add('iCyMind/NeoSolarized')
+
+" Taming the quickfix window :)
+call minpac#add('romainl/vim-qf')
