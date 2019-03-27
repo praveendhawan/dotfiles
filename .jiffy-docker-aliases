@@ -24,6 +24,7 @@ alias jd_rspec="$DOCKER_RAILS_COMMAND bundle exec rspec"
 alias jd_postgres="docker-compose exec postgres psql -U postgres -d jiffyshirts_development"
 alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
 alias jd_rubo2="$DOCKER_RAILS_COMMAND git diff --diff-filter=ACMRTUXB --name-only master|grep \"\.\(rake\|rb\)$\"|xargs bundle exec rubocop"
+alias jd_webpack="$DOCKER_RAILS_COMMAND bash -l -c bin/webpack-dev-server"
 
 function run_rollback() {
   echo "Running Rollback for Dev Environment"
