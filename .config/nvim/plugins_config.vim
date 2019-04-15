@@ -118,8 +118,15 @@ set statusline+=%{coc#status()}
 let g:scratch_persistence_file = './tmp/development_files/vim_scratch.rb'
 
 " Enable NeoSolarized Colorscheme in vimR
+" if has('gui_vimr')
+"let g:neosolarized_visibility = "normal"
+"let g:neosolarized_vertSplitBgTrans = 1
+" colorscheme NeoSolarized
 if has('gui_vimr')
+  colorscheme kuroi
+else
   let g:neosolarized_visibility = "normal"
   let g:neosolarized_vertSplitBgTrans = 1
   colorscheme NeoSolarized
 endif
+
