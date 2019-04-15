@@ -110,8 +110,9 @@ let g:gutentags_ctags_exclude = [
 " vim-rspecs configuration
 let g:rspec_command = "!jd_rspec {spec}"
 
-"let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-"let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+set statusline+=%{coc#status()}
 
 " Scratch buffers
 let g:scratch_persistence_file = './tmp/development_files/vim_scratch.rb'
