@@ -60,6 +60,9 @@ set cursorline
 " This will hide the current buffer instead of closing it
 set hidden
 
+" always show signcolumns
+set signcolumn=yes
+
 " auto load file if its changed outside of vim
 set autoread
 
