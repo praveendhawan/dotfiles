@@ -93,7 +93,9 @@ call minpac#add('thoughtbot/vim-rspec')
 " Install Node and yarn first
 " For ruby completion do - 'gem install solargraph'
 " Then Install coc plugin - https://www.npmjs.com/package/coc-solargraph - ':CocInstall coc-solargraph'
-" call minpac#add('neoclide/coc.nvim', {'do': { -> coc#util#install()}})
+" :call coc#util#install()
+" :CocInstall coc-json coc-solargraph
+call minpac#add('neoclide/coc.nvim', {'do': { -> coc#util#install()}})
 
 " Dash support plugin for vim
 " NOTE: Only works on mac as Dash is only on Mac
@@ -107,3 +109,6 @@ call minpac#add('iCyMind/NeoSolarized')
 
 " Taming the quickfix window :)
 call minpac#add('romainl/vim-qf')
+
+" Kuroi colorscheme
+call minpac#add('aonemd/kuroi.vim')
