@@ -4,11 +4,11 @@ set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 set rtp+=/usr/local/opt/fzf
 "----------------------------------------------------------------------------------------
 " Set fonts
-if has('gui_vimr')
+" if has('gui_vimr')
   " set guifont=Source\ Code\ Pro\ for\ Powerline
   " guifont option not supported by vimr
   " see this - https://github.com/qvacua/vimr/issues/259
-endif
+" endif
 " ---------------------------------------------------------------------------------------
 " See the 100th Column width line
 " if (exists('+colorcolumn'))
@@ -99,3 +99,8 @@ set iskeyword+=_
 " menuone - show menu even if there is only one match
 " preview - Show extra information about the currently selected completion in the preview window
 set completeopt=menu,menuone,preview,noselect,noinsert
+
+" Enable mouse scrolling
+set mouse=a
+
+
