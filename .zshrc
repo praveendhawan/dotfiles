@@ -145,3 +145,4 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # Settings for ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+export PATH="$PATH:/usr/local/bin/component_tree/bin"
