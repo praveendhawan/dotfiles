@@ -146,7 +146,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # Settings for ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
-if [-f /usr/local/bin/component_tree/bin/ctree]; then
+if [ -f /usr/local/bin/component_tree/bin/ctree ]; then
   export PATH="$PATH:/usr/local/bin/component_tree/bin"
 else
   git clone git@github.com:shkrt/component_tree.git /usr/local/bin/component_tree
