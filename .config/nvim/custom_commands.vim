@@ -8,3 +8,6 @@ ca bda BufCloseAll
 
 command! -nargs=* RenameFile :call Rename("<args>", "<bang>")
 ca rename RenameFile
+
+command! -nargs=* BuildComponentTree :call ComponentTreeBuilder("<args>", "<bang>")
+ca build_ctree BuildComponentTree
