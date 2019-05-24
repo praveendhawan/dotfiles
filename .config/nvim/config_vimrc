@@ -48,7 +48,7 @@ set tabstop=2 shiftwidth=2 expandtab
 
 " set ctags diectory to be used by nvim
 " set autochdir
-set tags=./tags,tags;/
+set tags=./tags,tags;$HOME
 
 " show line numbers in vim
 set number
@@ -88,9 +88,10 @@ set incsearch
 "set foldlevel=2
 highlight Folded ctermbg=None ctermfg=Red
 
-" treat - _ as part of word
-set iskeyword+=-
-set iskeyword+=_
+" treat -(Dash) _(Underscore) as part of word
+set iskeyword+=-,_
+" treat !(Bang) and ?(Question Mark) as keyword for Ruby files
+autocmd! FileType ruby,eruby set iskeyword+=!,?
 
 " Omnicomplete Configurations
 " set omnifunc=syntaxcomplete#Complete
