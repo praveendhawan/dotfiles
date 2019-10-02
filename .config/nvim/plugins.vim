@@ -39,6 +39,8 @@ call minpac#add('vim-airline/vim-airline-themes')
 " Git support for vim
 " This ia also necessary for showing the branch in airline status bar
 call minpac#add('tpope/vim-fugitive')
+" Enables Gbrowse from Gblame
+call minpac#add('tpope/vim-rhubarb')
 
 " Fix trailing Whitespace and highlight whitespace
 call minpac#add('bronson/vim-trailing-whitespace')
