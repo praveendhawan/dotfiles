@@ -13,6 +13,7 @@ function jd_stty_cols {
 
 DOCKER_RAILS_COMMAND="docker-compose exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
 alias dc="docker-compose"
+alias jdc="dc -f docker-compose.yml -f docker-compose-with-cerebro.yml"
 #alias jd_exec_rails="$DOCKER_RAILS_COMMAND"
 alias jd_be="$DOCKER_RAILS_COMMAND bundle exec"
 alias jd_bi="$DOCKER_RAILS_COMMAND bundle"
@@ -25,6 +26,8 @@ alias jd_postgres="docker-compose exec postgres psql -U postgres -d jiffyshirts_
 alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
 alias jd_rubo2="$DOCKER_RAILS_COMMAND git diff --diff-filter=ACMRTUXB --name-only master|grep \"\.\(rake\|rb\)$\"|xargs bundle exec rubocop"
 alias jd_webpack="$DOCKER_RAILS_COMMAND bash -l -c bin/webpack-dev-server"
+alias jd_feature_spec="$DOCKER_RAILS_COMMAND bash -l -c bin/scripts/run_features.sh"
+alias jd_setup_feature_spec="$DOCKER_RAILS_COMMAND bash -l -c bin/scripts/setup_features.sh"
 
 function run_rollback() {
   echo "Running Rollback for Dev Environment"
@@ -106,3 +109,17 @@ function run_in_docker() {
 
 alias dekeo_portmap="ssh -i ~/.ssh/praveendhawan.portmaplocal.pem praveendhawan.portmaptest@praveendhawan-42092.portmap.host -N -R 30268:dekeo:3000"
 alias jiffy_webpack="docker-compose exec rails bash -l -c bin/webpack-dev-server &"
+
+function jiffy_ip() {
+  stack="${$1:=jakku}"
+  layer="${$2:=rails}"
+
+  if [$layer eq "sidekiq"]
+  then
+    stack_layer="${$2:=opsworks:layer:sidekiq}"
+  else
+    stack_layer="${$2:=opsworks:layer:rails-app}"
+  fi
+
+  aws ec2 describe-instances --filters "Name=tag:opsworks:stack,Values=$stack" "Name=tag-key,Values=$stack_layer" --query "Reservations[].Instances[].PublicDnsName" --output text
+}
