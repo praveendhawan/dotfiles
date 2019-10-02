@@ -101,7 +101,9 @@ let g:gutentags_ctags_exclude = [
       \ '.sass-cache',
       \ '.vagrant',
       \ 'docs',
-      \ 'log'
+      \ 'log',
+      \ 'public/packs',
+      \ 'public/assets'
       \ ]
 
 " Use deoplete - Autocomplete Framework
