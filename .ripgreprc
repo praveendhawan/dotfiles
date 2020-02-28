@@ -6,3 +6,4 @@
 --glob=!doc/*
 --glob=!vendor/*
 --glob=!pack/minpac/*
+--glob=!docs/*
