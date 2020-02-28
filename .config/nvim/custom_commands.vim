@@ -11,3 +11,6 @@ ca rename RenameFile
 
 command! -nargs=* BuildComponentTree :call ComponentTreeBuilder("<args>", "<bang>")
 ca build_ctree BuildComponentTree
+
+command! CopyFileName execute "let @* = expand('%')"
+ca cp_fn CopyFileName

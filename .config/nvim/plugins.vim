@@ -33,8 +33,8 @@ call minpac#add('junegunn/fzf')
 
 " Airline Fonts and themes
 " Airline status bar etc
-call minpac#add('vim-airline/vim-airline')
-call minpac#add('vim-airline/vim-airline-themes')
+" call minpac#add('vim-airline/vim-airline')
+" call minpac#add('vim-airline/vim-airline-themes')
 
 " Git support for vim
 " This ia also necessary for showing the branch in airline status bar
@@ -58,7 +58,11 @@ call minpac#add('w0rp/ale')
 call minpac#add('mhinz/vim-grepper')
 
 " Ruby and Rails syntax highlight
-call minpac#add('vim-ruby/vim-ruby')
+" DONT INSTALL AND ENABLE EXPERIENCING SLOW TIMES
+" call minpac#add('vim-ruby/vim-ruby')
+"call minpac#add('tpope/vim-rails')
+call minpac#add('vim-utils/vim-ruby-fold')
+call minpac#add('andymass/vim-matchup')
 
 " add 'end' to def, if, do etc.
 call minpac#add('tpope/vim-endwise')
@@ -89,7 +93,10 @@ call minpac#add('kana/vim-textobj-user')
 call minpac#add('nelstrom/vim-textobj-rubyblock')
 
 " running rspecs from vim
-call minpac#add('thoughtbot/vim-rspec')
+" call minpac#add('janko/vim-test')
+
+" running builds in background
+" call minpac#add('tpope/vim-dispatch')
 
 " New Autocomplete Framework
 " Install Node and yarn first
@@ -106,11 +113,16 @@ call minpac#add('rizzatti/dash.vim')
 " Vue JS syntax
 call minpac#add('posva/vim-vue')
 
-" NeoSolarized theme for vimr
-call minpac#add('iCyMind/NeoSolarized')
 
 " Taming the quickfix window :)
 call minpac#add('romainl/vim-qf')
 
-" Kuroi colorscheme
+" Colorschemes for Vim
+" NeoSolarized theme for vimr
+call minpac#add('iCyMind/NeoSolarized')
+" Kuroi
 call minpac#add('aonemd/kuroi.vim')
+" Monokai
+" call minpac#add('sickill/vim-monokai')
+" Seti
+call minpac#add('trusktr/seti.vim')

@@ -22,10 +22,9 @@ set wildmenu
 " Set Colorscheme for vim - inbuilt
 colorscheme default
 
-if has('gui_vimr')
-  set termguicolors
-  set background=dark
-endif
+" https://apple.stackexchange.com/questions/266034/iterm2-applies-strange-color-to-vims-default
+set termguicolors
+set background=dark
 
 " Set syntx highlighing on
 if has("syntax")
@@ -86,12 +85,13 @@ set incsearch
 " till how much it will be folded
 "set foldnestmax=5
 "set foldlevel=2
-highlight Folded ctermbg=None ctermfg=Red
 
 " treat -(Dash) _(Underscore) as part of word
 set iskeyword+=-,_
 " treat !(Bang) and ?(Question Mark) as keyword for Ruby files
-autocmd! FileType ruby,eruby set iskeyword+=!,?
+augroup rubyKeywords
+  autocmd! FileType ruby,eruby set iskeyword+=!,?
+augroup END
 
 " Omnicomplete Configurations
 " set omnifunc=syntaxcomplete#Complete
@@ -99,9 +99,8 @@ autocmd! FileType ruby,eruby set iskeyword+=!,?
 " menu - show select menu
 " menuone - show menu even if there is only one match
 " preview - Show extra information about the currently selected completion in the preview window
-set completeopt=menu,menuone,preview,noselect,noinsert
+" set completeopt=menu,menuone,preview,noselect,noinsert
 
 " Enable mouse scrolling
 set mouse=a
-
 

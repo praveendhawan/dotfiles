@@ -1,0 +1,4 @@
+{
+  "suggest.minTriggerInputLength": 2,
+  "diagnostic.displayByAle": true
+}
