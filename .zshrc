@@ -113,6 +113,9 @@ if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
   source ~/.config/exercism/exercism_completion.zsh
 fi
 
+# Settings for ripgrep
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
 # Installed via brew so its already included in path
 # adding config for default options
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
@@ -143,9 +146,6 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # added by vim autocomplete plugin - coc
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-# Settings for ripgrep
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
 if [ -f /usr/local/bin/component_tree/bin/ctree ]; then
   export PATH="$PATH:/usr/local/bin/component_tree/bin"
 else
@@ -154,3 +154,4 @@ else
   echo 'export PATH="$PATH:/usr/local/bin/component_tree/bin"' >> ~/.zshrc
   source ~/.zshrc
 fi
+export PATH="/usr/local/sbin:$PATH"
