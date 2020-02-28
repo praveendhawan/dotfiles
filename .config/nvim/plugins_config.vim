@@ -22,10 +22,11 @@ let g:ale_fixers = {
 \}
 
 " Automatically fix files on save
-" let g:ale_fix_on_save = 1
-" autocompletion via ale
-" Add solargraph to ruby linters if you want to enable it
-" let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 1
+" Disable ale linter to run on buffer open or edit when not saved
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
 
 " Vim Grepper plugin configurations
 let g:grepper = {}
@@ -42,16 +43,12 @@ let g:grepper.tools = ['rg', 'grep', 'git']
 " highlight ALEError term=inverse,bold cterm=bold ctermbg=darkgreen ctermfg=white gui=bold guibg=darkgreen guifg=white
 
 " Vim Gutentags config
-if executable('ripper-tags') && executable('ripper-tags-wrapper')
-  let g:gutentags_ctags_executable_ruby = 'rtags'
-else
-" TODO: Make it work
-"  git clone git@gist.github.com:9c3ddd7eb9be3227066980951afe7671.git
-"  mv rtags /usr/local/bin
-"  chmod +x /usr/local/bin/rtags
-"  let g:gutentags_ctags_executable_ruby = 'rtags'
+if executable('ripper-tags')
+  let g:gutentags_ctags_executable_ruby = 'ripper-tags'
+  let g:gutentags_ctags_extra_args = ['--ignore-unsupported-options', '--recursive']
 endif
 
+" let g:gutentags_trace = 1
 set statusline+=%{gutentags#statusline()}
 let g:gutentags_ctags_exclude = [
       \ './config/routes/dekeo_wildcard.rb',

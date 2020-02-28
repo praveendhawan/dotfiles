@@ -46,13 +46,14 @@ call minpac#add('tpope/vim-rhubarb')
 call minpac#add('bronson/vim-trailing-whitespace')
 
 " git gutter in files
-call minpac#add('airblade/vim-gitgutter')
+"call minpac#add('airblade/vim-gitgutter')
+call minpac#add('mhinz/vim-signify')
 
 " coffeescript support (syntax) etc.
 call minpac#add('kchmck/vim-coffee-script')
 
 " ale plugin for auto linting code
-call minpac#add('w0rp/ale')
+call minpac#add('dense-analysis/ale')
 
 " to run grep asynchronously
 call minpac#add('mhinz/vim-grepper')
@@ -61,7 +62,6 @@ call minpac#add('mhinz/vim-grepper')
 " DONT INSTALL AND ENABLE EXPERIENCING SLOW TIMES
 " call minpac#add('vim-ruby/vim-ruby')
 "call minpac#add('tpope/vim-rails')
-call minpac#add('vim-utils/vim-ruby-fold')
 call minpac#add('andymass/vim-matchup')
 
 " add 'end' to def, if, do etc.
@@ -104,7 +104,7 @@ call minpac#add('nelstrom/vim-textobj-rubyblock')
 " Then Install coc plugin - https://www.npmjs.com/package/coc-solargraph - ':CocInstall coc-solargraph'
 " :call coc#util#install()
 " :CocInstall coc-json coc-solargraph
-call minpac#add('neoclide/coc.nvim', {'do': { -> coc#util#install()}})
+call minpac#add('neoclide/coc.nvim', {'do': { -> './install.sh'}})
 
 " Dash support plugin for vim
 " NOTE: Only works on mac as Dash is only on Mac

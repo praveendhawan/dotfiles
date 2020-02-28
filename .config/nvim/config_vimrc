@@ -103,4 +103,5 @@ augroup END
 
 " Enable mouse scrolling
 set mouse=a
-
+" This is test to make gitgutter fast
+set updatetime=100
