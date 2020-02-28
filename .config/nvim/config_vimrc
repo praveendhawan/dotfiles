@@ -105,3 +105,6 @@ augroup END
 set mouse=a
 " This is test to make gitgutter fast
 set updatetime=100
+
+" Show Tabline
+set showtabline=2

@@ -35,6 +35,12 @@ call minpac#add('junegunn/fzf')
 " Airline status bar etc
 " call minpac#add('vim-airline/vim-airline')
 " call minpac#add('vim-airline/vim-airline-themes')
+" StatusLine
+call minpac#add('itchyny/lightline.vim')
+" Show Ale Errors in status line
+call minpac#add('maximbaz/lightline-ale')
+" Show buffer name and number is tabline
+call minpac#add('mengelbrecht/lightline-bufferline')
 
 " Git support for vim
 " This ia also necessary for showing the branch in airline status bar

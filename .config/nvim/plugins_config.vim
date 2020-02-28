@@ -22,7 +22,7 @@ let g:ale_fixers = {
 \}
 
 " Automatically fix files on save
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 " Disable ale linter to run on buffer open or edit when not saved
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_enter = 0
@@ -48,8 +48,8 @@ if executable('ripper-tags')
   let g:gutentags_ctags_extra_args = ['--ignore-unsupported-options', '--recursive']
 endif
 
+" Set log level for gutentags
 " let g:gutentags_trace = 1
-set statusline+=%{gutentags#statusline()}
 let g:gutentags_ctags_exclude = [
       \ './config/routes/dekeo_wildcard.rb',
       \ './config/routes/ratemydecorator.rb',
@@ -104,3 +104,53 @@ augroup matchup_matchup_highlight
   " autocmd ColorScheme *
   hi MatchWord ctermfg=Black ctermbg=195 cterm=NONE guifg=Black guibg=#d7ffff gui=NONE
 augroup END
+
+" Add configuration for lightline
+let g:lightline = {
+  \ 'active': {
+  \    'left': [
+  \              [ 'mode', 'paste' ],
+  \              [ 'gitbranch', 'filename', 'modified' ]
+  \    ],
+  \    'right': [
+  \               ['lineinfo'],
+  \               ['linter_checking', 'linter_infos', 'linter_warnings', 'linter_errors', 'linter_ok'],
+  \               ['tags_generation']
+  \    ],
+  \  },
+  \  'component': {
+  \    'lineinfo': ' %3l:%-2v',
+  \  },
+  \  'component_function': {
+  \    'gitbranch': 'fugitive#head',
+  \    'linter_checking': 'lightline#ale#checking',
+  \    'linter_infos': 'lightline#ale#info',
+  \    'linter_warnings': 'lightline#ale#warnings',
+  \    'linter_errors': 'lightline#ale#errors',
+  \    'linter_ok': 'lightline#ale#ok',
+  \    'tags_generation': 'gutentags#statusline',
+  \  }
+\}
+let g:lightline.separator = {
+  \  'left': '', 'right': ''
+\}
+let g:lightline.subseparator = {
+  \  'left': '', 'right': ''
+\}
+
+" Add configuration for lightline-ale
+let g:lightline#ale#indicator_infos = "◆"
+let g:lightline#ale#indicator_warnings = "!"
+let g:lightline#ale#indicator_errors = "✗"
+let g:lightline#ale#indicator_ok = "✓"
+
+" Add configuration for lightline-bufferline
+let g:lightline#bufferline#show_number  = 1
+let g:lightline#bufferline#shorten_path = 1
+let g:lightline#bufferline#unnamed      = '[No Name]'
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+let g:lightline.component_raw = {'buffers': 1}
+let g:lightline#bufferline#clickable = 1
+
