@@ -23,3 +23,10 @@ doc/*
 
 # Ignore ripgrep ignore files
 .rgignore
+# ignore overriden docker compose
+docker-compose-with-cerebro.yml
+docker-compose-mac.yml
+
+.ruby-gemset
+.ruby-version
+.solargraph.yml
