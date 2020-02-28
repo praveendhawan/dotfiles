@@ -11,23 +11,41 @@ function jd_stty_cols {
   tput cols
 }
 
-DOCKER_RAILS_COMMAND="docker-compose exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
-alias dc="docker-compose"
-alias jdc="dc -f docker-compose.yml -f docker-compose-with-cerebro.yml"
+BASE_DOCKER_COMPOSE_COMMAND="docker-compose -f docker-compose.yml"
+# -f docker-compose-mac.yml"
+
+DOCKER_RAILS_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
+alias dc="$BASE_DOCKER_COMPOSE_COMMAND"
+alias jdc="dc -f docker-compose-with-cerebro.yml"
 #alias jd_exec_rails="$DOCKER_RAILS_COMMAND"
 alias jd_be="$DOCKER_RAILS_COMMAND bundle exec"
 alias jd_bi="$DOCKER_RAILS_COMMAND bundle"
 alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
 alias jd_rails_c="$DOCKER_RAILS_COMMAND bundle exec rails c"
-alias jd_up="docker-compose up"
+alias jd_up="$BASE_DOCKER_COMPOSE_COMMAND up"
 alias jd_attach_rails="jd_attach rails"
 alias jd_rspec="$DOCKER_RAILS_COMMAND bundle exec rspec"
-alias jd_postgres="docker-compose exec postgres psql -U postgres -d jiffyshirts_development"
+alias jd_postgres="$BASE_DOCKER_COMPOSE_COMMAND exec postgres psql -U postgres -d jiffyshirts_development"
 alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
-alias jd_rubo2="$DOCKER_RAILS_COMMAND git diff --diff-filter=ACMRTUXB --name-only master|grep \"\.\(rake\|rb\)$\"|xargs bundle exec rubocop"
 alias jd_webpack="$DOCKER_RAILS_COMMAND bash -l -c bin/webpack-dev-server"
-alias jd_feature_spec="$DOCKER_RAILS_COMMAND bash -l -c bin/scripts/run_features.sh"
-alias jd_setup_feature_spec="$DOCKER_RAILS_COMMAND bash -l -c bin/scripts/setup_features.sh"
+alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c bin/scripts/setup_features.sh"
+
+function run_rubo_bc() {
+  dc run --rm rails bash -c -l "git ls-files -m | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs bundle exec rubocop"
+}
+
+function run_rubo_ac() {
+  dc run --rm rails bash -c -l "git diff-tree -r --no-commit-id --name-only head origin/master | xargs bundle exec rubocop"
+}
+
+alias jd_rubo_ac="run_rubo_ac"
+alias jd_rubo_bc="run_rubo_bc"
+
+function jd_fspec() {
+  spec_file=${1:-""}
+  reskinned=${2:-""}
+  dc run --rm -p 5900:5900 rails bash -c -l "FEATURES_HEADED=yes $reskinned bin/scripts/run_features.sh $spec_file"
+}
 
 function run_rollback() {
   echo "Running Rollback for Dev Environment"
@@ -70,19 +88,20 @@ alias jd_co_sql="git co db/structure.sql"
 function jd_deploy() {
   source ~/.jiffy-deploy-env
 
-  docker-compose exec \
+  dc exec \
   -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
   -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
   -e AWS_REGION=$AWS_REGION \
   -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
   -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
   -e RAILS_ENV=deploy \
+  -e NODE_OPTIONS="--max-old-space-size=2048" \
   rails bash -l -c "bundle exec rake oops:build oops:upload \"oops:deploy[jiffyshirts,$1]\""
 }
 
 function jd_build_upload_image() {
   source ~/.jiffy-deploy-env
-  docker-compose exec \
+  dc exec \
   -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
   -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
   -e AWS_REGION=$AWS_REGION \
@@ -111,14 +130,14 @@ alias dekeo_portmap="ssh -i ~/.ssh/praveendhawan.portmaplocal.pem praveendhawan.
 alias jiffy_webpack="docker-compose exec rails bash -l -c bin/webpack-dev-server &"
 
 function jiffy_ip() {
-  stack="${$1:=jakku}"
-  layer="${$2:=rails}"
+  stack=${1:-"jakku"}
+  layer=${2:-"rails"}
 
-  if [$layer eq "sidekiq"]
+  if [ $layer = "sidekiq" ]
   then
-    stack_layer="${$2:=opsworks:layer:sidekiq}"
+    stack_layer="opsworks:layer:sidekiq"
   else
-    stack_layer="${$2:=opsworks:layer:rails-app}"
+    stack_layer="opsworks:layer:rails-app"
   fi
 
   aws ec2 describe-instances --filters "Name=tag:opsworks:stack,Values=$stack" "Name=tag-key,Values=$stack_layer" --query "Reservations[].Instances[].PublicDnsName" --output text
