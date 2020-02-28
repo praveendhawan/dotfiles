@@ -155,3 +155,5 @@ else
   source ~/.zshrc
 fi
 export PATH="/usr/local/sbin:$PATH"
+
+export HOMEBREW_BUNDLE_FILE=~/.Brewfile
