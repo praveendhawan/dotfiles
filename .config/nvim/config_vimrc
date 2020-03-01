@@ -79,12 +79,14 @@ set smartcase
 set incsearch
 
 " folding in vim
-" set foldmethod=syntax
 " The nesting of folds is limited with foldnestmax
 " if the current fold is nested -> class -> def -> if -> do etc
 " till how much it will be folded
-"set foldnestmax=5
-"set foldlevel=2
+augroup rubyFolding
+  autocmd! FileType ruby
+  set foldmethod=syntax
+  let g:ruby_foldable_groups='def'
+augroup END
 
 " treat -(Dash) _(Underscore) as part of word
 set iskeyword+=-,_
