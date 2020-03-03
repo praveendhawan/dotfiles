@@ -10,3 +10,10 @@
 " options to choose from.
 :nnoremap <C-]> g<C-]>
 
+" Copy Full file path to system clipboard
+:nmap ,cf :let @+=expand("%:p")<CR>
+" Copy File path relative to current directory
+:nmap ,cr :let @+=expand("%:p:.")<CR>
+" Copy jusy the file name to system clipboard
+:nmap ,cl :let @+=expand("%:t")<CR>
+
