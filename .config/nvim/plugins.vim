@@ -67,8 +67,8 @@ call minpac#add('mhinz/vim-grepper')
 " Ruby and Rails syntax highlight
 " DONT INSTALL AND ENABLE EXPERIENCING SLOW TIMES
 " call minpac#add('vim-ruby/vim-ruby')
-"call minpac#add('tpope/vim-rails')
-call minpac#add('andymass/vim-matchup')
+" call minpac#add('tpope/vim-rails')
+" call minpac#add('andymass/vim-matchup')
 
 " add 'end' to def, if, do etc.
 call minpac#add('tpope/vim-endwise')
@@ -92,11 +92,11 @@ call minpac#add('slashmili/alchemist.vim')
 call minpac#add('mhinz/vim-mix-format')
 
 " parenthesizing made simple
-call minpac#add('tpope/vim-surround')
+" call minpac#add('tpope/vim-surround')
 
 " selecting ruby blocks made easy
 call minpac#add('kana/vim-textobj-user')
-call minpac#add('nelstrom/vim-textobj-rubyblock')
+"call minpac#add('nelstrom/vim-textobj-rubyblock')
 
 " running rspecs from vim
 " call minpac#add('janko/vim-test')
@@ -125,7 +125,7 @@ call minpac#add('romainl/vim-qf')
 
 " Colorschemes for Vim
 " NeoSolarized theme for vimr
-call minpac#add('iCyMind/NeoSolarized')
+"call minpac#add('iCyMind/NeoSolarized')
 " Kuroi
 call minpac#add('aonemd/kuroi.vim')
 " Monokai

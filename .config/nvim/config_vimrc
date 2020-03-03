@@ -105,8 +105,12 @@ augroup END
 
 " Enable mouse scrolling
 set mouse=a
-" This is test to make gitgutter fast
+
+" To make git gutter change symbols on sign column faster
 set updatetime=100
 
-" Show Tabline
+" Show Tabline to show buffers name on top
 set showtabline=2
+
+" As we will show modes in status line
+set noshowmode

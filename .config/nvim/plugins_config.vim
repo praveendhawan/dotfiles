@@ -107,10 +107,11 @@ augroup END
 
 " Add configuration for lightline
 let g:lightline = {
+  \ 'colorscheme': 'darcula',
   \ 'active': {
   \    'left': [
   \              [ 'mode', 'paste' ],
-  \              [ 'gitbranch', 'filename', 'modified' ]
+  \              [ 'gitbranch', 'filename' ]
   \    ],
   \    'right': [
   \               ['lineinfo'],
@@ -148,9 +149,22 @@ let g:lightline#ale#indicator_ok = "✓"
 let g:lightline#bufferline#show_number  = 1
 let g:lightline#bufferline#shorten_path = 1
 let g:lightline#bufferline#unnamed      = '[No Name]'
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
-let g:lightline.component_raw = {'buffers': 1}
-let g:lightline#bufferline#clickable = 1
+let g:lightline.tabline                 = {'left': [['buffers']], 'right': [[]]}
+let g:lightline.component_expand        = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type          = {'buffers': 'tabsel'}
+let g:lightline.component_raw           = {'buffers': 1}
+let g:lightline#bufferline#clickable    = 1
 
+"augroup vimLighlineColor
+"  autocmd VimEnter * call SetupLightlineColors()
+"  function SetupLightlineColors() abort
+    " transparent background in statusbar
+"    let l:palette = lightline#palette()
+
+ "   let l:palette.normal.middle = [ [ 'NONE', 'NONE', 'NONE', 'NONE' ] ]
+    "let l:palette.inactive.middle = l:palette.normal.middle
+ "   let l:palette.tabline.middle = l:palette.normal.middle
+
+"    call lightline#colorscheme()
+"  endfunction
+"augroup end
