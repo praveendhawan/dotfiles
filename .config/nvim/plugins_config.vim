@@ -6,28 +6,6 @@ command! PackUpdate call minpac#update()
 " Plugin Uninstall using minpac
 command! PackClean call minpac#clean()
 
-" Ale Setup
-" linters for different types of files
-let g:ale_linters = {
-\  'javascript': ['eslint'],
-\  'ruby': ['rubocop', 'ruby'],
-\  'elixir': ['credo', 'mix']
-\}
-
-" Configure Ale Fixers - to fix files use :ALEFix
-let g:ale_fixers = {
-\  'javascript': ['eslint'],
-\  'ruby': ['rubocop'],
-\  'elixir': ['credo']
-\}
-
-" Automatically fix files on save
-let g:ale_fix_on_save = 0
-" Disable ale linter to run on buffer open or edit when not saved
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
-
 " Vim Grepper plugin configurations
 let g:grepper = {}
 let g:grepper.rg = {
@@ -37,10 +15,6 @@ let g:grepper.rg = {
 \ }
 
 let g:grepper.tools = ['rg', 'grep', 'git']
-
-" custom highlight for ale warnings and errors
-" highlight ALEWarning term=inverse,bold cterm=bold ctermbg=darkred ctermfg=white gui=bold guibg=darkred guifg=white
-" highlight ALEError term=inverse,bold cterm=bold ctermbg=darkgreen ctermfg=white gui=bold guibg=darkgreen guifg=white
 
 " Vim Gutentags config
 if executable('ripper-tags')
@@ -66,10 +40,6 @@ let g:gutentags_ctags_exclude = [
       \ 'public/packs',
       \ 'public/assets'
       \ ]
-
-" vim-test configuration
-"let test#ruby#rspec#executable = 'docker-compose -f "./docker-compose.yml" exec rails bundle exec rspec'
-"let test#strategy = "neovim"
 
 " Scratch buffers
 let g:scratch_persistence_file = './tmp/development_files/vim_scratch.rb'
@@ -115,7 +85,8 @@ let g:lightline = {
   \    ],
   \    'right': [
   \               ['lineinfo'],
-  \               ['linter_checking', 'linter_infos', 'linter_warnings', 'linter_errors', 'linter_ok'],
+  \               [ 'coc_function' ],
+  \               [ 'coc_error', 'coc_warning', 'coc_hint', 'coc_info'],
   \               ['tags_generation']
   \    ],
   \  },
@@ -124,26 +95,23 @@ let g:lightline = {
   \  },
   \  'component_function': {
   \    'gitbranch': 'fugitive#head',
-  \    'linter_checking': 'lightline#ale#checking',
-  \    'linter_infos': 'lightline#ale#info',
-  \    'linter_warnings': 'lightline#ale#warnings',
-  \    'linter_errors': 'lightline#ale#errors',
-  \    'linter_ok': 'lightline#ale#ok',
+  \    'coc_function': 'CocCurrentFunction',
+  \    'coc_error': 'LightlineCocErrors',
+  \    'coc_warning': 'LightlineCocWarnings',
+  \    'coc_info': 'LightlineCocInfos',
+  \    'coc_hint': 'LightlineCocHints',
+  \    'coc_fix': 'LightlineCocFixes',
   \    'tags_generation': 'gutentags#statusline',
   \  }
 \}
+" Lighline sections separator
 let g:lightline.separator = {
   \  'left': '', 'right': ''
 \}
+" Lighline sections subseparator
 let g:lightline.subseparator = {
   \  'left': '', 'right': ''
 \}
-
-" Add configuration for lightline-ale
-let g:lightline#ale#indicator_infos = "◆"
-let g:lightline#ale#indicator_warnings = "!"
-let g:lightline#ale#indicator_errors = "✗"
-let g:lightline#ale#indicator_ok = "✓"
 
 " Add configuration for lightline-bufferline
 let g:lightline#bufferline#show_number  = 1
@@ -151,20 +119,71 @@ let g:lightline#bufferline#shorten_path = 1
 let g:lightline#bufferline#unnamed      = '[No Name]'
 let g:lightline.tabline                 = {'left': [['buffers']], 'right': [[]]}
 let g:lightline.component_expand        = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type          = {'buffers': 'tabsel'}
+let g:lightline.component_type          = {
+  \ 'buffers': 'tabsel',
+\   'coc_error'        : 'error',
+\   'coc_warning'      : 'warning',
+\   'coc_info'         : 'tabsel',
+\   'coc_hint'         : 'middle',
+\   'coc_fix'          : 'middle',
+  \ }
 let g:lightline.component_raw           = {'buffers': 1}
 let g:lightline#bufferline#clickable    = 1
 
-"augroup vimLighlineColor
-"  autocmd VimEnter * call SetupLightlineColors()
-"  function SetupLightlineColors() abort
-    " transparent background in statusbar
-"    let l:palette = lightline#palette()
+" Automatic Update Lighline on Coc status or Diagnostics change
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
- "   let l:palette.normal.middle = [ [ 'NONE', 'NONE', 'NONE', 'NONE' ] ]
-    "let l:palette.inactive.middle = l:palette.normal.middle
- "   let l:palette.tabline.middle = l:palette.normal.middle
+" Helper Functions to show erros and diagnostic info on StatusLine for Coc
+function! s:lightline_coc_diagnostic(kind, sign) abort
+  let info = get(b:, 'coc_diagnostic_info', 0)
+  if empty(info) || get(info, a:kind, 0) == 0
+    return ''
+  endif
+  try
+    let s = g:coc_user_config['diagnostic'][a:sign . 'Sign']
+  catch
+    let s = ''
+  endtry
+  return printf('%s %d', s, info[a:kind])
+endfunction
 
-"    call lightline#colorscheme()
-"  endfunction
-"augroup end
+function! LightlineCocErrors() abort
+  return s:lightline_coc_diagnostic('error', 'error')
+endfunction
+
+function! LightlineCocWarnings() abort
+  return s:lightline_coc_diagnostic('warning', 'warning')
+endfunction
+
+function! LightlineCocInfos() abort
+  return s:lightline_coc_diagnostic('information', 'info')
+endfunction
+
+function! LightlineCocHints() abort
+  return s:lightline_coc_diagnostic('hints', 'hint')
+endfunction
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+" Set signs for Coc Diagnostics
+let g:coc_user_config = {
+\  'diagnostic': {
+\     'errorSign': '✗',
+\     'warningSign': '⚠',
+\     'infoSign': '◆',
+\     'hintSign': '!'
+\  }
+\}
+
+let g:coc_global_extensions = [
+\  'coc-webpack',
+\  'coc-marketplace',
+\  'coc-git',
+\  'coc-json',
+\  'coc-eslint',
+\  'coc-yaml',
+\  'coc-vetur',
+\  'coc-tsserver',
+\  'coc-elixir',
+\  'coc-solargraph'
+\]

@@ -82,11 +82,11 @@ set incsearch
 " The nesting of folds is limited with foldnestmax
 " if the current fold is nested -> class -> def -> if -> do etc
 " till how much it will be folded
-augroup rubyFolding
-  autocmd! FileType ruby
-  set foldmethod=syntax
-  let g:ruby_foldable_groups='def'
-augroup END
+"augroup rubyFolding
+"  autocmd! FileType ruby
+  "set foldmethod=syntax
+  "let g:ruby_foldable_groups='def'
+"augroup END
 
 " treat -(Dash) _(Underscore) as part of word
 set iskeyword+=-,_
@@ -113,4 +113,5 @@ set updatetime=100
 set showtabline=2
 
 " As we will show modes in status line
+" We don't want to show modes in command line
 set noshowmode

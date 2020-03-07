@@ -9,8 +9,8 @@ ca bda BufCloseAll
 command! -nargs=* RenameFile :call Rename("<args>", "<bang>")
 ca rename RenameFile
 
-command! -nargs=* BuildComponentTree :call ComponentTreeBuilder("<args>", "<bang>")
-ca build_ctree BuildComponentTree
+command! -nargs=* BuildComponentTree :call ComponentTreeBuilder(expand('%:p:.'), "<bang>")
+ca ctree BuildComponentTree
 
-command! CopyFileName execute "let @* = expand('%')"
-ca cp_fn CopyFileName
+"command! CopyFileName execute "let @* = expand('%')"
+"ca cp_fn CopyFileName

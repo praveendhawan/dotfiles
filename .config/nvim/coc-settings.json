@@ -1,4 +1,35 @@
 {
+  // Code Insights
+  "codeLens.enable": true,
+  // Diagnostics - Warnings, Lintings etc.
+  "diagnostic.displayByAle": false,
+  "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.signOffset": 9999999,
+  "diagnostic.infoSign": "◆",
+  "diagnostic.hintSign": "!",
+  "diagnostic.errorSign": "✗",
+  "diagnostic.warningSign": "⚠",
+  // Completion Items Settings
+  "suggest.disableMenu": true,
+  "suggest.echodocSupport": true,
+  "suggest.floatEnable": true,
+  "suggest.localityBonus": true,
   "suggest.minTriggerInputLength": 2,
-  "diagnostic.displayByAle": true
+  "suggest.timeout": 1000,
+  // coc-git
+  "git.enableGutters": true,
+  "git.branchCharacter":"",
+  "git.addedSign.text":"+",
+  "git.changedSign.text": "~",
+  "git.removedSign.text":"-",
+  "git.topRemovedSign.text": "▔",
+  "git.changeRemovedSign.text": "▋",
+  // coc-solargraph
+  "solargraph.diagnostics": true,
+  "solargraph.formatting": true,
+  // somehow folding  is not  working Issue - https://github.com/neoclide/coc-solargraph/issues/20
+  "solargraph.folding": true,
+  "solargraph.definitions": true,
+  "solargraph.completion": true,
+  "solargraph.trace.server": "verbose"
 }

@@ -20,25 +20,12 @@ call minpac#init()
 " Package mgmt with Minmac (Auto update itself)
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-" complementary pairs of mappings
-" call minpac#add('tpope/vim-unimpaired')
-
 " Fuzzy File Finder
 " Activate it usinf :FZF command or ctrl + p in normal mode
 call minpac#add('junegunn/fzf')
 
-" granular project configuration using projections
-" projections are specific triggers to browse files in specific directory
-" call minpac#add('tpope/vim-projectionist')
-
-" Airline Fonts and themes
-" Airline status bar etc
-" call minpac#add('vim-airline/vim-airline')
-" call minpac#add('vim-airline/vim-airline-themes')
 " StatusLine
 call minpac#add('itchyny/lightline.vim')
-" Show Ale Errors in status line
-call minpac#add('maximbaz/lightline-ale')
 " Show buffer name and number is tabline
 call minpac#add('mengelbrecht/lightline-bufferline')
 
@@ -51,36 +38,20 @@ call minpac#add('tpope/vim-rhubarb')
 " Fix trailing Whitespace and highlight whitespace
 call minpac#add('bronson/vim-trailing-whitespace')
 
-" git gutter in files
-"call minpac#add('airblade/vim-gitgutter')
-call minpac#add('mhinz/vim-signify')
-
 " coffeescript support (syntax) etc.
 call minpac#add('kchmck/vim-coffee-script')
-
-" ale plugin for auto linting code
-call minpac#add('dense-analysis/ale')
 
 " to run grep asynchronously
 call minpac#add('mhinz/vim-grepper')
 
-" Ruby and Rails syntax highlight
-" DONT INSTALL AND ENABLE EXPERIENCING SLOW TIMES
-" call minpac#add('vim-ruby/vim-ruby')
-" call minpac#add('tpope/vim-rails')
-" call minpac#add('andymass/vim-matchup')
-
 " add 'end' to def, if, do etc.
-call minpac#add('tpope/vim-endwise')
+" call minpac#add('tpope/vim-endwise')
 
 " Add support for scratch buffers
 call minpac#add('vim-scripts/scratch.vim')
 
 " ctags mgmt
 call minpac#add('ludovicchabant/vim-gutentags')
-
-" Autocomplete Framework
-" call minpac#add('Shougo/deoplete.nvim')
 
 " Indent guide
 call minpac#add('Yggdroot/indentLine')
@@ -91,26 +62,15 @@ call minpac#add('slashmili/alchemist.vim')
 " This formatter will only work in mix projects
 call minpac#add('mhinz/vim-mix-format')
 
-" parenthesizing made simple
-" call minpac#add('tpope/vim-surround')
-
 " selecting ruby blocks made easy
 call minpac#add('kana/vim-textobj-user')
 "call minpac#add('nelstrom/vim-textobj-rubyblock')
-
-" running rspecs from vim
-" call minpac#add('janko/vim-test')
-
-" running builds in background
-" call minpac#add('tpope/vim-dispatch')
 
 " New Autocomplete Framework
 " Install Node and yarn first
 " For ruby completion do - 'gem install solargraph'
 " Then Install coc plugin - https://www.npmjs.com/package/coc-solargraph - ':CocInstall coc-solargraph'
-" :call coc#util#install()
-" :CocInstall coc-json coc-solargraph
-call minpac#add('neoclide/coc.nvim', {'do': { -> './install.sh'}})
+call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 
 " Dash support plugin for vim
 " NOTE: Only works on mac as Dash is only on Mac
