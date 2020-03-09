@@ -174,7 +174,7 @@ let g:coc_user_config = {
 \     'hintSign': '!'
 \  }
 \}
-
+" Auto Install coc plugins
 let g:coc_global_extensions = [
 \  'coc-webpack',
 \  'coc-marketplace',
