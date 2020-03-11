@@ -15,7 +15,7 @@
   "suggest.floatEnable": true,
   "suggest.localityBonus": true,
   "suggest.minTriggerInputLength": 2,
-  "suggest.timeout": 1000,
+  "suggest.timeout": 4000,
   // coc-git
   "git.enableGutters": true,
   "git.branchCharacter":"",
@@ -24,6 +24,9 @@
   "git.removedSign.text":"-",
   "git.topRemovedSign.text": "▔",
   "git.changeRemovedSign.text": "▋",
+  "snippets.extends": {
+    "ruby": ["rails"]
+  },
   // coc-solargraph
   "solargraph.diagnostics": true,
   "solargraph.formatting": true,
