@@ -1,3 +1,5 @@
+extends rails
+
 global !p
 def write_instance_vars(arglist, snip):
 	args = str(arglist).split(',')
@@ -18,7 +20,7 @@ snippet "^#!" "#!/usr/bin/env ruby" r
 $0
 endsnippet
 
-snippet "#fsl" "#frozen_string_literal: true" r
+snippet fsl "#frozen_string_literal: true" r
 # frozen_string_literal: true
 $0
 endsnippet
@@ -325,13 +327,13 @@ snippet ###
 =end
 endsnippet
 
-snippet priv "private " m
+snippet priv "private "
 private
 
 $0
 endsnippet
 
-snippet prot "protected" m
+snippet prot "protected"
 protected
 
 $0

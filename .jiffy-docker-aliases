@@ -1,8 +1,19 @@
+# GLOBAL VARIABLES
+BASE_DOCKER_COMPOSE_COMMAND="docker-compose -f docker-compose.yml"
+DOCKER_RAILS_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
+
+# BASE ALIAS
+alias dc="$BASE_DOCKER_COMPOSE_COMMAND"
+
+# Functions
+
+# Attach to process running inside docker container
 function jd_attach() {
   attach_to=$1
   docker attach $(docker ps | grep $attach_to | tr -s " " | cut -d " " -f 1)
 }
 
+# Docker attach or exec console's height and width
 function jd_stty_rows {
   tput lines
 }
@@ -11,25 +22,7 @@ function jd_stty_cols {
   tput cols
 }
 
-BASE_DOCKER_COMPOSE_COMMAND="docker-compose -f docker-compose.yml"
-# -f docker-compose-mac.yml"
-
-DOCKER_RAILS_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
-alias dc="$BASE_DOCKER_COMPOSE_COMMAND"
-alias jdc="dc -f docker-compose-with-cerebro.yml"
-#alias jd_exec_rails="$DOCKER_RAILS_COMMAND"
-alias jd_be="$DOCKER_RAILS_COMMAND bundle exec"
-alias jd_bi="$DOCKER_RAILS_COMMAND bundle"
-alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
-alias jd_rails_c="$DOCKER_RAILS_COMMAND bundle exec rails c"
-alias jd_up="$BASE_DOCKER_COMPOSE_COMMAND up"
-alias jd_attach_rails="jd_attach rails"
-alias jd_rspec="$DOCKER_RAILS_COMMAND bundle exec rspec"
-alias jd_postgres="$BASE_DOCKER_COMPOSE_COMMAND exec postgres psql -U postgres -d jiffyshirts_development"
-alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
-alias jd_webpack="$DOCKER_RAILS_COMMAND bash -l -c bin/webpack-dev-server"
-alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c bin/scripts/setup_features.sh"
-
+# Running Rubocop for code changes
 function run_rubo_bc() {
   dc run --rm rails bash -c -l "git ls-files -m | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs bundle exec rubocop"
 }
@@ -38,24 +31,24 @@ function run_rubo_ac() {
   dc run --rm rails bash -c -l "git diff-tree -r --no-commit-id --name-only head origin/master | xargs bundle exec rubocop"
 }
 
-alias jd_rubo_ac="run_rubo_ac"
-alias jd_rubo_bc="run_rubo_bc"
-
+# Running Feature specs
 function jd_fspec() {
   spec_file=${1:-""}
   reskinned=${2:-""}
   dc run --rm -p 5900:5900 rails bash -c -l "FEATURES_HEADED=yes $reskinned bin/scripts/run_features.sh $spec_file"
 }
 
+# Running Migrations/Rollbacks
+# Running ROllback
 function run_rollback() {
   echo "Running Rollback for Dev Environment"
-  jd_be rails db:rollback
+  dc exec rails bundle exec rails db:rollback
 
   echo "Running Rollback for Test Environment"
-  jd_be rails db:rollback RAILS_ENV=test
+  dc exec rails bundle exec rails db:rollback RAILS_ENV=test
 }
 
-# migrations runner
+# Running Migrations
 function run_migrations() {
   checkout_changes=true
   if git status --porcelain | grep db/; then
@@ -63,10 +56,10 @@ function run_migrations() {
   fi
 
   echo "Running Migrations for Dev Environment"
-  jd_be rails db:migrate
+  dc exec rails bundle exec rails db:migrate
 
   echo "Now Running migrations for Test Env"
-  jd_be rails db:migrate RAILS_ENV=test
+  dc exec rails bundle exec rails db:migrate RAILS_ENV=test
 
   if $checkout_changes; then
     echo "checking out db/structure.sql changes"
@@ -76,15 +69,8 @@ function run_migrations() {
   fi
 }
 
-alias jd_migrate="run_migrations"
-
-alias jd_rollback="run_rollback"
-
-alias jd_co_sql="git co db/structure.sql"
-
-# deploy and build functions & aliases
-
 # build, upload and deploy to stack mentioned in argument
+# Build Upload and Deploy
 function jd_deploy() {
   source ~/.jiffy-deploy-env
 
@@ -99,36 +85,14 @@ function jd_deploy() {
   rails bash -l -c "bundle exec rake oops:build oops:upload \"oops:deploy[jiffyshirts,$1]\""
 }
 
-function jd_build_upload_image() {
-  source ~/.jiffy-deploy-env
-  dc exec \
-  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-  -e AWS_REGION=$AWS_REGION \
-  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
-  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
-  -e RAILS_ENV=deploy \
-  rails bash -l -c "bundle exec rake oops:build oops:upload"
-}
-
-alias jd_deploy_endor="jd_deploy endor"
-alias jd_deploy_hoth="jd_deploy hoth"
-alias jd_deploy_yavin="jd_deploy yavin"
-alias jd_deploy_jakku="jd_deploy jakku"
-alias jd_deploy_naboo="jd_deploy naboo"
-alias jd_deploy_kamino="jd_deploy kamino"
-alias jd_deploy_prod="jd_deploy production"
-
-
+# Run any Code in Docker Ruby
 function run_in_docker() {
  ruby_version=$1
 
  docker run --rm -it -v ${PWD}:/home/app ruby:$ruby_version bash
 }
 
-alias dekeo_portmap="ssh -i ~/.ssh/praveendhawan.portmaplocal.pem praveendhawan.portmaptest@praveendhawan-42092.portmap.host -N -R 30268:dekeo:3000"
-alias jiffy_webpack="docker-compose exec rails bash -l -c bin/webpack-dev-server &"
-
+# Get IP of any AWS EC2 instance of stack
 function jiffy_ip() {
   stack=${1:-"jakku"}
   layer=${2:-"rails"}
@@ -142,3 +106,23 @@ function jiffy_ip() {
 
   aws ec2 describe-instances --filters "Name=tag:opsworks:stack,Values=$stack" "Name=tag-key,Values=$stack_layer" --query "Reservations[].Instances[].PublicDnsName" --output text
 }
+
+# Aliases
+alias jd_be="$DOCKER_RAILS_COMMAND bundle exec"
+alias jd_bi="$DOCKER_RAILS_COMMAND bundle"
+alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
+alias jd_rails_c="$DOCKER_RAILS_COMMAND bundle exec rails c"
+alias jd_attach_rails="jd_attach rails"
+alias jd_rspec="$DOCKER_RAILS_COMMAND bundle exec rspec"
+alias jd_postgres="$BASE_DOCKER_COMPOSE_COMMAND exec postgres psql -U postgres -d jiffyshirts_development"
+alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
+alias jd_webpack="$DOCKER_RAILS_COMMAND bash -l -c bin/webpack-dev-server"
+alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c bin/scripts/setup_features.sh"
+alias jd_update_db="$DOCKER_RAILS_COMMAND bundle exec rails db:bootstrap_jiffy_with_dekeo REINDEX=false DOWNLOAD=true"
+
+alias jd_rubo_ac="run_rubo_ac"
+alias jd_rubo_bc="run_rubo_bc"
+
+alias jd_migrate="run_migrations"
+
+alias jd_rollback="run_rollback"

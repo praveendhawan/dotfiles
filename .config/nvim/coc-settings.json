@@ -24,9 +24,8 @@
   "git.removedSign.text":"-",
   "git.topRemovedSign.text": "▔",
   "git.changeRemovedSign.text": "▋",
-  "snippets.extends": {
-    "ruby": ["rails"]
-  },
+  "snippets.ultisnips.enable": true,
+  "snippets.snipmate.enable": false,
   // coc-solargraph
   "solargraph.diagnostics": true,
   "solargraph.formatting": true,
