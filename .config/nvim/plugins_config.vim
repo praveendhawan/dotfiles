@@ -186,5 +186,6 @@ let g:coc_global_extensions = [
 \  'coc-tsserver',
 \  'coc-elixir',
 \  'coc-solargraph',
-\  'coc-snippets'
+\  'coc-snippets',
+\  'coc-stylelint'
 \]

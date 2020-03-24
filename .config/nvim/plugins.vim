@@ -48,7 +48,7 @@ call minpac#add('mhinz/vim-grepper')
 " call minpac#add('tpope/vim-endwise')
 
 " Add support for scratch buffers
-call minpac#add('vim-scripts/scratch.vim')
+call minpac#add('mtth/scratch.vim')
 
 " ctags mgmt
 call minpac#add('ludovicchabant/vim-gutentags')
@@ -92,3 +92,6 @@ call minpac#add('aonemd/kuroi.vim')
 " call minpac#add('sickill/vim-monokai')
 " Seti
 call minpac#add('trusktr/seti.vim')
+
+" Vader for vim script tests
+call minpac#add('junegunn/vader.vim')

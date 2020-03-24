@@ -1,6 +1,7 @@
 {
   // Code Insights
   "codeLens.enable": true,
+  "coc.preferences.useQuickfixForLocations": true,
   // Diagnostics - Warnings, Lintings etc.
   "diagnostic.displayByAle": false,
   "diagnostic.refreshOnInsertMode": true,
@@ -33,5 +34,8 @@
   "solargraph.folding": true,
   "solargraph.definitions": true,
   "solargraph.completion": true,
-  "solargraph.trace.server": "verbose"
+  "solargraph.trace.server": "verbose",
+  "eslint.run": "onSave",
+  "eslint.trace.server": "verbose",
+  "stylelint.enable": true
 }

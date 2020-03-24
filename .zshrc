@@ -157,3 +157,8 @@ fi
 export PATH="/usr/local/sbin:$PATH"
 
 export HOMEBREW_BUNDLE_FILE=~/.Brewfile
+
+# https://github.com/zsh-users/zsh-autosuggestions/issues/489
+# Start writing in shell, paste something and right arrow still
+# auto completes. To solve this is needed.
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)

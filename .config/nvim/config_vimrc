@@ -84,8 +84,8 @@ set incsearch
 " till how much it will be folded
 augroup rubyFolding
   autocmd! FileType ruby
- set foldmethod=syntax
- let g:ruby_foldable_groups='def'
+  set foldmethod=syntax
+  let g:ruby_foldable_groups='def'
 augroup END
 
 " treat -(Dash) _(Underscore) as part of word
@@ -115,3 +115,9 @@ set showtabline=2
 " As we will show modes in status line
 " We don't want to show modes in command line
 set noshowmode
+
+" Netrw Settings
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_winsize = 25
