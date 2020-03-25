@@ -11,6 +11,12 @@ alias reload_bash="source ~/.bashrc"
 alias gti="git"
 alias ngrok="/Applications/ngrok"
 
+function ggrm() {
+  local bm="$(git_current_branch)"
+  # gcm - git co master
+  gcm && gup && gco $bm && grbm
+}
+
 if [ -f ~/.jiffy-docker-aliases ]; then
   source ~/.jiffy-docker-aliases
 fi
