@@ -58,21 +58,22 @@ endif
 " TODO ADD THESE DETAILS IN FUTURE
 augroup colorscheme_seti_highlights
   autocmd!
-  hi Search ctermfg=Black ctermbg=74   cterm=NONE guifg=Black   guibg=#4fa5c7 gui=NONE
-  hi Visual ctermfg=Black ctermbg=74   cterm=NONE guifg=Black   guibg=#4fa5c7 gui=NONE
-  hi Folded ctermfg=130   ctermbg=NONE cterm=NONE guifg=#af5f00 guibg=NONE    gui=NONE
+  hi Search            ctermfg=Black ctermbg=74   cterm=NONE guifg=Black   guibg=#4fa5c7 gui=NONE
+  hi Visual            ctermfg=Black ctermbg=93   cterm=NONE guifg=Black   guibg=#664dc9 gui=NONE
+  hi Folded            ctermfg=130   ctermbg=NONE cterm=NONE guifg=#af5f00 guibg=NONE    gui=NONE
+  hi CocHighlightText  ctermfg=93    ctermbg=NONE cterm=NONE guifg=#664dc9 guibg=NONE    gui=NONE
 augroup END
 
 " matchup configuration
 " to improve cursor movement performance by delaying highlighting for a short time
 let g:matchup_matchparen_deferred = 1
 
-augroup matchup_matchup_highlight
+augroup matchup_highlight
   autocmd!
   " autocmd ColorScheme *
-  hi MatchParen ctermfg=Black ctermbg=195 cterm=NONE guifg=Black guibg=#d7ffff gui=NONE
+  hi MatchParen ctermfg=Black ctermbg=190 cterm=BOLD guifg=Black guibg=#d7ff00 gui=NONE
   " autocmd ColorScheme *
-  hi MatchWord ctermfg=Black ctermbg=195 cterm=NONE guifg=Black guibg=#d7ffff gui=NONE
+  hi MatchWord ctermfg=Black ctermbg=190 cterm=NONE guifg=Black guibg=#d7ff00 gui=BOLD
 augroup END
 
 " Add configuration for lightline
@@ -176,16 +177,28 @@ let g:coc_user_config = {
 \}
 " Auto Install coc plugins
 let g:coc_global_extensions = [
-\  'coc-webpack',
-\  'coc-marketplace',
-\  'coc-git',
-\  'coc-json',
-\  'coc-eslint',
-\  'coc-yaml',
-\  'coc-vetur',
-\  'coc-tsserver',
 \  'coc-elixir',
-\  'coc-solargraph',
+\  'coc-eslint',
+\  'coc-git',
+\  'coc-highlight',
+\  'coc-json',
+\  'coc-marketplace',
 \  'coc-snippets',
-\  'coc-stylelint'
+\  'coc-solargraph',
+\  'coc-stylelint',
+\  'coc-tsserver',
+\  'coc-vetur',
+\  'coc-webpack',
+\  'coc-yaml'
 \]
+
+" Formatting of js, ruby file via LSPs
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocActionAsync('formatSelected')
+  autocmd FileType ruby setl formatexpr=CocActionAsync('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
