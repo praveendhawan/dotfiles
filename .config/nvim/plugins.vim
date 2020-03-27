@@ -57,10 +57,11 @@ call minpac#add('ludovicchabant/vim-gutentags')
 call minpac#add('Yggdroot/indentLine')
 
 " Elixir Language Support
-call minpac#add('elixir-editors/vim-elixir')
-call minpac#add('slashmili/alchemist.vim')
+" To Setup Elixir LS - https://bernheisel.com/blog/vim-elixir-ls-plug/
+"call minpac#add('elixir-editors/vim-elixir')
+"call minpac#add('slashmili/alchemist.vim')
 " This formatter will only work in mix projects
-call minpac#add('mhinz/vim-mix-format')
+"call minpac#add('mhinz/vim-mix-format')
 
 " selecting ruby blocks made easy
 call minpac#add('kana/vim-textobj-user')
@@ -70,6 +71,7 @@ call minpac#add('kana/vim-textobj-user')
 " Install Node and yarn first
 " For ruby completion do - 'gem install solargraph'
 " Then Install coc plugin - https://www.npmjs.com/package/coc-solargraph - ':CocInstall coc-solargraph'
+" To Setup Elixir LS - https://bernheisel.com/blog/vim-elixir-ls-plug/
 call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 
 " Dash support plugin for vim
