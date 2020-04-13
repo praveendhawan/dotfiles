@@ -1,9 +1,13 @@
 {
   // Code Insights
   "codeLens.enable": true,
-  "coc.preferences.useQuickfixForLocations": true,
-  // Diagnostics - Warnings, Lintings etc.
+  // Use Quickfix lists instead of CocLists
+  // "coc.preferences.useQuickfixForLocations": true,
+  "coc.preferences.colorSupport": true,
+  // Diagnostics - Warnings, Lintings etc
   "diagnostic.displayByAle": false,
+  "diagnostic.refreshAfterSave": true,
+  "diagnostic.checkCurrentLine": true,
   "diagnostic.refreshOnInsertMode": true,
   "diagnostic.signOffset": 9999999,
   "diagnostic.infoSign": "◆",
@@ -25,17 +29,23 @@
   "git.removedSign.text":"-",
   "git.topRemovedSign.text": "▔",
   "git.changeRemovedSign.text": "▋",
+  // coc-snippets
+  // write snippets in format of utilsnips
   "snippets.ultisnips.enable": true,
   "snippets.snipmate.enable": false,
   // coc-solargraph
   "solargraph.diagnostics": true,
   "solargraph.formatting": true,
-  // somehow folding  is not  working Issue - https://github.com/neoclide/coc-solargraph/issues/20
-  "solargraph.folding": true,
+  // Folding is not supported by coc-solargraph
+  // https://github.com/neoclide/coc-solargraph/issues/20
+  // https://gitter.im/neoclide/coc.nvim?at=5e86ba61a95bc942564cea56
+  //"solargraph.folding": true,
   "solargraph.definitions": true,
   "solargraph.completion": true,
   "solargraph.trace.server": "verbose",
+  // coc-eslint (for js)
   "eslint.run": "onSave",
   "eslint.trace.server": "verbose",
+  // coc-stylelint (for css)
   "stylelint.enable": true
 }
