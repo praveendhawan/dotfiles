@@ -1,6 +1,7 @@
 alias worksapce="cd ~/workspace"
 alias office="cd ~/workspace/Office"
 alias goto_dekeo="cd ~/workspace/Office/spree-jiffyshirts"
+alias musync="cd ~/workspace/Personal/musync"
 alias cd_pair="cd ~/workspace/Personal/Paironauts"
 alias elixir_practice="cd ~/workspace/Practice/Elixir"
 alias personal_projects="cd ~/workspace/Personal"

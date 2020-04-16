@@ -61,7 +61,8 @@ augroup colorscheme_seti_highlights
   hi Search            ctermfg=Black ctermbg=74   cterm=NONE guifg=Black   guibg=#4fa5c7 gui=NONE
   hi Visual            ctermfg=Black ctermbg=93   cterm=NONE guifg=Black   guibg=#664dc9 gui=NONE
   hi Folded            ctermfg=130   ctermbg=NONE cterm=NONE guifg=#af5f00 guibg=NONE    gui=NONE
-  hi CocHighlightText  ctermfg=93    ctermbg=NONE cterm=NONE guifg=#664dc9 guibg=NONE    gui=NONE
+  "hi CocHighlightText  ctermfg=93    ctermbg=NONE cterm=NONE guifg=#664dc9 guibg=NONE    gui=NONE
+  hi lscReference      ctermfg=93    ctermbg=NONE cterm=NONE guifg=#664dc9 guibg=NONE    gui=NONE
 augroup END
 
 " matchup configuration
@@ -86,9 +87,9 @@ let g:lightline = {
   \    ],
   \    'right': [
   \               ['lineinfo'],
-  \               [ 'coc_function' ],
-  \               [ 'coc_error', 'coc_warning', 'coc_hint', 'coc_info'],
-  \               ['tags_generation']
+  \               [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+  \               ['tags_generation'],
+  \               ['lc_running']
   \    ],
   \  },
   \  'component': {
@@ -96,12 +97,6 @@ let g:lightline = {
   \  },
   \  'component_function': {
   \    'gitbranch': 'fugitive#head',
-  \    'coc_function': 'CocCurrentFunction',
-  \    'coc_error': 'LightlineCocErrors',
-  \    'coc_warning': 'LightlineCocWarnings',
-  \    'coc_info': 'LightlineCocInfos',
-  \    'coc_hint': 'LightlineCocHints',
-  \    'coc_fix': 'LightlineCocFixes',
   \    'tags_generation': 'gutentags#statusline',
   \  }
 \}
@@ -119,86 +114,108 @@ let g:lightline#bufferline#show_number  = 1
 let g:lightline#bufferline#shorten_path = 1
 let g:lightline#bufferline#unnamed      = '[No Name]'
 let g:lightline.tabline                 = {'left': [['buffers']], 'right': [[]]}
-let g:lightline.component_expand        = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type          = {
-  \ 'buffers': 'tabsel',
-\   'coc_error'        : 'error',
-\   'coc_warning'      : 'warning',
-\   'coc_info'         : 'tabsel',
-\   'coc_hint'         : 'middle',
-\   'coc_fix'          : 'middle',
+let g:lightline.component_expand = {
+  \  'linter_checking': 'lightline#ale#checking',
+  \  'linter_infos': 'lightline#ale#infos',
+  \  'linter_warnings': 'lightline#ale#warnings',
+  \  'linter_errors': 'lightline#ale#errors',
+  \  'linter_ok': 'lightline#ale#ok',
+  \  'buffers': 'lightline#bufferline#buffers',
+  \  'lc_running': 'LSCServerStatus'
   \ }
+
+let g:lightline.component_type = {
+  \ 'buffers': 'tabsel',
+  \     'linter_checking': 'right',
+  \     'linter_infos': 'right',
+  \     'linter_warnings': 'warning',
+  \     'linter_errors': 'error',
+  \     'linter_ok': 'right',
+  \ }
+
 let g:lightline.component_raw           = {'buffers': 1}
 let g:lightline#bufferline#clickable    = 1
 
 " Automatic Update Lighline on Coc status or Diagnostics change
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Helper Functions to show erros and diagnostic info on StatusLine for Coc
-function! s:lightline_coc_diagnostic(kind, sign) abort
-  let info = get(b:, 'coc_diagnostic_info', 0)
-  if empty(info) || get(info, a:kind, 0) == 0
-    return ''
-  endif
-  try
-    let s = g:coc_user_config['diagnostic'][a:sign . 'Sign']
-  catch
-    let s = ''
-  endtry
-  return printf('%s %d', s, info[a:kind])
-endfunction
-
-function! LightlineCocErrors() abort
-  return s:lightline_coc_diagnostic('error', 'error')
-endfunction
-
-function! LightlineCocWarnings() abort
-  return s:lightline_coc_diagnostic('warning', 'warning')
-endfunction
-
-function! LightlineCocInfos() abort
-  return s:lightline_coc_diagnostic('information', 'info')
-endfunction
-
-function! LightlineCocHints() abort
-  return s:lightline_coc_diagnostic('hints', 'hint')
-endfunction
-function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
-endfunction
 " Set signs for Coc Diagnostics
-let g:coc_user_config = {
-\  'diagnostic': {
-\     'errorSign': '✗',
-\     'warningSign': '⚠',
-\     'infoSign': '◆',
-\     'hintSign': '!'
-\  }
-\}
-" Auto Install coc plugins
-let g:coc_global_extensions = [
-\  'coc-elixir',
-\  'coc-eslint',
-\  'coc-git',
-\  'coc-highlight',
-\  'coc-json',
-\  'coc-marketplace',
-\  'coc-snippets',
-\  'coc-solargraph',
-\  'coc-stylelint',
-\  'coc-tsserver',
-\  'coc-vetur',
-\  'coc-webpack',
-\  'coc-yaml'
-\]
+let g:lightline#ale#indicator_checking = "..."
+let g:lightline#ale#indicator_infos = "◆"
+let g:lightline#ale#indicator_warnings = "⚠"
+let g:lightline#ale#indicator_errors = "✗"
+let g:lightline#ale#indicator_ok = "✔"
 
 " Formatting of js, ruby file via LSPs
-augroup mygroup
-  autocmd!
+"augroup mygroup
+"  autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocActionAsync('formatSelected')
-  autocmd FileType ruby setl formatexpr=CocActionAsync('formatSelected')
+  "autocmd FileType typescript,json setl formatexpr=CocActionAsync('formatSelected')
+  "autocmd FileType ruby setl formatexpr=CocActionAsync('formatSelected')
   " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+  "autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+"augroup end
 
+" ALE Settings
+let g:ale_linters = {
+ \   'ruby': ['rubocop', 'rufo'],
+ \   'javascript': ['eslint'],
+ \}
+
+let g:ale_fixers = {
+ \    'ruby': ['rubocop', 'rufo'],
+ \   'javascript': ['eslint'],
+ \}
+
+let g:ale_fix_on_save = 0
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+let g:ale_sign_hint = '!'
+let g:ale_sign_info = '◆'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+" You can disable this option too
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+
+let g:lsc_server_commands = {
+ \  'ruby': {
+ \    'command': 'solargraph stdio',
+ \    'log_level': -1,
+ \    'suppress_stderr': v:true,
+ \  },
+ \  'javascript': {
+ \    'command': 'typescript-language-server --stdio',
+ \    'log_level': -1,
+ \    'suppress_stderr': v:true,
+ \  }
+ \}
+let g:lsc_auto_map = {
+ \  'GoToDefinition': 'gd',
+ \  'FindReferences': 'gr',
+ \  'NextReference': 'gn',
+ \  'PreviousReference': 'gp',
+ \  'FindImplementations': 'gi',
+ \  'Rename': 'gR',
+ \  'ShowHover': 'K',
+ \  'FindCodeActions': 'ga',
+ \  'DocumentSymbol': 'go',
+ \  'WorkspaceSymbol': 'gS',
+ \  'SignatureHelp': 'gm',
+ \  'Completion': 'omnifunc',
+ \}
+let g:lsc_enable_autocomplete  = v:true
+let g:lsc_enable_diagnostics   = v:false
+let g:lsc_reference_highlights = v:false
+let g:lsc_trace_level          = 'off'
+set completeopt=menu,menuone,noinsert,noselect
+
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_browser_command = 'chrome %URL% &'
+let g:gist_post_private = 1

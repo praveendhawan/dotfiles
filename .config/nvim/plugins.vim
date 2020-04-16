@@ -34,6 +34,10 @@ call minpac#add('mengelbrecht/lightline-bufferline')
 call minpac#add('tpope/vim-fugitive')
 " Enables Gbrowse from Gblame
 call minpac#add('tpope/vim-rhubarb')
+" Gist posting
+call minpac#add('mattn/gist-vim')
+" Git gutter
+call minpac#add('mhinz/vim-signify')
 
 " Fix trailing Whitespace and highlight whitespace
 call minpac#add('bronson/vim-trailing-whitespace')
@@ -72,7 +76,16 @@ call minpac#add('kana/vim-textobj-user')
 " For ruby completion do - 'gem install solargraph'
 " Then Install coc plugin - https://www.npmjs.com/package/coc-solargraph - ':CocInstall coc-solargraph'
 " To Setup Elixir LS - https://bernheisel.com/blog/vim-elixir-ls-plug/
-call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+" call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+"call minpac#add('autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash ./install.sh' })
+"call minpac#add('Shougo/deoplete.nvim')
+"call minpac#add('Shougo/echodoc.vim')
+call minpac#add('natebosch/vim-lsc')
+call minpac#add('ajh17/VimCompletesMe')
+
+" For Linting and Fixing
+call minpac#add('dense-analysis/ale')
+call minpac#add('maximbaz/lightline-ale')
 
 " Dash support plugin for vim
 " NOTE: Only works on mac as Dash is only on Mac
