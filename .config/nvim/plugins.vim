@@ -70,18 +70,19 @@ call minpac#add('Yggdroot/indentLine')
 " selecting ruby blocks made easy
 call minpac#add('kana/vim-textobj-user')
 "call minpac#add('nelstrom/vim-textobj-rubyblock')
+call minpac#add('andymass/vim-matchup')
 
 " New Autocomplete Framework
 " Install Node and yarn first
 " For ruby completion do - 'gem install solargraph'
 " Then Install coc plugin - https://www.npmjs.com/package/coc-solargraph - ':CocInstall coc-solargraph'
 " To Setup Elixir LS - https://bernheisel.com/blog/vim-elixir-ls-plug/
-" call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 "call minpac#add('autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash ./install.sh' })
 "call minpac#add('Shougo/deoplete.nvim')
-"call minpac#add('Shougo/echodoc.vim')
-call minpac#add('natebosch/vim-lsc')
-call minpac#add('ajh17/VimCompletesMe')
+
+" call minpac#add('natebosch/vim-lsc')
+" call minpac#add('ajh17/VimCompletesMe')
 
 " For Linting and Fixing
 call minpac#add('dense-analysis/ale')
@@ -110,3 +111,12 @@ call minpac#add('trusktr/seti.vim')
 
 " Vader for vim script tests
 call minpac#add('junegunn/vader.vim')
+
+" quick scope for jumping to words in line
+call minpac#add('unblevable/quick-scope')
+
+" for getting keybindings
+call minpac#add('liuchengxu/vim-which-key')
+
+" switching between a single-line statement and a multi-line one
+call minpac#add('andrewradev/splitjoin.vim')

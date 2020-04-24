@@ -5,15 +5,15 @@
   // "coc.preferences.useQuickfixForLocations": true,
   "coc.preferences.colorSupport": true,
   // Diagnostics - Warnings, Lintings etc
-  "diagnostic.displayByAle": false,
-  "diagnostic.refreshAfterSave": true,
-  "diagnostic.checkCurrentLine": true,
-  "diagnostic.refreshOnInsertMode": true,
-  "diagnostic.signOffset": 9999999,
-  "diagnostic.infoSign": "◆",
-  "diagnostic.hintSign": "!",
-  "diagnostic.errorSign": "✗",
-  "diagnostic.warningSign": "⚠",
+  "diagnostic.displayByAle": true,
+  //"diagnostic.refreshAfterSave": true,
+  //"diagnostic.checkCurrentLine": true,
+  //"diagnostic.refreshOnInsertMode": true,
+  //"diagnostic.signOffset": 9999999,
+  //"diagnostic.infoSign": "◆",
+  //"diagnostic.hintSign": "!",
+  //"diagnostic.errorSign": "✗",
+  //"diagnostic.warningSign": "⚠",
   // Completion Items Settings
   "suggest.disableMenu": true,
   "suggest.echodocSupport": true,
@@ -22,20 +22,20 @@
   "suggest.minTriggerInputLength": 2,
   "suggest.timeout": 4000,
   // coc-git
-  "git.enableGutters": true,
-  "git.branchCharacter":"",
-  "git.addedSign.text":"+",
-  "git.changedSign.text": "~",
-  "git.removedSign.text":"-",
-  "git.topRemovedSign.text": "▔",
-  "git.changeRemovedSign.text": "▋",
+  //"git.enableGutters": true,
+  //"git.branchCharacter":"",
+  //"git.addedSign.text":"+",
+  //"git.changedSign.text": "~",
+  //"git.removedSign.text":"-",
+  //"git.topRemovedSign.text": "▔",
+  //"git.changeRemovedSign.text": "▋",
   // coc-snippets
   // write snippets in format of utilsnips
-  "snippets.ultisnips.enable": true,
-  "snippets.snipmate.enable": false,
+  //"snippets.ultisnips.enable": true,
+  //"snippets.snipmate.enable": false,
   // coc-solargraph
-  "solargraph.diagnostics": true,
-  "solargraph.formatting": true,
+  //"solargraph.diagnostics": true,
+  //"solargraph.formatting": true,
   // Folding is not supported by coc-solargraph
   // https://github.com/neoclide/coc-solargraph/issues/20
   // https://gitter.im/neoclide/coc.nvim?at=5e86ba61a95bc942564cea56

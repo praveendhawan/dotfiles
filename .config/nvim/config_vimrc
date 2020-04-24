@@ -109,6 +109,10 @@ set mouse=a
 " To make git gutter change symbols on sign column faster
 set updatetime=100
 
+" For which key - if there are no further keystrokes within this time the
+" guide will pop up after pressing the key to get keybindings
+set timeoutlen=500
+
 " Show Tabline to show buffers name on top
 set showtabline=2
 

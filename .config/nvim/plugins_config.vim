@@ -61,8 +61,8 @@ augroup colorscheme_seti_highlights
   hi Search            ctermfg=Black ctermbg=74   cterm=NONE guifg=Black   guibg=#4fa5c7 gui=NONE
   hi Visual            ctermfg=Black ctermbg=93   cterm=NONE guifg=Black   guibg=#664dc9 gui=NONE
   hi Folded            ctermfg=130   ctermbg=NONE cterm=NONE guifg=#af5f00 guibg=NONE    gui=NONE
-  "hi CocHighlightText  ctermfg=93    ctermbg=NONE cterm=NONE guifg=#664dc9 guibg=NONE    gui=NONE
-  hi lscReference      ctermfg=93    ctermbg=NONE cterm=NONE guifg=#664dc9 guibg=NONE    gui=NONE
+  hi CocHighlightText  ctermfg=93    ctermbg=NONE cterm=NONE guifg=#664dc9 guibg=NONE    gui=NONE
+  "hi lscReference      ctermfg=93    ctermbg=NONE cterm=NONE guifg=#664dc9 guibg=NONE    gui=NONE
 augroup END
 
 " matchup configuration
@@ -89,7 +89,7 @@ let g:lightline = {
   \               ['lineinfo'],
   \               [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
   \               ['tags_generation'],
-  \               ['lc_running']
+  \               ['coc_function']
   \    ],
   \  },
   \  'component': {
@@ -97,6 +97,7 @@ let g:lightline = {
   \  },
   \  'component_function': {
   \    'gitbranch': 'fugitive#head',
+  \    'coc_function': 'coc#status',
   \    'tags_generation': 'gutentags#statusline',
   \  }
 \}
@@ -120,8 +121,7 @@ let g:lightline.component_expand = {
   \  'linter_warnings': 'lightline#ale#warnings',
   \  'linter_errors': 'lightline#ale#errors',
   \  'linter_ok': 'lightline#ale#ok',
-  \  'buffers': 'lightline#bufferline#buffers',
-  \  'lc_running': 'LSCServerStatus'
+  \  'buffers': 'lightline#bufferline#buffers'
   \ }
 
 let g:lightline.component_type = {
@@ -137,7 +137,7 @@ let g:lightline.component_raw           = {'buffers': 1}
 let g:lightline#bufferline#clickable    = 1
 
 " Automatic Update Lighline on Coc status or Diagnostics change
-" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Helper Functions to show erros and diagnostic info on StatusLine for Coc
 " Set signs for Coc Diagnostics
@@ -148,14 +148,14 @@ let g:lightline#ale#indicator_errors = "✗"
 let g:lightline#ale#indicator_ok = "✔"
 
 " Formatting of js, ruby file via LSPs
-"augroup mygroup
-"  autocmd!
+augroup mygroup
+  autocmd!
   " Setup formatexpr specified filetype(s).
-  "autocmd FileType typescript,json setl formatexpr=CocActionAsync('formatSelected')
-  "autocmd FileType ruby setl formatexpr=CocActionAsync('formatSelected')
+  autocmd FileType typescript,json setl formatexpr=CocActionAsync('formatSelected')
+  autocmd FileType ruby setl formatexpr=CocActionAsync('formatSelected')
   " Update signature help on jump placeholder.
-  "autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-"augroup end
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 
 " ALE Settings
 let g:ale_linters = {
@@ -182,40 +182,26 @@ let g:ale_lint_on_enter = 0
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 
-let g:lsc_server_commands = {
- \  'ruby': {
- \    'command': 'solargraph stdio',
- \    'log_level': -1,
- \    'suppress_stderr': v:true,
- \  },
- \  'javascript': {
- \    'command': 'typescript-language-server --stdio',
- \    'log_level': -1,
- \    'suppress_stderr': v:true,
- \  }
- \}
-let g:lsc_auto_map = {
- \  'GoToDefinition': 'gd',
- \  'FindReferences': 'gr',
- \  'NextReference': 'gn',
- \  'PreviousReference': 'gp',
- \  'FindImplementations': 'gi',
- \  'Rename': 'gR',
- \  'ShowHover': 'K',
- \  'FindCodeActions': 'ga',
- \  'DocumentSymbol': 'go',
- \  'WorkspaceSymbol': 'gS',
- \  'SignatureHelp': 'gm',
- \  'Completion': 'omnifunc',
- \}
-let g:lsc_enable_autocomplete  = v:true
-let g:lsc_enable_diagnostics   = v:false
-let g:lsc_reference_highlights = v:false
-let g:lsc_trace_level          = 'off'
-set completeopt=menu,menuone,noinsert,noselect
-
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 let g:gist_browser_command = 'chrome %URL% &'
 let g:gist_post_private = 1
+
+" QuickScope Config
+" Start by disabled
+" let g:qs_enable=0
+" Only enable if line length is less than 100 chars
+let g:qs_max_chars=100
+" Trigger a highlight in the appropriate direction when pressing these keys
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+" Color scheme
+augroup qs_colors
+  autocmd!
+  autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+augroup END
+
+" SplitJoin config
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
