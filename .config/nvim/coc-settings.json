@@ -30,16 +30,13 @@
   //"git.topRemovedSign.text": "▔",
   //"git.changeRemovedSign.text": "▋",
   // coc-snippets
-  // write snippets in format of utilsnips
-  //"snippets.ultisnips.enable": true,
-  //"snippets.snipmate.enable": false,
+  // write snippets in format of ultisnips
+  "snippets.ultisnips.enable": true,
+  "snippets.snipmate.enable": false,
   // coc-solargraph
   //"solargraph.diagnostics": true,
   //"solargraph.formatting": true,
-  // Folding is not supported by coc-solargraph
-  // https://github.com/neoclide/coc-solargraph/issues/20
-  // https://gitter.im/neoclide/coc.nvim?at=5e86ba61a95bc942564cea56
-  //"solargraph.folding": true,
+  "solargraph.folding": true,
   "solargraph.definitions": true,
   "solargraph.completion": true,
   "solargraph.trace.server": "verbose",

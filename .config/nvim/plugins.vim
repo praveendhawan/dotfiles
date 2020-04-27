@@ -120,3 +120,6 @@ call minpac#add('liuchengxu/vim-which-key')
 
 " switching between a single-line statement and a multi-line one
 call minpac#add('andrewradev/splitjoin.vim')
+
+" Aerojump
+call minpac#add('ripxorip/aerojump.nvim')

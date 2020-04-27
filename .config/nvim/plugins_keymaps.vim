@@ -8,7 +8,7 @@ nnoremap <Leader>* :Grepper -cword -noprompt<CR>
 nnoremap <C-f> :Grepper -tool rg -cword<CR>
 
 " Which key
-nnoremap <silent> <leader> :WhichKey <CR>
+nnoremap <silent> <leader> :WhichKey '<leader>'<CR>
 
 " SplitJoin keymappings
 nmap <Leader>j :SplitjoinJoin<cr>
@@ -17,6 +17,10 @@ nmap <Leader>s :SplitjoinSplit<cr>
 " QuickScope
 nmap <leader>q <plug>(QuickScopeToggle)
 xmap <leader>q <plug>(QuickScopeToggle)
+
+" Aerojump Config
+nmap <Leader>ab <Plug>(AerojumpBolt)
+nmap <Leader>aa <Plug>(AerojumpFromCursorBolt)
 
 " COC KEYMAPPINGS
 " GoTo code navigation.

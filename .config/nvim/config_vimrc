@@ -82,10 +82,10 @@ set incsearch
 " The nesting of folds is limited with foldnestmax
 " if the current fold is nested -> class -> def -> if -> do etc
 " till how much it will be folded
+" For getting folds from solargraph
 augroup rubyFolding
   autocmd! FileType ruby
-  set foldmethod=syntax
-  let g:ruby_foldable_groups='def'
+  set foldmethod=manual
 augroup END
 
 " treat -(Dash) _(Underscore) as part of word
