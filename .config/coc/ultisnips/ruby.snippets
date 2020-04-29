@@ -12,6 +12,7 @@ endsnippet
 # magic comment
 snippet fsl "#frozen_string_literal: true" r
 # frozen_string_literal: true
+
 $0
 endsnippet
 
@@ -29,15 +30,13 @@ end
 endsnippet
 
 # yard doc params
-snippet @par "@prams ..." r
-# @params ${1:param_name} [${2:param_type}]
-$0
+snippet par "@prams ..." r
+# @params ${1:param_name} [${2:param_type}]$0
 endsnippet
 
 # yard doc return
-snippet @ret "@return ..." r
-# @return ${1:return_type}
-$0
+snippet ret "@return ..." r
+# @return ${1:return_type}$0
 endsnippet
 
 # private
