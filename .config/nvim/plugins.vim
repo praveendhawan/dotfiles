@@ -34,8 +34,6 @@ call minpac#add('mengelbrecht/lightline-bufferline')
 call minpac#add('tpope/vim-fugitive')
 " Enables Gbrowse from Gblame
 call minpac#add('tpope/vim-rhubarb')
-" Gist posting
-call minpac#add('mattn/gist-vim')
 " Git gutter
 call minpac#add('mhinz/vim-signify')
 
@@ -50,9 +48,6 @@ call minpac#add('mhinz/vim-grepper')
 
 " add 'end' to def, if, do etc.
 " call minpac#add('tpope/vim-endwise')
-
-" Add support for scratch buffers
-call minpac#add('mtth/scratch.vim')
 
 " ctags mgmt
 call minpac#add('ludovicchabant/vim-gutentags')
