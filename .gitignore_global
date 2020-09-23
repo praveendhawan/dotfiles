@@ -23,6 +23,10 @@ doc/*
 
 # Ignore ripgrep ignore files
 .rgignore
+
+# Ignore fdfind ignore files
+.fdignore
+
 # ignore overriden docker compose
 docker-compose-with-cerebro.yml
 docker-compose-mac.yml

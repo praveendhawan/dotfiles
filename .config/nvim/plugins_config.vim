@@ -6,6 +6,23 @@ command! PackUpdate call minpac#update()
 " Plugin Uninstall using minpac
 command! PackClean call minpac#clean()
 
+"vim-FZF configurations
+let g:fzf_layout = { 'down': '30%' }
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
 " Vim Grepper plugin configurations
 let g:grepper = {}
 let g:grepper.rg = {
@@ -83,7 +100,8 @@ let g:lightline = {
   \ 'active': {
   \    'left': [
   \              [ 'mode', 'paste' ],
-  \              [ 'gitbranch', 'filename' ]
+  \              [ 'gitbranch', 'filename' ],
+  \              [ 'nearest_method' ]
   \    ],
   \    'right': [
   \               ['lineinfo'],
@@ -98,6 +116,7 @@ let g:lightline = {
   \  'component_function': {
   \    'gitbranch': 'fugitive#head',
   \    'coc_function': 'coc#status',
+  \    'nearest_method': 'NearestMethodOrFunction',
   \    'tags_generation': 'gutentags#statusline',
   \  }
 \}
@@ -132,6 +151,11 @@ let g:lightline.component_type = {
   \     'linter_errors': 'error',
   \     'linter_ok': 'right',
   \ }
+
+" Vista vim showing nearest method
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
 
 let g:lightline.component_raw           = {'buffers': 1}
 let g:lightline#bufferline#clickable    = 1
@@ -205,3 +229,16 @@ augroup END
 " SplitJoin config
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping = ''
+
+" Vista vim configurtions
+"let g:vista_icon_indent = ["▸ ", ""]
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'ctags'
+" This will be searched for first if the results
+" are empty then the executive for setting will be taken
+let g:vista_rb_executive = 'coc'
+let g:vista_erb_executive = 'rtags'
+let g:vista_executive_for = {
+  \ 'rb': 'rtags'
+  \ }
+

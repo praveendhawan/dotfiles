@@ -85,7 +85,8 @@ call minpac#add('maximbaz/lightline-ale')
 
 " Dash support plugin for vim
 " NOTE: Only works on mac as Dash is only on Mac
-call minpac#add('rizzatti/dash.vim')
+" call minpac#add('rizzatti/dash.vim')
+call minpac#add('praveendhawan/dash.vim', {'rev': 'praveendhawan-patch-1'})
 
 " Vue JS syntax
 call minpac#add('posva/vim-vue')
@@ -118,3 +119,7 @@ call minpac#add('andrewradev/splitjoin.vim')
 
 " Aerojump
 call minpac#add('ripxorip/aerojump.nvim')
+
+" Vista vim for tagbar
+call minpac#add('liuchengxu/vista.vim')
+
