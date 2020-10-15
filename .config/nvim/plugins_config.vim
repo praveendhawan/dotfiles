@@ -231,8 +231,19 @@ let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping = ''
 
 " Vista vim configurtions
-"let g:vista_icon_indent = ["▸ ", ""]
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+" Enable Icons
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+      \ "class": "╰─▸ ",
+      \ "module": "╰─▸ ",
+      \ "method": "├─▸  ",
+      \ "singletonMethod": "├─▸ ",
+      \ "function": "├─▸ ",
+      \ "variable": "▸ ",
+      \ "augroup": "╰─▸ ",
+      \ "command": "╰─▸ "
+      \ }
+" let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive = 'ctags'
 " This will be searched for first if the results
 " are empty then the executive for setting will be taken
