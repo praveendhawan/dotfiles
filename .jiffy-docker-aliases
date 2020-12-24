@@ -1,5 +1,5 @@
 # GLOBAL VARIABLES
-BASE_DOCKER_COMPOSE_COMMAND="docker-compose -f docker-compose.yml"
+BASE_DOCKER_COMPOSE_COMMAND="docker-compose -f docker-compose.yml -f docker-compose-without-nfs.yml"
 DOCKER_RAILS_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
 
 # BASE ALIAS

@@ -43,6 +43,12 @@
   // coc-eslint (for js)
   "eslint.run": "onSave",
   "eslint.trace.server": "verbose",
-  // coc-stylelint (for css)
-  "stylelint.enable": true
+  // coc-stylelintplus (for css)
+  // Disable coc-css to stop getting double error messages
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "wxss.validate": false,
+  "stylelintplus.validateOnSave": true,
+  "stylelintplus.validateOnType": false
 }

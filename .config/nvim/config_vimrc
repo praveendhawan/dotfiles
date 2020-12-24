@@ -1,7 +1,7 @@
 " Set runtime path to enable python support for powerline fonts
-set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
+" set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 " add run time path for fzf (installed via brew install)
-set rtp+=/usr/local/opt/fzf
+" set rtp+=/usr/local/opt/fzf
 "----------------------------------------------------------------------------------------
 " Set fonts
 " if has('gui_vimr')
@@ -128,3 +128,9 @@ let g:netrw_winsize = 25
 
 " Don't do the syntax highlight on lines which are longer than 500 characters
 set synmaxcol=500
+
+" TO enable copy from vim to windows clipboard
+"set clipboard=unnamedplus
+
+highlight! link TermCursor Cursor
+highlight! TermCursorNC guibg=red guifg=white ctermbg=1 ctermfg=15

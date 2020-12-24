@@ -17,6 +17,10 @@
 " Copy jusy the file name to system clipboard
 :nmap ,cl :let @+=expand("%:t")<CR>
 
+" Terminal Mode keybindings
+tnoremap <C-q> <C-\><C-n>
+" tnoremap <C-v><Esc> <Esc>
+
 " ===== Seeing Is Believing =====
 " Assumes you have a Ruby with SiB available in the PATH
 " If it doesn't work, you may need to `gem install seeing_is_believing`
