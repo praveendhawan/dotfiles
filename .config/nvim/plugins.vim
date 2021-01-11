@@ -118,3 +118,6 @@ call minpac#add('andrewradev/splitjoin.vim')
 
 " Aerojump
 call minpac#add('ripxorip/aerojump.nvim')
+
+"Vista.vim
+call minpac#add('liuchengxu/vista.vim')

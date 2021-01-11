@@ -1,7 +1,7 @@
 " This file is used for mapping shortcuts for  vim plugins
 
 " Ctrl + p to open fzf finder in Normal Mode
-nnoremap <C-p> :<C-u>FZF<CR>
+nnoremap <C-p> :<C-u>FZF  --reverse<CR>
 
 " Search for the current word
 nnoremap <Leader>* :Grepper -cword -noprompt<CR>
@@ -80,3 +80,5 @@ omap af <Plug>(coc-funcobj-a)
 nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Vista tagbars
+nnoremap <silent> <Leader>b :<C-u>Vista!!<CR>
