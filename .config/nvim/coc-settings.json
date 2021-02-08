@@ -34,21 +34,27 @@
   "snippets.ultisnips.enable": true,
   "snippets.snipmate.enable": false,
   // coc-solargraph
-  //"solargraph.diagnostics": true,
-  //"solargraph.formatting": true,
-  "solargraph.folding": true,
-  "solargraph.definitions": true,
-  "solargraph.completion": true,
-  "solargraph.trace.server": "verbose",
+  //"solargraph.completion": true,
+  //"solargraph.hover": true,
+  //"solargraph.diagnostics": false,
+  //"solargraph.autoformat": false,
+  //"solargraph.formatting": false,
+  //"solargraph.symbols": true,
+  //"solargraph.definitions": true,
+  //"solargraph.rename": true,
+  //"solargraph.references": true,
+  //"solargraph.folding":true,
+  //"solargraph.logLevel": "warn"
+  "solargraph.trace.server": "messages",
   // coc-eslint (for js)
   "eslint.run": "onSave",
   "eslint.trace.server": "verbose",
   // coc-stylelintplus (for css)
   // Disable coc-css to stop getting double error messages
-  "css.validate": false,
-  "less.validate": false,
-  "scss.validate": false,
-  "wxss.validate": false,
-  "stylelintplus.validateOnSave": true,
-  "stylelintplus.validateOnType": false
+  // "css.validate": false,
+  // "less.validate": false,
+  // "scss.validate": false,
+  // "wxss.validate": false,
+  // "stylelintplus.validateOnSave": true,
+  // "stylelintplus.validateOnType": false
 }

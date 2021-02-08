@@ -163,6 +163,7 @@ augroup end
 let g:ale_linters = {
  \   'ruby': ['rubocop', 'rufo'],
  \   'javascript': ['eslint'],
+ \   'css': ['stylelint']
  \}
 
 let g:ale_fixers = {
