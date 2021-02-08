@@ -74,15 +74,13 @@ function run_migrations() {
 function jd_deploy() {
   source ~/.jiffy-deploy-env
 
-  dc exec \
-  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-  -e AWS_REGION=$AWS_REGION \
-  -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
-  -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
-  -e RAILS_ENV=deploy \
-  -e NODE_OPTIONS="--max-old-space-size=2048" \
-  rails bash -l -c "bundle exec rake oops:build oops:upload \"oops:deploy[jiffyshirts,$1]\""
+  dc run --rm \
+    -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+    -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+    -e AWS_REGION=$AWS_REGION \
+    -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
+    -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
+    rails bash -l -c "./bin/deploy.sh $1"
 }
 
 # Run any Code in Docker Ruby
@@ -118,7 +116,7 @@ alias jd_postgres="$BASE_DOCKER_COMPOSE_COMMAND exec postgres psql -U postgres -
 alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
 alias jd_webpack="$DOCKER_RAILS_COMMAND bash -l -c bin/webpack-dev-server"
 alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c bin/scripts/setup_features.sh"
-alias jd_update_db="$DOCKER_RAILS_COMMAND bundle exec rails db:bootstrap_jiffy_with_dekeo REINDEX=false DOWNLOAD=true"
+alias jd_update_db="$DOCKER_RAILS_COMMAND bundle exec rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true"
 
 alias jd_rubo_ac="run_rubo_ac"
 alias jd_rubo_bc="run_rubo_bc"
@@ -126,3 +124,5 @@ alias jd_rubo_bc="run_rubo_bc"
 alias jd_migrate="run_migrations"
 
 alias jd_rollback="run_rollback"
+
+alias dps_pretty="docker ps -a --format=\"table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}\""
