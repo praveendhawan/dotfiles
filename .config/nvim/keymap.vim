@@ -11,11 +11,11 @@
 :nnoremap <C-]> g<C-]>
 
 " Copy Full file path to system clipboard
-:nmap ,cf :let @+=expand("%:p")<CR>
+:nmap <leader>cf :let @+=expand("%:p")<CR>
 " Copy File path relative to current directory
-:nmap ,cr :let @+=expand("%:p:.")<CR>
+:nmap <leader>cr :let @+=expand("%:p:.")<CR>
 " Copy jusy the file name to system clipboard
-:nmap ,cl :let @+=expand("%:t")<CR>
+:nmap <leader>cl :let @+=expand("%:t")<CR>
 
 " Terminal Mode keybindings
 tnoremap <C-q> <C-\><C-n>
