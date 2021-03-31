@@ -72,6 +72,8 @@ function run_migrations() {
 # build, upload and deploy to stack mentioned in argument
 # Build Upload and Deploy
 function jd_deploy() {
+  echo "Stopiing containers for deploy"
+  dc stop rails webpacker sidekiq kibana
   source ~/.jiffy-deploy-env
 
   dc run --rm \
@@ -81,6 +83,9 @@ function jd_deploy() {
     -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
     -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
     rails bash -l -c "./bin/deploy.sh $1"
+
+  echo "Starting containers back up"
+  dc start rails webpacker sidekiq kibana
 }
 
 # Run any Code in Docker Ruby
@@ -103,6 +108,13 @@ function jiffy_ip() {
   fi
 
   aws ec2 describe-instances --filters "Name=tag:opsworks:stack,Values=$stack" "Name=tag-key,Values=$stack_layer" --query "Reservations[].Instances[].PublicDnsName" --output text
+}
+
+function jiffy_travis_download() {
+  build_number=${1}
+  rm -f ${PWD}/tmp/screenshots/screenshots/*.html
+  rm -f ${PWD}/tmp/screenshots/screenshots/*.png
+  aws s3 cp s3://jiffy-travis-artifacts/$build_number ${PWD}/tmp/screenshots/ --recursive
 }
 
 # Aliases
