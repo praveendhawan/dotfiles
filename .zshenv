@@ -11,3 +11,4 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --ansi'
 export FZF_DEFAULT_COMMAND='fd -H --type f --color=always'
 
+source "$HOME/.cargo/env"

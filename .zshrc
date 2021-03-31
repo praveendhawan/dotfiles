@@ -151,3 +151,17 @@ export HOMEBREW_BUNDLE_FILE=~/.Brewfile
 # auto completes. To solve this is needed.
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 
+# Codi Vim
+# Codi
+# Usage: codi [filetype] [filename]
+codi() {
+  local syntax="${1:-ruby}"
+  shift
+  nvim -c \
+    "let g:startify_disable_at_vimenter = 1 |\
+    set bt=nofile ls=0 noru nonu nornu |\
+    hi ColorColumn ctermbg=NONE |\
+    hi VertSplit ctermbg=NONE |\
+    hi NonText ctermfg=0 |\
+    Codi $syntax" "$@"
+}
