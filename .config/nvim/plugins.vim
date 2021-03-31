@@ -121,3 +121,10 @@ call minpac#add('ripxorip/aerojump.nvim')
 
 "Vista.vim
 call minpac#add('liuchengxu/vista.vim')
+
+" Codi vim
+" ScratchPad for VIm
+call minpac#add('metakirby5/codi.vim')
+
+" Comment
+call minpac#add('tpope/vim-commentary')

@@ -254,3 +254,7 @@ let g:vista_executive_for = {
   \ 'rb': 'rtags'
   \ }
 
+" Codi VIm Config
+" since it is fullscreen, I'd like a 50/50 split
+let g:codi#width = 50.0
+let g:codi#virtual_text = 0
