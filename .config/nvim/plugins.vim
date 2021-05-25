@@ -125,6 +125,7 @@ call minpac#add('liuchengxu/vista.vim')
 " Codi vim
 " ScratchPad for VIm
 call minpac#add('metakirby5/codi.vim')
+call minpac#add('mtth/scratch.vim')
 
 " Comment
 call minpac#add('tpope/vim-commentary')

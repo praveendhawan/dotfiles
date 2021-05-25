@@ -43,6 +43,8 @@ let g:gutentags_ctags_exclude = [
 
 " Scratch buffers
 let g:scratch_persistence_file = './tmp/development_files/vim_scratch.rb'
+let g:scratch_insert_autohide = 0
+let g:scratch_filetype = 'ruby'
 
 " colorscheme NeoSolarized
 if has('gui_vimr')
