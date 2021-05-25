@@ -128,7 +128,7 @@ alias jd_postgres="$BASE_DOCKER_COMPOSE_COMMAND exec postgres psql -U postgres -
 alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
 alias jd_webpack="$DOCKER_RAILS_COMMAND bash -l -c bin/webpack-dev-server"
 alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c bin/scripts/setup_features.sh"
-alias jd_update_db="$DOCKER_RAILS_COMMAND bundle exec rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true"
+alias jd_update_db="$DOCKER_RAILS_COMMAND bundle exec rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true RESET_SCHEMA=true"
 
 alias jd_rubo_ac="run_rubo_ac"
 alias jd_rubo_bc="run_rubo_bc"
