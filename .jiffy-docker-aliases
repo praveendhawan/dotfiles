@@ -1,5 +1,5 @@
 # GLOBAL VARIABLES
-BASE_DOCKER_COMPOSE_COMMAND="docker-compose -f docker-compose.yml"
+BASE_DOCKER_COMPOSE_COMMAND="docker compose -f docker-compose.yml"
 DOCKER_RAILS_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
 
 # BASE ALIAS
@@ -84,6 +84,8 @@ function jd_deploy() {
     -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
     rails bash -l -c "./bin/deploy.sh $1"
 
+  echo "Running yarn install"
+  dc run --rm webpacker yarn install
   echo "Starting containers back up"
   dc start rails webpacker sidekiq kibana
 }
