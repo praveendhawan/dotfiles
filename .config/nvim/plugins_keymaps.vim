@@ -4,8 +4,22 @@
 nnoremap <C-p> :<C-u>FZF  --reverse<CR>
 
 " Search for the current word
-nnoremap <Leader>* :Grepper -cword -noprompt<CR>
-nnoremap <C-f> :Grepper -tool rg -cword<CR>
+"nnoremap <Leader>* :Grepper -cword -noprompt<CR>
+"nnoremap <C-f> :Grepper -tool rg -cword<CR>
+"nnoremap <Leader>* :Rg -cword<CR>
+"nnoremap <C-f> :Rg -cword<CR>
+
+nmap <Leader>* <Plug>CtrlSFVwordExec
+nmap <C-f> <Plug>CtrlSFCCwordPath
+
+" Kep mappings
+let g:ctrlsf_mapping = {
+\ "popen":  "P",
+\ "popenf": "p",
+\ "next":   "n",
+\ "prev":   "N"
+\ }
+
 
 " Which key
 nnoremap <silent> <leader> :WhichKey '<leader>'<CR>

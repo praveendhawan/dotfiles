@@ -44,7 +44,9 @@ call minpac#add('bronson/vim-trailing-whitespace')
 call minpac#add('kchmck/vim-coffee-script')
 
 " to run grep asynchronously
-call minpac#add('mhinz/vim-grepper')
+" call minpac#add('mhinz/vim-grepper')
+" call minpac#add('jremmen/vim-ripgrep')
+call minpac#add('dyng/ctrlsf.vim')
 
 " add 'end' to def, if, do etc.
 " call minpac#add('tpope/vim-endwise')

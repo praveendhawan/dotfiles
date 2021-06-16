@@ -7,14 +7,40 @@ command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 
 " Vim Grepper plugin configurations
-let g:grepper = {}
-let g:grepper.rg = {
-\  'grepprg': 'rg -H --no-heading --smart-case --vimgrep',
-\  'grepformat':  '%f:%l:%m',
-\  'escape': '\+*^$()[]'
+"let g:grepper = {}
+"let g:grepper.rg = {
+"\  'grepprg': 'rg -H --no-heading --smart-case --vimgrep',
+"\  'grepformat':  '%f:%l:%m',
+"\  'escape': '\+*^$()[]'
+"\ }
+
+"let g:grepper.tools = ['rg', 'grep', 'git']
+
+" vim-ripgrep settings
+"let g:rg_format = '%f:%l:%m'
+"let g:rg_command = 'rg -H --no-heading --smart-case --vimgrep'
+"let g:rg_highlight = 'true'
+
+" CTRLSF settings - alternative to vim-grepper
+" Use rg for search
+let g:ctrlsf_backend = 'rg'
+" Compact mode for showing search results
+let g:ctrlsf_default_view_mode = 'compact'
+" allow to feed search results to quickfix lists
+let g:ctrlsf_populate_qflist = 1
+" Extra args to rg command
+let g:ctrlsf_extra_backend_args = {
+\ 'rg': '-H --no-heading --smart-case'
 \ }
 
-let g:grepper.tools = ['rg', 'grep', 'git']
+" Use async mode for search
+let g:ctrlsf_search_mode = 'async'
+
+" Autofocus to search result pane after the search is finished
+let g:ctrlsf_auto_focus = {
+\ "at": "done",
+\ "duration_less_than": 1000
+\ }
 
 " Vim Gutentags config
 if executable('ripper-tags')
