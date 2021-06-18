@@ -131,3 +131,6 @@ call minpac#add('mtth/scratch.vim')
 
 " Comment
 call minpac#add('tpope/vim-commentary')
+
+" Context
+call minpac#add('wellle/context.vim')

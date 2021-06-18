@@ -38,9 +38,9 @@ let g:ctrlsf_search_mode = 'async'
 
 " Autofocus to search result pane after the search is finished
 let g:ctrlsf_auto_focus = {
-\ "at": "done",
-\ "duration_less_than": 1000
+\ "at": "start"
 \ }
+let g:ctrlsf_indent = 2
 
 " Vim Gutentags config
 if executable('ripper-tags')
@@ -286,3 +286,11 @@ let g:vista_executive_for = {
 " since it is fullscreen, I'd like a 50/50 split
 let g:codi#width = 50.0
 let g:codi#virtual_text = 0
+
+" Context.vim Settings
+" Disable by default
+let g:context_enabled = 0
+" If the context gets bigger than 11 lines,
+" it will only show the first 5, then one line with ellipsis (···) and
+" then the last ten context lines.
+let g:context_max_height = 11
