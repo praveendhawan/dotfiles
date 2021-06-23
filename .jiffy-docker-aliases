@@ -1,6 +1,7 @@
 # GLOBAL VARIABLES
 BASE_DOCKER_COMPOSE_COMMAND="docker compose -f docker-compose.yml"
 DOCKER_RAILS_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
+DOCKER_SPRING_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows spring"
 
 # BASE ALIAS
 alias dc="$BASE_DOCKER_COMPOSE_COMMAND"
@@ -42,10 +43,10 @@ function jd_fspec() {
 # Running ROllback
 function run_rollback() {
   echo "Running Rollback for Dev Environment"
-  dc exec rails bundle exec rails db:rollback
+  dc exec spring bundle exec rails db:rollback
 
   echo "Running Rollback for Test Environment"
-  dc exec rails bundle exec rails db:rollback RAILS_ENV=test
+  dc exec spring bundle exec rails db:rollback RAILS_ENV=test
 }
 
 # Running Migrations
@@ -56,10 +57,10 @@ function run_migrations() {
   fi
 
   echo "Running Migrations for Dev Environment"
-  dc exec rails bundle exec rails db:migrate
+  dc exec spring bundle exec spring rails db:migrate
 
   echo "Now Running migrations for Test Env"
-  dc exec rails bundle exec rails db:migrate RAILS_ENV=test
+  dc exec spring bundle exec spring rails db:migrate RAILS_ENV=test
 
   if $checkout_changes; then
     echo "checking out db/structure.sql changes"
@@ -73,7 +74,7 @@ function run_migrations() {
 # Build Upload and Deploy
 function jd_deploy() {
   echo "Stopiing containers for deploy"
-  dc stop rails webpacker sidekiq kibana
+  dc stop rails webpacker sidekiq kibana spring
   source ~/.jiffy-deploy-env
 
   dc run --rm \
@@ -87,7 +88,7 @@ function jd_deploy() {
   echo "Running yarn install"
   dc run --rm webpacker yarn install
   echo "Starting containers back up"
-  dc start rails webpacker sidekiq kibana
+  dc start rails webpacker sidekiq kibana spring
 }
 
 # Run any Code in Docker Ruby
@@ -120,17 +121,16 @@ function jiffy_travis_download() {
 }
 
 # Aliases
-alias jd_be="$DOCKER_RAILS_COMMAND bundle exec"
-alias jd_bi="$DOCKER_RAILS_COMMAND bundle"
+alias jd_be="$DOCKER_SPRING_COMMAND bundle exec"
+alias jd_bi="$DOCKER_SPRING_COMMAND bundle"
 alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
-alias jd_rails_c="$DOCKER_RAILS_COMMAND bundle exec rails c"
+alias jd_rails_c="$DOCKER_SPRING_COMMAND bundle exec spring rails c"
 alias jd_attach_rails="jd_attach rails"
-alias jd_rspec="$DOCKER_RAILS_COMMAND bundle exec rspec"
+alias jd_rspec="$DOCKER_SPRING_COMMAND bundle exec spring rspec"
 alias jd_postgres="$BASE_DOCKER_COMPOSE_COMMAND exec postgres psql -U postgres -d jiffyshirts_development"
-alias jd_rubo="$DOCKER_RAILS_COMMAND bundle exec rubocop -a"
-alias jd_webpack="$DOCKER_RAILS_COMMAND bash -l -c bin/webpack-dev-server"
-alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c bin/scripts/setup_features.sh"
-alias jd_update_db="$DOCKER_RAILS_COMMAND bundle exec rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true RESET_SCHEMA=true"
+alias jd_rubo="$DOCKER_SPRING_COMMAND bundle exec rubocop -a"
+alias jd_setup_fspec="$DOCKER_SPRING_COMMAND bash -l -c bundle exec spring bin/scripts/setup_features.sh"
+alias jd_update_db="$DOCKER_SPRING_COMMAND bundle exec spring rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true RESET_SCHEMA=true"
 
 alias jd_rubo_ac="run_rubo_ac"
 alias jd_rubo_bc="run_rubo_bc"
