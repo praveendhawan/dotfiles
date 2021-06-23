@@ -12,3 +12,4 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --ansi'
 export FZF_DEFAULT_COMMAND='fd -H -I --type f --color=always'
 
 source "$HOME/.cargo/env"
+. "$HOME/.cargo/env"
