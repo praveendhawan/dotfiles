@@ -134,3 +134,9 @@ call minpac#add('tpope/vim-commentary')
 
 " Context
 call minpac#add('wellle/context.vim')
+
+" Running Tests in vim
+call minpac#add('vim-test/vim-test')
+
+" VIM TMUX NAVIGATOR
+call minpac#add('christoomey/vim-tmux-navigator')

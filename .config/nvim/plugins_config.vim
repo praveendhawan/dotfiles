@@ -294,3 +294,12 @@ let g:context_enabled = 0
 " it will only show the first 5, then one line with ellipsis (···) and
 " then the last ten context lines.
 let g:context_max_height = 11
+
+" Vim Test Config
+if has('nvim')
+  let test#strategy='neovim'
+else
+  let test#strategy='vimterminal'
+endif
+
+let test#ruby#rspec#executable='docker compose -f docker-compose.yml exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows spring bundle exec spring rspec'

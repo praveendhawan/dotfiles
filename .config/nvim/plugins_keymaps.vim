@@ -96,3 +96,10 @@ nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Vista tagbars
 nnoremap <silent> <Leader>b :<C-u>Vista!!<CR>
+
+" Vim Test keymappings
+nmap <silent> tn :TestNearest<CR>
+nmap <silent> tf :TestFile<CR>
+nmap <silent> ta :TestSuite<CR>
+nmap <silent> tl :TestLast<CR>
+nmap <silent> tv :TestVisit<CR>
