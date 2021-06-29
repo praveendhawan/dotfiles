@@ -71,6 +71,7 @@ plugins=(
 #  auto-suggetsion will be installed manually in custom plugins folder
   zsh-autosuggestions
   docker
+  docker-compose
   tmux
 )
 
