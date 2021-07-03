@@ -55,7 +55,7 @@ call minpac#add('dyng/ctrlsf.vim')
 call minpac#add('ludovicchabant/vim-gutentags')
 
 " Indent guide
-call minpac#add('Yggdroot/indentLine')
+" call minpac#add('Yggdroot/indentLine')
 
 " Elixir Language Support
 " To Setup Elixir LS - https://bernheisel.com/blog/vim-elixir-ls-plug/
@@ -65,7 +65,7 @@ call minpac#add('Yggdroot/indentLine')
 "call minpac#add('mhinz/vim-mix-format')
 
 " selecting ruby blocks made easy
-call minpac#add('kana/vim-textobj-user')
+" call minpac#add('kana/vim-textobj-user')
 "call minpac#add('nelstrom/vim-textobj-rubyblock')
 call minpac#add('andymass/vim-matchup')
 
@@ -133,10 +133,19 @@ call minpac#add('mtth/scratch.vim')
 call minpac#add('tpope/vim-commentary')
 
 " Context
-call minpac#add('wellle/context.vim')
+" call minpac#add('wellle/context.vim')
 
 " Running Tests in vim
 call minpac#add('vim-test/vim-test')
 
 " VIM TMUX NAVIGATOR
 call minpac#add('christoomey/vim-tmux-navigator')
+
+" YAML Nested Key Finder
+call minpac#add('henrik/vim-yaml-helper')
+
+" Treesitter
+call minpac#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'})
+call minpac#add('nvim-treesitter/nvim-treesitter-textobjects')
+call minpac#add('nvim-treesitter/playground')
+call minpac#add('romgrk/nvim-treesitter-context')

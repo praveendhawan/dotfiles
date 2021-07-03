@@ -83,13 +83,6 @@ vmap <C-j> <Plug>(coc-snippets-select)
 " CursurHoldI Means not pressing anything untill the updatetime in Insert mode
 nnoremap <silent> H :call CocActionAsync('highlight')<CR>
 
-" Introduce function text object
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
 " Find symbol of current document.
 nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.

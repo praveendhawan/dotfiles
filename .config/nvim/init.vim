@@ -23,3 +23,15 @@ source ~/.config/nvim/custom_commands.vim
 for f in split(glob('~/.config/nvim/functions/*.vim'), '\n')
     exe 'source' f
 endfor
+
+" Lua File
+" TreeSitter
+lua << EOF
+require('treesitter.syntax_highlight')
+require('treesitter.incremental_selection')
+require('treesitter.indentation')
+require('treesitter.playground')
+require('treesitter.textobjects')
+require('treesitter.context')
+require('treesitter.matchup')
+EOF

@@ -97,11 +97,16 @@ augroup END
 " to improve cursor movement performance by delaying highlighting for a short time
 let g:matchup_matchparen_deferred = 1
 
-augroup matchup_highlight
+augroup treesitter_context_highlight
+  autocmd!
+  " autocmd ColorScheme *
+  hi TreesitterContext ctermfg=Black ctermbg=190 cterm=BOLD guifg=Black guibg=#d7ff00 gui=NONE
+augroup END
+
+augroup treesitter_matchup_highlight
   autocmd!
   " autocmd ColorScheme *
   hi MatchParen ctermfg=Black ctermbg=190 cterm=BOLD guifg=Black guibg=#d7ff00 gui=NONE
-  " autocmd ColorScheme *
   hi MatchWord ctermfg=Black ctermbg=190 cterm=NONE guifg=Black guibg=#d7ff00 gui=BOLD
 augroup END
 
@@ -289,11 +294,11 @@ let g:codi#virtual_text = 0
 
 " Context.vim Settings
 " Disable by default
-let g:context_enabled = 0
+" let g:context_enabled = 0
 " If the context gets bigger than 11 lines,
 " it will only show the first 5, then one line with ellipsis (···) and
 " then the last ten context lines.
-let g:context_max_height = 11
+" let g:context_max_height = 11
 
 " Vim Test Config
 if has('nvim')
