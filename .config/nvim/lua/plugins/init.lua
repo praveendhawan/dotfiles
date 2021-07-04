@@ -32,7 +32,7 @@ require('packer').startup(function()
   use 'kyazdani42/nvim-web-devicons'
   -- Fuzzy File Finder
   -- Activate it using :FZF or ctrl + p in normal mode
-  use 'junegunn/fzf'
+  -- use 'junegunn/fzf'
   -- StatusLine
   -- use 'itchyny/lightline.vim'
   use {
@@ -63,7 +63,7 @@ require('packer').startup(function()
   -- to run grep asynchronously
   -- use 'mhinz/vim-grepper'
   -- use 'jremmen/vim-ripgrep'
-  use 'dyng/ctrlsf.vim'
+  -- use 'dyng/ctrlsf.vim'
 
   -- add 'end' to def, if, do etc.
   -- use 'tpope/vim-endwise'
@@ -136,10 +136,10 @@ require('packer').startup(function()
   use 'AndrewRadev/splitjoin.vim'
 
   -- Aerojump
-  use 'ripxorip/aerojump.nvim'
+  -- use 'ripxorip/aerojump.nvim'
 
   -- Vista.vim
-  use 'liuchengxu/vista.vim'
+  -- use 'liuchengxu/vista.vim'
 
   -- Codi vim
   -- use 'metakirby5/codi.vim'
@@ -166,4 +166,12 @@ require('packer').startup(function()
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'nvim-treesitter/playground'
   use 'romgrk/nvim-treesitter-context'
+
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      {'nvim-lua/popup.nvim'},
+      {'nvim-lua/plenary.nvim'}
+    }
+  }
 end)
