@@ -23,13 +23,28 @@ vim.api.nvim_exec([[
 -- Install Packages
 local use = require('packer').use
 require('packer').startup(function()
+  -- Install and updates self
+  -- Packer
+  use 'wbthomason/packer.nvim'
+  -- Nvim Tree
+  use 'kyazdani42/nvim-tree.lua'
+  -- Web DevIcons
+  use 'kyazdani42/nvim-web-devicons'
   -- Fuzzy File Finder
   -- Activate it using :FZF or ctrl + p in normal mode
   use 'junegunn/fzf'
   -- StatusLine
-  use 'itchyny/lightline.vim'
+  -- use 'itchyny/lightline.vim'
+  use {
+    'hoob3rt/lualine.nvim',
+    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  }
+  use {
+    'akinsho/nvim-bufferline.lua',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
   -- Show buffer name and number is tabline
-  use 'mengelbrecht/lightline-bufferline'
+  -- use 'mengelbrecht/lightline-bufferline'
 
   -- Git support for vim
   -- This ia also necessary for showing the branch in airline status bar
@@ -85,7 +100,7 @@ require('packer').startup(function()
 
   -- For Linting and Fixing
   use 'dense-analysis/ale'
-  use 'maximbaz/lightline-ale'
+  -- use 'maximbaz/lightline-ale'
 
   -- Dash support plugin for vim
   -- NOTE: Only works on mac as Dash is only on Mac
@@ -127,7 +142,7 @@ require('packer').startup(function()
   use 'liuchengxu/vista.vim'
 
   -- Codi vim
-  use 'metakirby5/codi.vim'
+  -- use 'metakirby5/codi.vim'
   -- ScratchPad for VIm
   use 'mtth/scratch.vim'
 

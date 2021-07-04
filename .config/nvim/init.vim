@@ -1,24 +1,45 @@
-" Plugins and keymaps and vim configurarions
-
-" Default Config Files for vim
-source ~/.config/nvim/super_config_vimrc
-" Configs I want to override
-source ~/.config/nvim/config_vimrc
-
-" Plugins I want to install
-" source ~/.config/nvim/plugins.vim
-" Plugings now in Lua
 lua << EOF
+-- Nvim Config
+require('config')
+-- Nvim Keybindings Overrides
+require('config.keybindings')
+require('config.external_commands_keybindings')
+-- List of Plugins
 require('plugins')
+-- Plugins Config
+require('plugins.config.ale')
+require('plugins.config.bufferline')
+require('plugins.config.coc')
+require('plugins.config.ctrlsf')
+require('plugins.config.fzf')
+require('plugins.config.gutentags')
+require('plugins.config.lualine')
+require('plugins.config.matchup')
+require('plugins.config.nvim_tree')
+require('plugins.config.nvim_web_devicons')
+require('plugins.config.quick_scope')
+require('plugins.config.scratch')
+require('plugins.config.seti')
+require('plugins.config.splitjoin')
+require('plugins.config.vim_test')
+require('plugins.config.vista')
+-- Plugings Keybindings
+require('plugins.keybindings.aerojump')
+require('plugins.keybindings.coc')
+require('plugins.keybindings.ctrlsf')
+require('plugins.keybindings.fzf')
+require('plugins.keybindings.quick_scope')
+require('plugins.keybindings.nvim_tree')
+require('plugins.keybindings.vim_test')
+require('plugins.keybindings.vista')
+require('plugins.keybindings.whichkey')
 EOF
 
 " Config I want to write for vim using Plugins - commands
-source ~/.config/nvim/plugins_config.vim
+" source ~/.config/nvim/plugins_config.vim
 
-" Default Keymaps I want to override (which comes with vim)
-source ~/.config/nvim/keymap.vim
 " Keymaps I want to override (which comes with plugins)
-source ~/.config/nvim/plugins_keymaps.vim
+" source ~/.config/nvim/plugins_keymaps.vim
 
 " My custom commands
 source ~/.config/nvim/custom_commands.vim

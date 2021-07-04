@@ -1,7 +1,7 @@
 " Set runtime path to enable python support for powerline fonts
-set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
+" set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 " add run time path for fzf (installed via brew install)
-set rtp+=/usr/local/opt/fzf
+" set rtp+=/usr/local/opt/fzf
 set rtp+=$HOME/.config/nvim/lua
 "----------------------------------------------------------------------------------------
 " Set fonts
