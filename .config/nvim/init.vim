@@ -6,7 +6,11 @@ source ~/.config/nvim/super_config_vimrc
 source ~/.config/nvim/config_vimrc
 
 " Plugins I want to install
-source ~/.config/nvim/plugins.vim
+" source ~/.config/nvim/plugins.vim
+" Plugings now in Lua
+lua << EOF
+require('plugins')
+EOF
 
 " Config I want to write for vim using Plugins - commands
 source ~/.config/nvim/plugins_config.vim
