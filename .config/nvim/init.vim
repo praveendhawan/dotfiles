@@ -20,6 +20,10 @@ require('plugins.config.scratch')
 require('plugins.config.seti')
 require('plugins.config.splitjoin')
 require('plugins.config.telescope')
+require('plugins.config.treesitter.context')
+require('plugins.config.treesitter.indentation')
+require('plugins.config.treesitter.matchup')
+require('plugins.config.treesitter.syntax_highlight')
 require('plugins.config.vim_test')
 -- Plugings Keybindings
 require('plugins.keybindings.coc')
@@ -29,13 +33,9 @@ require('plugins.keybindings.telescope')
 require('plugins.keybindings.vim_test')
 require('plugins.keybindings.whichkey')
 -- TreeSitter
-require('treesitter.syntax_highlight')
 require('treesitter.incremental_selection')
-require('treesitter.indentation')
 require('treesitter.playground')
 require('treesitter.textobjects')
-require('treesitter.context')
-require('treesitter.matchup')
 EOF
 
 " My custom commands
