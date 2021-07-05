@@ -28,25 +28,7 @@ require('plugins.keybindings.nvim_tree')
 require('plugins.keybindings.telescope')
 require('plugins.keybindings.vim_test')
 require('plugins.keybindings.whichkey')
-EOF
-
-" Config I want to write for vim using Plugins - commands
-" source ~/.config/nvim/plugins_config.vim
-
-" Keymaps I want to override (which comes with plugins)
-" source ~/.config/nvim/plugins_keymaps.vim
-
-" My custom commands
-source ~/.config/nvim/custom_commands.vim
-
-" My custom functions list
-for f in split(glob('~/.config/nvim/functions/*.vim'), '\n')
-    exe 'source' f
-endfor
-
-" Lua File
-" TreeSitter
-lua << EOF
+-- TreeSitter
 require('treesitter.syntax_highlight')
 require('treesitter.incremental_selection')
 require('treesitter.indentation')
@@ -55,3 +37,11 @@ require('treesitter.textobjects')
 require('treesitter.context')
 require('treesitter.matchup')
 EOF
+
+" My custom commands
+source ~/.config/nvim/custom_commands.vim
+
+" My custom functions list
+for f in split(glob('~/.config/nvim/functions/*.vim'), '\n')
+    exe 'source' f
+endfor
