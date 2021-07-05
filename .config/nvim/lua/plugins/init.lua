@@ -130,7 +130,8 @@ require('packer').startup(function()
   use 'unblevable/quick-scope'
 
   -- for getting keybindings
-  use 'liuchengxu/vim-which-key'
+  -- use 'liuchengxu/vim-which-key'
+  use 'folke/which-key.nvim'
 
   -- switching between a single-line statement and a multi-line one
   use 'AndrewRadev/splitjoin.vim'
@@ -167,11 +168,20 @@ require('packer').startup(function()
   use 'nvim-treesitter/playground'
   use 'romgrk/nvim-treesitter-context'
 
+  -- Telescope
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
       {'nvim-lua/popup.nvim'},
       {'nvim-lua/plenary.nvim'}
+    }
+  }
+
+  -- Telescope extension for coc
+  use {
+    'fannheyward/telescope-coc.nvim',
+    requires = {
+      { 'nvim-telescope/telescope.nvim' }
     }
   }
 end)
