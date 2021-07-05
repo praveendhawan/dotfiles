@@ -34,17 +34,15 @@ require('packer').startup(function()
   -- Activate it using :FZF or ctrl + p in normal mode
   -- use 'junegunn/fzf'
   -- StatusLine
-  -- use 'itchyny/lightline.vim'
   use {
     'hoob3rt/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
+  -- Show buffer name and number is tabline
   use {
     'akinsho/nvim-bufferline.lua',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
-  -- Show buffer name and number is tabline
-  -- use 'mengelbrecht/lightline-bufferline'
 
   -- Git support for vim
   -- This ia also necessary for showing the branch in airline status bar
@@ -71,19 +69,7 @@ require('packer').startup(function()
   -- ctags mgmt
   use 'ludovicchabant/vim-gutentags'
 
-  -- Indent guide
-  -- use 'Yggdroot/indentLine'
-
-  -- Elixir Language Support
-  -- To Setup Elixir LS - https://bernheisel.com/blog/vim-elixir-ls-plug/
-  -- use 'elixir-editors/vim-elixir'
-  -- use 'slashmili/alchemist.vim'
-  -- This formatter will only work in mix projects
-  -- use 'mhinz/vim-mix-format'
-
-  -- selecting ruby blocks made easy
-  -- use 'kana/vim-textobj-user'
-  -- use 'nelstrom/vim-textobj-rubyblock'
+  -- Match Word Jump and Highlights
   use 'andymass/vim-matchup'
 
   -- New Autocomplete Framework
@@ -92,15 +78,9 @@ require('packer').startup(function()
   -- Then Install coc plugin - https://www.npmjs.com/package/coc-solargraph - ':CocInstall coc-solargraph'
   -- To Setup Elixir LS - https://bernheisel.com/blog/vim-elixir-ls-plug/
   use { 'neoclide/coc.nvim', branch = 'release' }
-  -- use 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash ./install.sh' }
-  -- use 'Shougo/deoplete.nvim'
-
-  -- use 'natebosch/vim-lsc'
-  -- use 'ajh17/VimCompletesMe'
 
   -- For Linting and Fixing
   use 'dense-analysis/ale'
-  -- use 'maximbaz/lightline-ale'
 
   -- Dash support plugin for vim
   -- NOTE: Only works on mac as Dash is only on Mac
@@ -114,12 +94,6 @@ require('packer').startup(function()
   use 'romainl/vim-qf'
 
   -- Colorschemes for Vim
-  -- NeoSolarized theme for vimr
-  -- use 'iCyMind/NeoSolarized'
-  -- Kuroi
-  use 'aonemd/kuroi.vim'
-  -- Monokai
-  -- use 'sickill/vim-monokai'
   -- Seti
   use 'trusktr/seti.vim'
 
@@ -129,29 +103,14 @@ require('packer').startup(function()
   -- quick scope for jumping to words in line
   use 'unblevable/quick-scope'
 
-  -- for getting keybindings
-  -- use 'liuchengxu/vim-which-key'
-  use 'folke/which-key.nvim'
-
   -- switching between a single-line statement and a multi-line one
   use 'AndrewRadev/splitjoin.vim'
 
-  -- Aerojump
-  -- use 'ripxorip/aerojump.nvim'
-
-  -- Vista.vim
-  -- use 'liuchengxu/vista.vim'
-
-  -- Codi vim
-  -- use 'metakirby5/codi.vim'
   -- ScratchPad for VIm
   use 'mtth/scratch.vim'
 
   -- Comment
   use 'tpope/vim-commentary'
-
-  -- Context
-  -- use 'wellle/context.vim'
 
   -- Running Tests in vim
   use 'vim-test/vim-test'
