@@ -126,6 +126,7 @@ require('packer').startup(function()
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'nvim-treesitter/playground'
   use 'romgrk/nvim-treesitter-context'
+  use 'nvim-treesitter/nvim-treesitter-refactor'
 
   -- Telescope
   use {

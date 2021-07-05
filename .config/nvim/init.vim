@@ -24,6 +24,7 @@ require('plugins.config.telescope_coc')
 require('plugins.config.treesitter.context')
 require('plugins.config.treesitter.indentation')
 require('plugins.config.treesitter.matchup')
+require('plugins.config.treesitter.refactor')
 require('plugins.config.treesitter.syntax_highlight')
 require('plugins.config.vim_test')
 -- Plugings Keybindings
