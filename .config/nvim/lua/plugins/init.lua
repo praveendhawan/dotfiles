@@ -45,9 +45,15 @@ require('packer').startup(function()
   -- This ia also necessary for showing the branch in airline status bar
   use 'tpope/vim-fugitive'
   -- Enables Gbrowse from Gblame
-  use 'tpope/vim-rhubarb'
+  -- use 'tpope/vim-rhubarb'
   -- Git gutter
-  use 'mhinz/vim-signify'
+  -- use 'mhinz/vim-signify'
+  use {
+  'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    }
+  }
 
   -- Fix trailing Whitespace and highlight whitespace
   use 'bronson/vim-trailing-whitespace'

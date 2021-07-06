@@ -143,9 +143,11 @@ ins_left {
 }
 
 ins_right {
-  'branch',
+  -- 'branch'
+  -- From gitsigns plugin
+  function() return vim.b.gitsigns_head end,
   icon = '',
-  condition = conditions.check_git_workspace,
+  -- condition = conditions.check_git_workspace,
   color = {fg = colors.violet, gui = 'bold'}
 }
 
