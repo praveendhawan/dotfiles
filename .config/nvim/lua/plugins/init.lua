@@ -30,9 +30,6 @@ require('packer').startup(function()
   use 'kyazdani42/nvim-tree.lua'
   -- Web DevIcons
   use 'kyazdani42/nvim-web-devicons'
-  -- Fuzzy File Finder
-  -- Activate it using :FZF or ctrl + p in normal mode
-  -- use 'junegunn/fzf'
   -- StatusLine
   use {
     'hoob3rt/lualine.nvim',
@@ -57,11 +54,6 @@ require('packer').startup(function()
 
   -- coffeescript support (syntax) etc.
   use 'kchmck/vim-coffee-script'
-
-  -- to run grep asynchronously
-  -- use 'mhinz/vim-grepper'
-  -- use 'jremmen/vim-ripgrep'
-  -- use 'dyng/ctrlsf.vim'
 
   -- add 'end' to def, if, do etc.
   -- use 'tpope/vim-endwise'
@@ -96,9 +88,6 @@ require('packer').startup(function()
   -- Colorschemes for Vim
   -- Seti
   use 'trusktr/seti.vim'
-
-  -- Vader for vim script tests
-  use 'junegunn/vader.vim'
 
   -- quick scope for jumping to words in line
   use 'unblevable/quick-scope'
