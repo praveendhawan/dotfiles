@@ -42,12 +42,15 @@ require('packer').startup(function()
   }
 
   -- Git support for vim
-  -- This ia also necessary for showing the branch in airline status bar
-  use 'tpope/vim-fugitive'
-  -- Enables Gbrowse from Gblame
-  -- use 'tpope/vim-rhubarb'
-  -- Git gutter
-  -- use 'mhinz/vim-signify'
+  use {
+    'TimUntersberger/neogit',
+    requires = {
+      {'nvim-lua/plenary.nvim' },
+      { 'sindrets/diffview.nvim' }
+    }
+  }
+
+  -- Git Gutter
   use {
   'lewis6991/gitsigns.nvim',
     requires = {
