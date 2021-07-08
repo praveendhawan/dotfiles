@@ -41,6 +41,8 @@ require('plugins.keybindings.vim_test')
 require('treesitter.incremental_selection')
 require('treesitter.playground')
 require('treesitter.textobjects')
+-- Functions
+require('functions.gbrowse')
 EOF
 
 " My custom commands
