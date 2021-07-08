@@ -142,4 +142,12 @@ require('packer').startup(function()
       { 'nvim-telescope/telescope.nvim' }
     }
   }
+
+  use {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    requires = {
+      { 'nvim-telescope/telescope.nvim' }
+    },
+    run = 'make'
+  }
 end)
