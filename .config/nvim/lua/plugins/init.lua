@@ -35,6 +35,8 @@ require('packer').startup(function()
     'hoob3rt/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
+  -- LSP Status
+  use 'nvim-lua/lsp-status.nvim'
   -- Show buffer name and number is tabline
   use {
     'akinsho/nvim-bufferline.lua',
@@ -73,12 +75,9 @@ require('packer').startup(function()
   -- Match Word Jump and Highlights
   use 'andymass/vim-matchup'
 
-  -- New Autocomplete Framework
-  -- Install Node and yarn first
-  -- For ruby completion do - 'gem install solargraph'
-  -- Then Install coc plugin - https://www.npmjs.com/package/coc-solargraph - ':CocInstall coc-solargraph'
-  -- To Setup Elixir LS - https://bernheisel.com/blog/vim-elixir-ls-plug/
-  use { 'neoclide/coc.nvim', branch = 'release' }
+  -- New Autocomplete Framework + LSP
+  use 'neovim/nvim-lspconfig'
+  use 'hrsh7th/nvim-compe'
 
   -- For Linting and Fixing
   use 'dense-analysis/ale'
@@ -139,14 +138,6 @@ require('packer').startup(function()
     requires = {
       {'nvim-lua/popup.nvim'},
       {'nvim-lua/plenary.nvim'}
-    }
-  }
-
-  -- Telescope extension for coc
-  use {
-    'fannheyward/telescope-coc.nvim',
-    requires = {
-      { 'nvim-telescope/telescope.nvim' }
     }
   }
 

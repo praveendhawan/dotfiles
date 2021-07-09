@@ -3,6 +3,9 @@
 -- Credit: glepnir
 -- https://gist.github.com/hoob3rt/b200435a765ca18f09f83580a606b878
 local lualine = require 'lualine'
+-- LSP Status Line (coc#status)
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
 
 -- Color table for highlights
 local colors = {
@@ -125,9 +128,40 @@ ins_left {'location'}
 
 ins_left {'progress', color = {fg = colors.fg, gui = 'bold'}}
 
+ins_left {
+  -- Lsp server name .
+  function()
+    local msg = 'No Active Lsp'
+    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+    local clients = vim.lsp.get_active_clients()
+    if next(clients) == nil then return msg end
+    for _, client in ipairs(clients) do
+      local filetypes = client.config.filetypes
+      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+        return client.name
+      end
+    end
+    return msg
+  end,
+  icon = ' LSP:',
+  color = {fg = '#ffffff', gui = 'bold'}
+}
+
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
 ins_left {function() return '%=' end}
+
+ins_right {
+  -- LSP Status and Messages
+  function()
+    local msg = ''
+    if #vim.lsp.buf_get_clients() > 0 then
+      return lsp_status.status()
+    end
+    return msg
+  end,
+  color = {fg = '#ffffff'}
+}
 
 ins_right {
   'diagnostics',
@@ -136,10 +170,6 @@ ins_right {
   color_error = colors.red,
   color_warn = colors.yellow,
   color_info = colors.cyan
-}
-
-ins_left {
-  'coc#status'
 }
 
 ins_right {
