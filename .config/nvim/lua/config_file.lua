@@ -16,6 +16,8 @@ config.list = {
   'plugins.config.gitsigns',
   'plugins.config.gutentags',
   'plugins.config.lsp',
+  'plugins.config.lsp.lsp_install',
+  'plugins.config.lsp.lua',
   'plugins.config.lsp.ruby',
   'plugins.config.lualine',
   'plugins.config.matchup',

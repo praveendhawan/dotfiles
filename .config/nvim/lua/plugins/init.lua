@@ -77,6 +77,7 @@ require('packer').startup(function()
 
   -- New Autocomplete Framework + LSP
   use 'neovim/nvim-lspconfig'
+  use 'kabouzeid/nvim-lspinstall'
   use 'hrsh7th/nvim-compe'
 
   -- For Linting and Fixing
