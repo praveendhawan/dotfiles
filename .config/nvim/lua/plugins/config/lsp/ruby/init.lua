@@ -1,22 +1,19 @@
-local lsp_status = require('lsp-status')
-lsp_status.register_progress()
-local root_pattern = require('lspconfig/util').root_pattern()
-local on_attach = function(client, _)
-  lsp_status.on_attach(client)
-end
+local lsp_utils = require('plugins.config.lsp.utils')
 
-require("lspconfig").solargraph.setup {
+lsp_utils.lsp_status_progress()
+
+local root_pattern = require('lspconfig/util').root_pattern()
+
+lsp_utils.lspconfig.solargraph.setup {
   -- Set default client capabilities plus window/workDoneProgress
-  capabilities = vim.tbl_extend('keep', {}, lsp_status.capabilities),
+  capabilities = lsp_utils.common_config.capabilities,
   cmd = { 'solargraph', 'stdio' },
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = lsp_utils.common_config.flags,
   filetypes = { "ruby" },
   init_options = {
     formatting = true
   },
-  on_attach = on_attach,
+  on_attach = lsp_utils.on_attach,
   root_dir = root_pattern("Gemfile", ".git"),
   settings = {
     solargraph = {

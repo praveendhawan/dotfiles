@@ -1,13 +1,6 @@
-local lspconfig = require('lspconfig')
+local lsp_utils = require('plugins.config.lsp.utils')
 
--- For Status Line
-local lsp_status = require('lsp-status')
-lsp_status.register_progress()
-
-local on_attach = function(client, _)
-  lsp_status.on_attach(client)
-end
-
+lsp_utils.lsp_status_progress()
 
 -- set the path to the sumneko installation;
 -- Installed by LspInstall lua
@@ -15,15 +8,13 @@ local sumneko_root_path = vim.fn.stdpath('data') .. '/lspinstall/lua'
 
 local sumneko_binary = sumneko_root_path .. '/sumneko-lua-language-server'
 
-lspconfig.sumneko_lua.setup {
+lsp_utils.lspconfig.sumneko_lua.setup {
   -- Set default client capabilities plus window/workDoneProgress
-  capabilities = vim.tbl_extend('keep', {}, lsp_status.capabilities),
+  capabilities = lsp_utils.common_config.capabilities,
   cmd = { sumneko_binary };
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = lsp_utils.common_config.flags,
   filetypes = { 'lua' },
-  on_attach = on_attach,
+  on_attach = lsp_utils.on_attach,
   settings = {
     Lua = {
       runtime = {
