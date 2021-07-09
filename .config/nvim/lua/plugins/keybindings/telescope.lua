@@ -5,7 +5,7 @@ local noremap_silent_opt = { noremap = true, silent = true}
 vim.api.nvim_set_keymap(
   'n',
   '<C-p>',
-  '<cmd>lua require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({}))<cr>',
+  '<cmd>lua require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({previewer = false}))<cr>',
   noremap_silent_opt
 )
 -- \af For finding something in current buffer
@@ -26,7 +26,7 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
   'n',
   '<leader>b',
-  '<cmd>lua require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({}))<cr>',
+  '<cmd>lua require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({previewer = false}))<cr>',
   noremap_silent_opt
 )
 -- \fh for help tags
