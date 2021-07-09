@@ -1,4 +1,5 @@
-vim.cmd([[
+--[[
+vim.cmd[[
   " Function to override seti highlights
   function! SetiHighlights() abort
     hi Search            ctermfg=Black ctermbg=74   cterm=NONE      guifg=Black   guibg=#4fa5c7 gui=NONE
@@ -22,4 +23,6 @@ vim.cmd([[
 
  " Set colorscheme to seti
  colorscheme seti
-]])
+]]
+--]]
+vim.cmd([[colorscheme gruvbox]])

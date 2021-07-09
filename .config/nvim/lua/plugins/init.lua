@@ -96,7 +96,14 @@ require('packer').startup(function()
 
   -- Colorschemes for Vim
   -- Seti
-  use 'trusktr/seti.vim'
+  -- use 'trusktr/seti.vim'
+  -- GruvBox
+  use {
+    "npxbr/gruvbox.nvim",
+    requires = {
+      {"rktjmp/lush.nvim"}
+    }
+  }
 
   -- quick scope for jumping to words in line
   use 'unblevable/quick-scope'
