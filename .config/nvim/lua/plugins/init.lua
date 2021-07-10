@@ -79,6 +79,7 @@ require('packer').startup(function()
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall'
   use 'hrsh7th/nvim-compe'
+  use 'L3MON4D3/LuaSnip'
 
   -- For Linting and Fixing
   use 'dense-analysis/ale'

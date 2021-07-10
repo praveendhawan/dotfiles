@@ -20,6 +20,7 @@ config.list = {
   'plugins.config.lsp.lsp_install',
   'plugins.config.lsp.lua',
   'plugins.config.lsp.ruby',
+  'plugins.config.lsp.snippets',
   'plugins.config.lualine',
   'plugins.config.matchup',
   'plugins.config.neogit',
