@@ -5,8 +5,16 @@
 local lualine = require 'lualine'
 -- LSP Status Line (coc#status)
 local lsp_status = require('lsp-status')
-lsp_status.register_progress()
+-- lsp_status config for lua line
+lsp_status.config ({
+  -- Dont show current function
+  current_function = false,
+  -- Dont Show diagnostics
+  -- We are showing diagnostics already via ale
+  diagnostics = false
+})
 
+lsp_status.register_progress()
 -- Color table for highlights
 local colors = {
   bg = '#202328',
