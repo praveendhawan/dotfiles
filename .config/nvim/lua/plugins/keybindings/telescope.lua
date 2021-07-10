@@ -5,28 +5,28 @@ local noremap_silent_opt = { noremap = true, silent = true}
 vim.api.nvim_set_keymap(
   'n',
   '<C-p>',
-  '<cmd>lua require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({previewer = false}))<cr>',
+  '<cmd>lua require("telescope.builtin").find_files()<cr>',
   noremap_silent_opt
 )
 -- \af For finding something in current buffer
 vim.api.nvim_set_keymap(
   'n',
   '<leader>af',
-  '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({}))<cr>',
+  '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<cr>',
   noremap_silent_opt
 )
 -- \g for live grep with preview
 vim.api.nvim_set_keymap(
   'n',
   '<leader>g',
-  '<cmd>lua require("telescope.builtin").live_grep(require("telescope.themes").get_dropdown({}))<cr>',
+  '<cmd>lua require("telescope.builtin").live_grep()<cr>',
   noremap_silent_opt
 )
 -- \b for switching to buffers
 vim.api.nvim_set_keymap(
   'n',
   '<leader>b',
-  '<cmd>lua require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({previewer = false}))<cr>',
+  '<cmd>lua require("telescope.builtin").buffers()<cr>',
   noremap_silent_opt
 )
 -- \fh for help tags
@@ -40,7 +40,7 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
   'n',
   '<C-f>',
-  '<cmd>lua require("telescope.builtin").grep_string(require("telescope.themes").get_dropdown({}))<cr>',
+  '<cmd>lua require("telescope.builtin").grep_string()<cr>',
   noremap_silent_opt
 )
 -- \t Treesitter symbols list of current buffer

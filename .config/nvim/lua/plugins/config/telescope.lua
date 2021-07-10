@@ -22,8 +22,6 @@ require('telescope').setup {
       "tags/.*",
     },
   },
-  -- NOTE: This Section doesnt work. I had to add theme and previewer
-  -- false in the commands defined in keybindings file.
   pickers = {
     find_files = {
       previewer = false,
