@@ -1,5 +1,7 @@
 local ls = require("luasnip")
-local parser = ls.parser.parse_snippet()
+local function parser(...)
+  ls.parser.parse_snippet(...)
+end
 
 -- some shorthands...
 --local s = ls.snippet
@@ -75,6 +77,29 @@ ls.snippets = {
     parser({ trig = 'bar' },
       [[
         bar = ProgressBar.new(${0:count})
+      ]]
+    ),
+  },
+  css = {
+    parser({ trig = 'pad', name = 'padding'}, "padding: ${0:0};"),
+    parser({ trig = 'mar', name = 'margin'}, "margin: ${0:0};"),
+    parser({ trig = 'bor', name = 'border'}, "border: ${0:0};"),
+    parser({ trig = 'dis', name = 'display'}, "display: ${0:none};"),
+    parser({ trig = 'back', name = 'background'}, "background: ${0:none};"),
+    parser({ trig = 'fon', name = 'font-family'}, "font-family: ${1:'Arial'};"),
+    parser({ trig = 'hei', name = 'height'}, "height: ${0:auto};"),
+    parser({ trig = 'wid', name = 'width'}, "width: ${0:auto};"),
+    parser({ trig = 'pos', name = 'position'}, "position: ${0:relative};"),
+    parser({ trig = 'imp', name = '!important'}, "!important $0"),
+  },
+  javascript = {
+    parser({ trig = 'con', name = 'console'}, "console.log(${0:'hi'});"),
+    parser({ trig = 'ale', name = 'alert'}, "alert(${0:'hi'});"),
+    parser({ trig = 'func', name = 'function'},
+      [[
+        function ${2:function_name} (${1:function_args}) {
+          $0
+        }
       ]]
     ),
   }
