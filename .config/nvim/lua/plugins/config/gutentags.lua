@@ -1,3 +1,6 @@
+-- set ctags directory to be used by nvim
+vim.cmd[[set tags=./tags,tags;$HOME]]
+
 vim.cmd([[
 if executable('ripper-tags')
   let g:gutentags_ctags_executable_ruby = 'ripper-tags'

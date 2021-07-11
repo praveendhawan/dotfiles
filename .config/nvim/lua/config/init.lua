@@ -1,16 +1,10 @@
 -- Super Configurations
--- Setup RTP
--- For FZF as its intalled via brew
--- vim.rtp = vim.rtp + '/usr/local/opt/fzf'
--- For lua
--- TODO: Will be removed after all config in lua
--- vim.rtp = vim.rtp + '/Users/praveen/.config/nvim/lua'
 
 -- Enable Tab completion in commands
 vim.o.wildmenu = true
 
 -- Colorscheme for vim
-vim.cmd[[colorscheme default]]
+-- vim.cmd[[colorscheme default]]
 
 -- https://apple.stackexchange.com/questions/266034/iterm2-applies-strange-color-to-vims-default
 vim.o.termguicolors = true
@@ -30,9 +24,6 @@ vim.o.list = true
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
-
--- set ctags directory to be used by nvim
-vim.cmd[[set tags=./tags,tags;$HOME]]
 
 -- show line numbers
 vim.o.number = true
@@ -78,9 +69,6 @@ vim.o.mouse = "a"
 --Decrease update time
 vim.o.updatetime = 100
 
--- For which key - if there are no further keystrokes within this time the
--- guide will pop up after pressing the key to get keybindings
-vim.o.timeoutlen= 500
-
 --  Show Tabline to show buffer name on top
-vim.o.showtabline = 2
+--  Handled by bufferline plugin
+-- vim.o.showtabline = 2
