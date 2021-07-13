@@ -42,6 +42,10 @@ require('telescope').setup {
     },
     grep_string = {
       theme = 'dropdown'
+    },
+    keymaps = {
+      theme = 'dropdown',
+      previewer = false
     }
   }
 }

@@ -50,3 +50,11 @@ vim.api.nvim_set_keymap(
 '<cmd>lua require("telescope.builtin").treesitter()<cr>',
 noremap_silent_opt
 )
+
+-- \t Treesitter symbols list of current buffer
+vim.api.nvim_set_keymap(
+'n',
+'<leader>k',
+'<cmd>lua require("telescope.builtin").keymaps()<cr>',
+noremap_silent_opt
+)
