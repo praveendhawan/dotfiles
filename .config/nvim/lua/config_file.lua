@@ -72,6 +72,8 @@ end
 
 -- Reload Config Function
 function config.reload()
+  vim.cmd([[LspStop]])
+  print('Stop all running LSPs')
   for _, module in pairs(config.list) do
     reloader.reload_module(module)
   end
