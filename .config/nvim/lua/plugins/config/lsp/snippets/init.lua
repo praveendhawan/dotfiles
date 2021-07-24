@@ -111,7 +111,7 @@ ls.snippets = {
       i(2, 'args'),
       t(')', '    '),
       i(0),
-      t({ '  end', 'end' })
+      t({ '', '  end', 'end' })
     }),
     -- Module
     s({ trig = 'mod'}, {
@@ -123,7 +123,7 @@ ls.snippets = {
       i(3, 'args'),
       t({ ')', '    ' }),
       i(0),
-      t({ '  end', 'end' })
+      t({ '', '  end', 'end' })
     }),
     -- def method
     s({ trig = 'def'}, {
