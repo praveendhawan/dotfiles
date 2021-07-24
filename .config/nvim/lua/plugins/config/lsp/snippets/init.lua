@@ -15,7 +15,7 @@ local c = ls.choice_node
 -- Snip Create Guide
 -- 1. Special char doesnt work - like \n
 --    To do this have multiple strings in text_node
---    like t('', ' yo') = "\n yo"
+--    like t({ '', ' yo' }) = "\n yo"
 -- 2. Jumplist starts from 1...n jumpable by tab
 --    0 is exit node, it doesnt support placeholder
 -- 3. Reuse snippets of one language to another
@@ -32,131 +32,115 @@ ls.snippets = {
   lua = {
     -- function
     s({ trig = 'fun' }, {
-        t('function '),
-        i(1, 'function_name'),
-        t({ '()', '  ' }),
-        i(0),
-        t({ '', 'end' })
-      }
-    )
+      t('function '),
+      i(1, 'function_name'),
+      t({ '()', '  ' }),
+      i(0),
+      t({ '', 'end' })
+    })
   },
   ruby = {
     s({ trig = 'fsl' }, { t("# frozen_string_literal: true") }),
     -- all? { |JP1| JP2 }
     s({ trig = 'all' }, {
-        t("all? { |"), i(1, 'block_args'),
-        t("| "), i(0),
-        t("}")
-      }
-    ),
+      t("all? { |"), i(1, 'block_args'),
+      t("| "), i(0),
+      t("}")
+    }),
     -- any? { |JP1| JP2 }
     s({ trig = 'any' }, {
-        t("any? { |"), i(1, 'block_args'),
-        t("| "), i(0),
-        t("}")
-      }
-    ),
+      t("any? { |"), i(1, 'block_args'),
+      t("| "), i(0),
+      t("}")
+    }),
     -- map { |JP1| JP2 }
     s({ trig = 'map' }, {
-        t("map { |"), i(1, 'block_args'),
-        t("| "), i(0),
-        t("}")
-      }
-    ),
+      t("map { |"), i(1, 'block_args'),
+      t("| "), i(0),
+      t("}")
+    }),
     -- alias_method :JP1, :JP2
     s({ trig = 'ali' }, {
-        t("alias_method :"), i(1, "new_name"),
-        t(", :"), i(2, 'old_name'), i(0)
-      }
-    ),
+      t("alias_method :"), i(1, "new_name"),
+      t(", :"), i(2, 'old_name'), i(0)
+    }),
     -- attr_reader :JP1
     s({ trig = 'attrr' }, {
-        t("attr_reader :"), i(1, "attribute_name"), i(0)
-      }
-    ),
+      t("attr_reader :"), i(1, "attribute_name"), i(0)
+    }),
     -- attr_accessor :JP1
     s({ trig = 'attra' }, {
-        t("attr_accessor :"), i(1, "attribute_name"), i(0)
-      }
-    ),
+      t("attr_accessor :"), i(1, "attribute_name"), i(0)
+    }),
     -- attr_accessor :JP1
     s({ trig = 'attrw' }, {
-        t("attr_writer :"), i(1, "attribute_name"), i(0)
-      }
-    ),
+      t("attr_writer :"), i(1, "attribute_name"), i(0)
+    }),
     -- require 'JP1'
     s({ trig = 'req' }, {
-        t("require '"), i(1, "module_name"), t("'"), i(0)
-      }
-    ),
+      t("require '"), i(1, "module_name"), t("'"), i(0)
+    }),
     -- require_relative 'JP1'
     s({ trig = 'reqr' }, {
-        t("require_relative '"), i(1, "module_name"), t("'"), i(0)
-      }
-    ),
+      t("require_relative '"), i(1, "module_name"), t("'"), i(0)
+    }),
     -- Connection execute
     s({ trig = 'conne' }, {
-        t("ActiveRecord::Base.connection."),
-        c(1, {
-          t("execute("),
-          t("select_values("),
-          t("select_rows("),
-          t("select_value(")
-        }),
-        i(2, "raw_sql_string"),
-        t(")"),
-        i(0)
-      }
-    ),
+      t("ActiveRecord::Base.connection."),
+      c(1, {
+        t("execute("),
+        t("select_values("),
+        t("select_rows("),
+        t("select_value(")
+      }),
+      i(2, "raw_sql_string"),
+      t(")"),
+      i(0)
+    }),
     -- Transaction
     s({ trig = 'trans'}, {
-        t("ActiveRecord::Base.transaction do", '  '),
-        i(0),
-        t("end")
-      }
-    ),
+      t({ "ActiveRecord::Base.transaction do", '  ' }),
+      i(0),
+      t("end")
+    }),
     -- Class
     s({ trig = 'cla'}, {
-        t("class "),
-        i(1, "ClassName"),
-        t('', "  def initialize("),
-        i(2, 'args'),
-        t(')', '    '),
-        i(0),
-        t('  end', 'end')
-      }
-    ),
+      t("class "),
+      i(1, "ClassName"),
+      t({ '', "  def initialize(" }),
+      i(2, 'args'),
+      t(')', '    '),
+      i(0),
+      t({ '  end', 'end' })
+    }),
     -- Module
     s({ trig = 'mod'}, {
-        t("module "),
-        i(1, "ModuleName"),
-        t('', "  def "),
-        i(2, "method_name"),
-        t('('),
-        i(3, 'args'),
-        t(')', '    '),
-        i(0),
-        t('  end', 'end')
-      }
-    ),
+      t("module "),
+      i(1, "ModuleName"),
+      t({ '', "  def " }),
+      i(2, "method_name"),
+      t('('),
+      i(3, 'args'),
+      t({ ')', '    ' }),
+      i(0),
+      t({ '  end', 'end' })
+    }),
     -- def method
     s({ trig = 'def'}, {
-        t("def "),
-        i(1, 'method_name'),
-        t('('),
-        i(2, 'args'),
-        t({')', '  '}),
-        i(0),
-        t({'', 'end'})
-      }
-    ),
+      t("def "),
+      i(1, 'method_name'),
+      t('('),
+      i(2, 'args'),
+      t({ ')', '  ' }),
+      i(0),
+      t({ '', 'end' })
+    }),
     -- progress bar
     s({ trig = 'bar'}, {
-        t("bar = ProgressBar.new("),
-        i(0, 'count'),
-        t(')')
-      }
-    ),
+      t("bar = ProgressBar.new("),
+      i(0, 'count'),
+      t(')')
+    }),
   },
   css = {
     s({ trig = 'pad', name = 'padding'}, { t("padding: "), i(1, '0'), t(';'), i(0) }),
@@ -179,7 +163,7 @@ ls.snippets = {
       i(1, 'function_name'),
       t('('),
       i(2, 'function_args'),
-      t(') {', '  '),
+      t({ ') {', '  ' }),
       i(0),
       t('}')
     }),
