@@ -53,12 +53,18 @@ end
 -- Use (s-)tab to:
 --- move to prev/next item in completion menuone
 --- jump to prev/next snippet's placeholder
-local luasnip = require 'luasnip'
+local function prequire(...)
+    local status, lib = pcall(require, ...)
+    if (status) then return lib end
+    return nil
+end
+
+local luasnip = prequire('luasnip')
 
 _G.tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t '<C-n>'
-  elseif luasnip.expand_or_jumpable() then
+  elseif luasnip and luasnip.expand_or_jumpable() then
     return t '<Plug>luasnip-expand-or-jump'
   elseif check_back_space() then
     return t '<Tab>'
@@ -70,7 +76,7 @@ end
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t '<C-p>'
-  elseif luasnip.jumpable(-1) then
+  elseif luasnip and luasnip.jumpable(-1) then
     return t '<Plug>luasnip-jump-prev'
   else
     return t '<S-Tab>'
@@ -84,5 +90,5 @@ vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.s_tab_complete()', { expr = true 
 vim.api.nvim_set_keymap('s', '<S-Tab>', 'v:lua.s_tab_complete()', { expr = true })
 
 -- Map compe confirm and complete functions
-vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true })
-vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true })
+vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true, silent = true })
+vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true, silent = true })
