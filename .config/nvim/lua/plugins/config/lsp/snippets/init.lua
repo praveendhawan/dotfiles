@@ -1,7 +1,4 @@
 local ls = require("luasnip")
-local function parser(...)
-  ls.parser.parse_snippet(...)
-end
 
 -- some shorthands...
 local s = ls.snippet

@@ -92,3 +92,7 @@ vim.api.nvim_set_keymap('s', '<S-Tab>', 'v:lua.s_tab_complete()', { expr = true 
 -- Map compe confirm and complete functions
 vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true, silent = true })
 vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true, silent = true })
+
+-- Map luasnip choice completion
+vim.api.nvim_set_keymap('i', '<c-e>', 'luasnip#choice_active() ? "<Plug>luasnip-next-choice" : "<c-e>"', { expr = true, silent = true })
+vim.api.nvim_set_keymap('s', '<c-e>', 'luasnip#choice_active() ? "<Plug>luasnip-next-choice" : "<c-e>"', { expr = true, silent = true })
