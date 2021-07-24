@@ -185,3 +185,10 @@ ls.snippets = {
     }),
   }
 }
+
+-- Reuse css snippets in scss files
+ls.snippets.scss = ls.snippets.css
+-- Reuse javascript snippets in vue files
+ls.snippets.vue = ls.snippets.javascript
+-- Reuse javascript snippets in coffee files
+ls.snippets.coffee = ls.snippets.javascript
