@@ -11,6 +11,16 @@ local i = ls.insert_node
 -- local f = ls.function_node
 local c = ls.choice_node
 -- local d = ls.dynamic_node
+--
+-- Snip Create Guide
+-- 1. Special char doesnt work - like \n
+--    To do this have multiple strings in text_node
+--    like t('', ' yo') = "\n yo"
+-- 2. Jumplist starts from 1...n jumpable by tab
+--    0 is exit node, it doesnt support placeholder
+-- 3. Reuse snippets of one language to another
+--    ls.snippets.scss = ls.snippets.css
+--    This should be done after the snippets are defined
 
 ls.snippets = {
   all = {
