@@ -25,4 +25,6 @@ vim.cmd[[
  colorscheme seti
 ]]
 --]]
-vim.cmd([[colorscheme gruvbox]])
+-- vim.cmd([[colorscheme gruvbox]])
+vim.cmd([[colorscheme tokyonight]])
+vim.g.tokyonight_style = "night"

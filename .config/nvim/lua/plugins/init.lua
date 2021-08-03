@@ -106,6 +106,8 @@ require('packer').startup(function()
     }
   }
 
+  use { 'folke/tokyonight.nvim' }
+
   -- quick scope for jumping to words in line
   use 'unblevable/quick-scope'
 
@@ -150,4 +152,7 @@ require('packer').startup(function()
     },
     run = 'make'
   }
+
+  use { 'folke/zen-mode.nvim' }
+  use { 'folke/twilight.nvim' }
 end)
