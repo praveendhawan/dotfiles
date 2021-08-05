@@ -5,7 +5,7 @@ local noremap_silent_opt = { noremap = true, silent = true}
 vim.api.nvim_set_keymap(
   'n',
   '<C-p>',
-  '<cmd>lua require("telescope.builtin").find_files()<cr>',
+  "<cmd>lua require('telescope').extensions.fzf_writer.files(require('telescope.themes').get_dropdown({ preview = false }))<cr>",
   noremap_silent_opt
 )
 -- \af For finding something in current buffer
@@ -58,3 +58,28 @@ vim.api.nvim_set_keymap(
 '<cmd>lua require("telescope.builtin").keymaps()<cr>',
 noremap_silent_opt
 )
+
+-- \gl Lists git commits with diff preview
+vim.api.nvim_set_keymap(
+'n',
+'<leader>gl',
+'<cmd>lua require("telescope.builtin").git_commits()<cr>',
+noremap_silent_opt
+)
+
+-- \gb Lists git commits with diff preview for the buffer
+vim.api.nvim_set_keymap(
+'n',
+'<leader>gbl',
+'<cmd>lua require("telescope.builtin").git_bcommits()<cr>',
+noremap_silent_opt
+)
+
+-- \gbr Lists all branches with log preview
+vim.api.nvim_set_keymap(
+'n',
+'<leader>gbr',
+'<cmd>lua require("telescope.builtin").git_bcommits()<cr>',
+noremap_silent_opt
+)
+
