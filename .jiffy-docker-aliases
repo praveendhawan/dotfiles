@@ -77,6 +77,10 @@ function jd_deploy() {
   dc stop rails webpacker sidekiq kibana spring
   source ~/.jiffy-deploy-env
 
+  echo " delete hard sources"
+  dc run --rm webpacker bash -l -c "rm -rf node_modules/.cache/hard-source"
+
+  echo "start deploy"
   dc run --rm \
     -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
@@ -87,6 +91,7 @@ function jd_deploy() {
 
   echo "Running yarn install"
   dc run --rm webpacker yarn install
+
   echo "Starting containers back up"
   dc start rails webpacker sidekiq kibana spring
 }
