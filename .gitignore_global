@@ -31,3 +31,4 @@ docker-compose-mac.yml
 .ruby-gemset
 .ruby-version
 .solargraph.yml
+.my_env
