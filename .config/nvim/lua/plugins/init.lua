@@ -1,5 +1,4 @@
 -- Package Managament with wbthomason/packer.nvim
-
 -- ########## BOOTSTRAP ############
 local execute = vim.api.nvim_command
 
@@ -22,121 +21,292 @@ vim.api.nvim_exec([[
 
 -- Install Packages
 local use = require('packer').use
+
+-- Improved Startup Time
+-- https://elianiva.my.id/post/improving-nvim-startup-time
 require('packer').startup(function()
   -- Install and updates self
   -- Packer
   use 'wbthomason/packer.nvim'
+  -- Used module to load it only when a plugin requires it
+  use {
+    "nvim-lua/plenary.nvim",
+    module = "plenary"
+  }
   -- Nvim Tree
-  use 'kyazdani42/nvim-tree.lua'
+  use {
+    'kyazdani42/nvim-tree.lua',
+    keys = "<Leader>e",
+    config = function()
+      require 'plugins.config.nvim_tree'
+      require 'plugins.keybindings.nvim_tree'
+    end
+  }
   -- Web DevIcons
-  use 'kyazdani42/nvim-web-devicons'
+  -- Used module to load it only when a plugin requires it
+  use {
+    'kyazdani42/nvim-web-devicons',
+    module = "nvim-web-devicons",
+    config = function()
+      require 'plugins.config.nvim_web_devicons'
+    end
+  }
   -- StatusLine
   use {
     'hoob3rt/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    requires = {'kyazdani42/nvim-web-devicons' },
+    after = { 'gitsigns.nvim', 'lsp-status.nvim' },
+    config = function()
+      require 'plugins.config.lualine'
+    end
   }
   -- LSP Status
-  use 'nvim-lua/lsp-status.nvim'
+  -- Load plugin after nvim-lspconfig & lualine is loaded
+  use {
+    'nvim-lua/lsp-status.nvim',
+  }
   -- Show buffer name and number is tabline
   use {
     'akinsho/nvim-bufferline.lua',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function()
+      require 'plugins.config.bufferline'
+    end
   }
 
-  -- Git support for vim
-  -- use {
-  --   'TimUntersberger/neogit',
-  --   requires = {
-  --     {'nvim-lua/plenary.nvim' },
-  --     { 'sindrets/diffview.nvim' }
-  --   }
-  -- }
-
   -- Git Gutter
+  -- Load plugin on buffer read event
   use {
   'lewis6991/gitsigns.nvim',
     requires = {
       'nvim-lua/plenary.nvim'
-    }
+    },
+    config = function()
+      require 'plugins.config.gitsigns'
+    end
   }
 
-  use { 'kdheepak/lazygit.nvim' }
+  -- Lazygit
+  -- Load plugin on buffer read event and when its called via cmd or keys
+  use {
+    'kdheepak/lazygit.nvim',
+    event = "BufRead",
+    cmd = { "Lazygit", "LazyGitConfig" },
+    keys = "<leader>gg",
+    config = function()
+      require 'plugins.keybindings.lazygit'
+    end
+  }
 
   -- Fix trailing Whitespace and highlight whitespace
-  use 'bronson/vim-trailing-whitespace'
+  -- Load plugin on buffer read event and when its called via cmd or keys
+  use {
+    'bronson/vim-trailing-whitespace',
+    event = "BufRead",
+    cmd = "FixWhitespace"
+  }
 
   -- coffeescript support (syntax) etc.
-  use 'kchmck/vim-coffee-script'
+  -- Load plugin only for coffee filetype
+  use {
+    'kchmck/vim-coffee-script',
+    ft = 'coffee'
+  }
 
   -- add 'end' to def, if, do etc.
   -- use 'tpope/vim-endwise'
 
   -- ctags mgmt
-  use 'ludovicchabant/vim-gutentags'
+  use {
+    'ludovicchabant/vim-gutentags',
+    event = { "BufReadPost", "BufWritePost" },
+    config = function()
+      require 'plugins.config.gutentags'
+    end
+  }
 
   -- Match Word Jump and Highlights
-  use 'andymass/vim-matchup'
+  use {
+    'andymass/vim-matchup',
+    event = "BufRead",
+    after = "nvim-treesitter",
+    config = function()
+      require 'plugins.config.matchup'
+      require 'plugins.config.treesitter.matchup'
+    end
+  }
 
   -- New Autocomplete Framework + LSP
-  use 'neovim/nvim-lspconfig'
-  use 'kabouzeid/nvim-lspinstall'
-  use 'hrsh7th/nvim-compe'
-  use 'L3MON4D3/LuaSnip'
+  use {
+    'neovim/nvim-lspconfig',
+    config = function()
+      require 'plugins.config.lsp'
+      require 'plugins.config.lsp.bash'
+      require 'plugins.config.lsp.css'
+      require 'plugins.config.lsp.dockerfile'
+      require 'plugins.config.lsp.elixir'
+      require 'plugins.config.lsp.lua'
+      require 'plugins.config.lsp.ruby'
+      require 'plugins.config.lsp.rust'
+      require 'plugins.config.lsp.typescript'
+      require 'plugins.keybindings.lsp'
+    end
+  }
+  use {
+    'kabouzeid/nvim-lspinstall',
+    after = 'nvim-lspconfig',
+    config = function()
+      require 'plugins.config.lsp.lsp_install'
+    end
+  }
+  use {
+    'hrsh7th/nvim-compe',
+    event = "InsertEnter",
+    after = "nvim-lspconfig",
+    config = function()
+      require 'plugins.config.lsp.compe'
+    end
+  }
+  use {
+    'L3MON4D3/LuaSnip',
+    after = "nvim-compe",
+    config = function()
+      require 'plugins.config.lsp.snippets'
+    end
+  }
 
   -- For Linting and Fixing
-  use 'dense-analysis/ale'
+  use {
+    'dense-analysis/ale',
+    event = "BufRead",
+    config = function()
+      require 'plugins.config.ale'
+    end
+  }
 
   -- Dash support plugin for vim
   -- NOTE: Only works on mac as Dash is only on Mac
-  use 'rizzatti/dash.vim'
+  use { 'rizzatti/dash.vim' }
 
   -- Vue JS syntax
-  use 'posva/vim-vue'
+  use { 'posva/vim-vue', ft = "vue" }
 
 
   -- Taming the quickfix window :)
-  use 'romainl/vim-qf'
+  use { 'romainl/vim-qf', ft = "qf" }
 
   -- Colorschemes for Vim
   -- Seti
   -- use 'trusktr/seti.vim'
   -- GruvBox
+  -- use {
+  --   "npxbr/gruvbox.nvim",
+  --   requires = {
+  --     {"rktjmp/lush.nvim"}
+  --   }
+  -- }
+
   use {
-    "npxbr/gruvbox.nvim",
-    requires = {
-      {"rktjmp/lush.nvim"}
-    }
+    'folke/tokyonight.nvim',
+    config = function()
+      require 'plugins.config.colors'
+    end
   }
 
-  use { 'folke/tokyonight.nvim' }
-
   -- quick scope for jumping to words in line
-  use 'unblevable/quick-scope'
+  -- Load plugin on calling
+  use {
+    'unblevable/quick-scope',
+    keys = "<Plug>(QuickScopeToggle)",
+    config = function()
+      require 'plugins.config.quick_scope'
+      require 'plugins.keybindings.quick_scope'
+    end
+  }
 
   -- switching between a single-line statement and a multi-line one
-  use 'AndrewRadev/splitjoin.vim'
+  -- Load plugin on calling
+  use {
+    'AndrewRadev/splitjoin.vim',
+    cmd = { "SplitjoinJoin", "SplitjoinSplit" },
+    config = function()
+      require 'plugins.config.splitjoin'
+    end
+  }
 
   -- ScratchPad for VIm
-  use 'mtth/scratch.vim'
+  -- Load plugin on calling
+  use {
+    'mtth/scratch.vim',
+    cmd = "Scratch",
+    config = function()
+      require 'plugins.config.scratch'
+    end
+  }
 
   -- Comment
   use 'tpope/vim-commentary'
 
   -- Running Tests in vim
-  use 'vim-test/vim-test'
+  -- Load plugin on calling
+  use {
+    'vim-test/vim-test',
+    cmd = { "TestFile", "TestNearest", "TestSuite", "TestVisit" },
+    config = function()
+      require 'plugins.config.vim_test'
+      require 'plugins.keybindings.vim_test'
+    end
+  }
 
   -- VIM TMUX NAVIGATOR
   use 'christoomey/vim-tmux-navigator'
 
   -- YAML Nested Key Finder
-  use 'henrik/vim-yaml-helper'
+  use { 'henrik/vim-yaml-helper', ft = "yaml" }
 
   -- Treesitter
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use { 'nvim-treesitter/playground', opt = true }
-  use 'romgrk/nvim-treesitter-context'
-  use 'nvim-treesitter/nvim-treesitter-refactor'
+  -- load it only if there’s a file loaded in a buffer
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    event = "BufRead",
+    config = function()
+      require 'plugins.config.treesitter'
+      require 'plugins.config.treesitter.folding'
+      require 'plugins.config.treesitter.indentation'
+      require 'plugins.config.treesitter.syntax_highlight'
+    end
+  }
+  use {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    after = "nvim-treesitter",
+    config = function()
+      require 'treesitter.incremental_selection'
+      require 'treesitter.textobjects'
+    end
+  }
+  use {
+    'nvim-treesitter/playground',
+    after = "nvim-treesitter",
+    cmd = "TSPlaygroundToggle",
+    config = function()
+      require 'treesitter.playground'
+    end
+  }
+  use {
+    'romgrk/nvim-treesitter-context',
+    after = "nvim-treesitter",
+    config = function()
+      require 'plugins.config.treesitter.context'
+    end
+  }
+  use {
+    'nvim-treesitter/nvim-treesitter-refactor',
+    after = "nvim-treesitter",
+    config = function()
+      require 'plugins.config.treesitter.refactor'
+    end
+  }
 
   -- Telescope
   use {
@@ -144,14 +314,22 @@ require('packer').startup(function()
     requires = {
       {'nvim-lua/popup.nvim'},
       {'nvim-lua/plenary.nvim'}
-    }
+    },
+    config = function()
+      require 'plugins.config.telescope'
+      require 'plugins.keybindings.telescope'
+    end
   }
 
   use {
     'nvim-telescope/telescope-fzf-writer.nvim',
     requires = {
       { 'nvim-telescope/telescope.nvim' }
-    }
+    },
+    after = "telescope.nvim",
+    config = function()
+      require 'plugins.config.telescope_fzf_writer'
+    end
   }
 
   use {
@@ -159,7 +337,11 @@ require('packer').startup(function()
     requires = {
       { 'nvim-telescope/telescope.nvim' }
     },
-    run = 'make'
+    run = 'make',
+    after = "telescope.nvim",
+    config = function()
+      require 'plugins.config.telescope_fzf_native'
+    end
   }
 
   use { 'folke/zen-mode.nvim' }
