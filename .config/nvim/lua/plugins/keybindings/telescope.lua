@@ -18,7 +18,7 @@ vim.api.nvim_set_keymap(
 -- \g for live grep with preview
 vim.api.nvim_set_keymap(
   'n',
-  '<leader>g',
+  '<leader>gf',
   '<cmd>lua require("telescope.builtin").live_grep()<cr>',
   noremap_silent_opt
 )
