@@ -31,7 +31,7 @@ config.list = {
 -- LSP END
   'plugins.config.lualine',
   'plugins.config.matchup',
-  'plugins.config.neogit',
+  -- 'plugins.config.neogit',
   'plugins.config.nvim_tree',
   'plugins.config.nvim_web_devicons',
   'plugins.config.quick_scope',
@@ -48,6 +48,7 @@ config.list = {
   'plugins.config.treesitter.syntax_highlight',
   'plugins.config.vim_test',
 -- Plugings Keybindings
+  'plugins.keybindings.lazygit',
   'plugins.keybindings.lsp',
   'plugins.keybindings.quick_scope',
   'plugins.keybindings.nvim_tree',

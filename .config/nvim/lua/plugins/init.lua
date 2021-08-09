@@ -44,13 +44,13 @@ require('packer').startup(function()
   }
 
   -- Git support for vim
-  use {
-    'TimUntersberger/neogit',
-    requires = {
-      {'nvim-lua/plenary.nvim' },
-      { 'sindrets/diffview.nvim' }
-    }
-  }
+  -- use {
+  --   'TimUntersberger/neogit',
+  --   requires = {
+  --     {'nvim-lua/plenary.nvim' },
+  --     { 'sindrets/diffview.nvim' }
+  --   }
+  -- }
 
   -- Git Gutter
   use {
@@ -59,6 +59,8 @@ require('packer').startup(function()
       'nvim-lua/plenary.nvim'
     }
   }
+
+  use { 'kdheepak/lazygit.nvim' }
 
   -- Fix trailing Whitespace and highlight whitespace
   use 'bronson/vim-trailing-whitespace'
