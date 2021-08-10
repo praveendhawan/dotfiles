@@ -1,6 +1,5 @@
 local utils = {
   lspconfig = require('lspconfig'),
-  lsp_status = require('lsp-status'),
 }
 
 -- For Snippets Support
@@ -15,15 +14,15 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 function utils.lsp_status_progress()
-  utils.lsp_status.register_progress()
+  -- utils.lsp_status.register_progress()
 end
 
-function utils.on_attach(client, _)
-  utils.lsp_status.on_attach(client)
+function utils.on_attach(_client, _)
+  -- utils.lsp_status.on_attach(client)
 end
 
 utils.common_config = {
-  capabilities = vim.tbl_extend('keep', capabilities or {}, utils.lsp_status.capabilities),
+  capabilities = capabilities, -- vim.tbl_extend('keep', capabilities or {}, utils.lsp_status.capabilities),
   flags = {
     debounce_text_changes = 150,
   }

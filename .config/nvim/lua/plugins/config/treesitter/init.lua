@@ -16,5 +16,129 @@ require'nvim-treesitter.configs'.setup {
     'typescript',
     'vue',
     'yaml'
+  },
+
+  -- Highlight
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false
+  },
+  -- Incremental Selection
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+  -- Indentation for =
+  indent = {
+    enable = false
+  },
+  -- Matchup
+  matchup = {
+    enable = true              -- mandatory, false will disable the whole extension
+  },
+  -- Treesitter Refactor
+  refactor = {
+    -- Highlights definition and usages of the current symbol under the cursor.
+    highlight_definitions = { enable = true },
+    -- Highlights the block from the current scope where the cursor is.
+    highlight_current_scope = { enable = true },
+    -- Renames the symbol under the cursor within the current scope (and current file).
+    smart_rename = {
+      enable = true,
+      keymaps = {
+        smart_rename = "grr",
+      },
+    },
+    -- "go to definition" for the symbol under the cursor,
+    navigation = {
+      enable = true,
+      keymaps = {
+        goto_definition = "gnd",
+        -- Somehow the below keymaps dont work
+        -- goto_next_usage = "<a-*>", -- ALT/META + *
+        -- goto_previous_usage = "<a-#>" -- ALT/META + #
+      }
+    }
+  },
+  -- Text Objects
+  textobjects = {
+    select = {
+      enable = false,
+
+      -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
+
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+    swap = {
+      enable = false,
+      swap_next = {
+        ["<leader>a"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<leader>A"] = "@parameter.inner",
+      },
+    },
+    move = {
+      enable = false,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer",
+      },
+    },
+    lsp_interop = {
+      enable = false,
+      peek_definition_code = {
+        ["df"] = "@function.outer",
+        ["dF"] = "@class.outer",
+      },
+    },
+  },
+  -- Playground
+  playground = {
+    enable = false,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
   }
 }
+-- Folding
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldenable = false

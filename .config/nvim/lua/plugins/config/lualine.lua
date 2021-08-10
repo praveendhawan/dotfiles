@@ -4,17 +4,17 @@
 -- https://gist.github.com/hoob3rt/b200435a765ca18f09f83580a606b878
 local lualine = require 'lualine'
 -- LSP Status Line (coc#status)
-local lsp_status = require('lsp-status')
--- lsp_status config for lua line
-lsp_status.config ({
-  -- Dont show current function
-  current_function = false,
-  -- Dont Show diagnostics
-  -- We are showing diagnostics already via ale
-  diagnostics = false
-})
+-- local lsp_status = require('lsp-status')
+-- -- lsp_status config for lua line
+-- lsp_status.config ({
+--   -- Dont show current function
+--   current_function = false,
+--   -- Dont Show diagnostics
+--   -- We are showing diagnostics already via ale
+--   diagnostics = false
+-- })
 
-lsp_status.register_progress()
+-- lsp_status.register_progress()
 -- Color table for highlights
 local colors = {
   bg = '#202328',
@@ -159,17 +159,17 @@ ins_left {
 -- for lualine it's any number greater then 2
 ins_left {function() return '%=' end}
 
-ins_right {
-  -- LSP Status and Messages
-  function()
-    local msg = ''
-    if #vim.lsp.buf_get_clients() > 0 then
-      return lsp_status.status()
-    end
-    return msg
-  end,
-  color = {fg = '#ffffff'}
-}
+-- ins_right {
+--   -- LSP Status and Messages
+--   function()
+--     local msg = ''
+--     if #vim.lsp.buf_get_clients() > 0 then
+--       return lsp_status.status()
+--     end
+--     return msg
+--   end,
+--   color = {fg = '#ffffff'}
+-- }
 
 ins_right {
   'diagnostics',

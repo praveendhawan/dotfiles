@@ -55,15 +55,10 @@ require('packer').startup(function()
   use {
     'hoob3rt/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons' },
-    after = { 'gitsigns.nvim', 'lsp-status.nvim' },
+    after = { 'gitsigns.nvim' },
     config = function()
       require 'plugins.config.lualine'
     end
-  }
-  -- LSP Status
-  -- Load plugin after nvim-lspconfig & lualine is loaded
-  use {
-    'nvim-lua/lsp-status.nvim',
   }
   -- Show buffer name and number is tabline
   use {
@@ -102,7 +97,7 @@ require('packer').startup(function()
   -- Load plugin on buffer read event and when its called via cmd or keys
   use {
     'bronson/vim-trailing-whitespace',
-    event = "BufRead",
+    event = "BufReadPost",
     cmd = "FixWhitespace"
   }
 
@@ -132,7 +127,6 @@ require('packer').startup(function()
     after = "nvim-treesitter",
     config = function()
       require 'plugins.config.matchup'
-      require 'plugins.config.treesitter.matchup'
     end
   }
 
@@ -231,6 +225,7 @@ require('packer').startup(function()
     cmd = { "SplitjoinJoin", "SplitjoinSplit" },
     config = function()
       require 'plugins.config.splitjoin'
+      require 'plugins.keybindings.splitjoin'
     end
   }
 
@@ -272,26 +267,15 @@ require('packer').startup(function()
     event = "BufRead",
     config = function()
       require 'plugins.config.treesitter'
-      require 'plugins.config.treesitter.folding'
-      require 'plugins.config.treesitter.indentation'
-      require 'plugins.config.treesitter.syntax_highlight'
     end
   }
   use {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    after = "nvim-treesitter",
-    config = function()
-      require 'treesitter.incremental_selection'
-      require 'treesitter.textobjects'
-    end
+    after = "nvim-treesitter"
   }
   use {
     'nvim-treesitter/playground',
-    after = "nvim-treesitter",
-    cmd = "TSPlaygroundToggle",
-    config = function()
-      require 'treesitter.playground'
-    end
+    after = "nvim-treesitter"
   }
   use {
     'romgrk/nvim-treesitter-context',
@@ -302,10 +286,7 @@ require('packer').startup(function()
   }
   use {
     'nvim-treesitter/nvim-treesitter-refactor',
-    after = "nvim-treesitter",
-    config = function()
-      require 'plugins.config.treesitter.refactor'
-    end
+    after = "nvim-treesitter"
   }
 
   -- Telescope
