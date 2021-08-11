@@ -8,20 +8,20 @@ vim.api.nvim_set_keymap(
   "<cmd>lua require('telescope').extensions.fzf_writer.files(require('telescope.themes').get_dropdown({ preview = false }))<cr>",
   noremap_silent_opt
 )
--- \af For finding something in current buffer
-vim.api.nvim_set_keymap(
-  'n',
-  '<leader>af',
-  '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<cr>',
-  noremap_silent_opt
-)
--- \g for live grep with preview
-vim.api.nvim_set_keymap(
-  'n',
-  '<leader>gf',
-  '<cmd>lua require("telescope.builtin").live_grep()<cr>',
-  noremap_silent_opt
-)
+-- -- \af For finding something in current buffer
+-- vim.api.nvim_set_keymap(
+--   'n',
+--   '<leader>af',
+--   '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<cr>',
+--   noremap_silent_opt
+-- )
+-- -- \g for live grep with preview
+-- vim.api.nvim_set_keymap(
+--   'n',
+--   '<leader>gf',
+--   '<cmd>lua require("telescope.builtin").live_grep()<cr>',
+--   noremap_silent_opt
+-- )
 -- \b for switching to buffers
 vim.api.nvim_set_keymap(
   'n',
@@ -36,13 +36,13 @@ vim.api.nvim_set_keymap(
   '<cmd>lua require("telescope.builtin").help_tags()<cr>',
   noremap_silent_opt
 )
--- Ctrl + f - Search in project
-vim.api.nvim_set_keymap(
-  'n',
-  '<C-f>',
-  '<cmd>lua require("telescope.builtin").grep_string()<cr>',
-  noremap_silent_opt
-)
+-- -- Ctrl + f - Search in project
+-- vim.api.nvim_set_keymap(
+--   'n',
+--   '<C-f>',
+--   '<cmd>lua require("telescope.builtin").grep_string()<cr>',
+--   noremap_silent_opt
+-- )
 -- \t Treesitter symbols list of current buffer
 vim.api.nvim_set_keymap(
 'n',

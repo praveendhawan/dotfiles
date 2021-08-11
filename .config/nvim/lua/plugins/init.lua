@@ -313,18 +313,39 @@ require('packer').startup(function()
     end
   }
 
+  -- Searcher/Replacer/Grepper
   use {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    requires = {
-      { 'nvim-telescope/telescope.nvim' }
-    },
-    run = 'make',
-    after = "telescope.nvim",
+    'wincent/ferret',
     config = function()
-      require 'plugins.config.telescope_fzf_native'
+      require 'plugins.config.ferret'
+      require 'plugins.keybindings.ferret'
     end
   }
 
-  use { 'folke/zen-mode.nvim' }
-  use { 'folke/twilight.nvim' }
+  -- use {
+  --   'nvim-telescope/telescope-fzf-native.nvim',
+  --   requires = {
+  --     { 'nvim-telescope/telescope.nvim' }
+  --   },
+  --   run = 'make',
+  --   after = "telescope.nvim",
+  --   config = function()
+  --     require 'plugins.config.telescope_fzf_native'
+  --   end
+  -- }
+
+  use {
+    'folke/zen-mode.nvim',
+    after = 'tokyonight.nvim',
+    config = function()
+      require("zen-mode").setup({})
+    end
+  }
+  use {
+    'folke/twilight.nvim',
+    after = 'tokyonight.nvim',
+    config = function()
+      require("twilight").setup({})
+    end
+  }
 end)
