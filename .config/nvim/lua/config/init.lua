@@ -1,8 +1,5 @@
 -- Super Configurations
 
-vim.cmd[[filetype plugin indent off]]
-vim.cmd[[syntax off]]
-
 -- Enable Tab completion in commands
 vim.o.wildmenu = true
 
