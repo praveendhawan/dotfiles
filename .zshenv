@@ -1,3 +1,4 @@
+export PATH="$PATH:$HOME/.rvm/bin"
 # Configuration based in terminal program
 if [[ $LC_TERMINAL == 'iTerm2' ]]; then
   export ZSH_TMUX_ITERM2="true"
@@ -10,6 +11,3 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 # adding config for default options
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --ansi'
 export FZF_DEFAULT_COMMAND='fd -H -I --type f --color=always'
-
-source "$HOME/.cargo/env"
-. "$HOME/.cargo/env"

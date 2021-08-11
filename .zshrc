@@ -132,15 +132,11 @@ export HOMEBREW_NO_ANALYTICS=1
 # for elixir iex session history configs
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-# added by vim autocomplete plugin - coc
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
 if [ -f /usr/local/bin/component_tree/bin/ctree ]; then
   export PATH="$PATH:/usr/local/bin/component_tree/bin"
 else
   git clone git@github.com:shkrt/component_tree.git /usr/local/bin/component_tree
   chmod a+x /usr/local/bin/component_tree/bin/ctree
-  echo 'export PATH="$PATH:/usr/local/bin/component_tree/bin"' >> ~/.zshrc
   source ~/.zshrc
 fi
 export PATH="/usr/local/sbin:$PATH"
@@ -166,3 +162,6 @@ codi() {
     hi NonText ctermfg=0 |\
     Codi $syntax" "$@"
 }
+# Load RVM into a shell session *as a function
+# SHOULD BE LAST LINE IN ZSH
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
