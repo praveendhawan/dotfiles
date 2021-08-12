@@ -85,7 +85,6 @@ require('packer').startup(function()
   -- Load plugin on buffer read event and when its called via cmd or keys
   use {
     'kdheepak/lazygit.nvim',
-    event = "BufRead",
     cmd = { "Lazygit", "LazyGitConfig" },
     keys = "<leader>gg",
     config = function()
@@ -123,7 +122,6 @@ require('packer').startup(function()
   -- Match Word Jump and Highlights
   use {
     'andymass/vim-matchup',
-    event = "BufRead",
     after = "nvim-treesitter",
     config = function()
       require 'plugins.config.matchup'
@@ -172,7 +170,7 @@ require('packer').startup(function()
   -- For Linting and Fixing
   use {
     'dense-analysis/ale',
-    event = "BufRead",
+    event = "BufReadPost",
     config = function()
       require 'plugins.config.ale'
     end
@@ -275,6 +273,7 @@ require('packer').startup(function()
   }
   use {
     'nvim-treesitter/playground',
+    cmd = { 'TSPlaygroundToggle' },
     after = "nvim-treesitter"
   }
   use {
@@ -316,6 +315,8 @@ require('packer').startup(function()
   -- Searcher/Replacer/Grepper
   use {
     'wincent/ferret',
+    cmd = { 'Ack', 'Ack!', 'Lack', 'Lack!' },
+    keys = { '<C-f>' },
     config = function()
       require 'plugins.config.ferret'
       require 'plugins.keybindings.ferret'
@@ -337,6 +338,7 @@ require('packer').startup(function()
   use {
     'folke/zen-mode.nvim',
     after = 'tokyonight.nvim',
+    cmd = { 'ZenMode' },
     config = function()
       require("zen-mode").setup({})
     end
@@ -344,6 +346,7 @@ require('packer').startup(function()
   use {
     'folke/twilight.nvim',
     after = 'tokyonight.nvim',
+    cmd = { 'Twilight', 'TwilightEnable', 'TwilightDisable' },
     config = function()
       require("twilight").setup({})
     end
