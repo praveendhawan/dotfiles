@@ -59,7 +59,7 @@ vim.o.incsearch = true
 vim.api.nvim_exec([[
   set iskeyword+=-,_
   augroup rubyKeywords
-    autocmd! FileType ruby,eruby set iskeyword+=!,?
+    autocmd! FileType ruby,eruby setlocal iskeyword+=!,?
   augroup end
 ]], false)
 
