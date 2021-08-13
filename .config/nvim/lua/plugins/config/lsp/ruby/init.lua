@@ -11,7 +11,7 @@ lsp_utils.lspconfig.solargraph.setup {
   flags = lsp_utils.common_config.flags,
   filetypes = { "ruby" },
   init_options = {
-    formatting = true
+    formatting = false
   },
   on_attach = lsp_utils.on_attach,
   root_dir = root_pattern("Gemfile", ".git"),
@@ -23,7 +23,7 @@ lsp_utils.lspconfig.solargraph.setup {
       definitions = true,
       diagnostics = false,
       folding = false,
-      formatting = true,
+      formatting = false,
       hover = true,
       logLevel = 'warn',
       references = true,
