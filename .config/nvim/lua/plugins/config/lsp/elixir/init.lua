@@ -9,9 +9,7 @@ lsp_utils.lspconfig.elixirls.setup {
   -- Set default client capabilities plus window/workDoneProgress
   capabilities = lsp_utils.common_config.capabilities,
   cmd = {
-      "node",
-       elixirls_root_path .. "/elixir-ls/language_server.sh",
-      "--stdio",
+       elixirls_root_path .. "/elixir-ls/language_server.sh"
     },
   flags = lsp_utils.common_config.flags,
   filetypes = { 'elixir', 'eelixir' },

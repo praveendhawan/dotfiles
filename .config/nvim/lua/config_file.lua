@@ -12,7 +12,15 @@ config.list = {
 -- Run the following command to profile
 -- env AK_PROFILER=1 nvim some_file 2>&1 >/dev/null | less
 -- List of Plugins
-  'plugins'
+  'plugins',
+  'plugins.config.lsp.bash',
+  'plugins.config.lsp.css',
+  'plugins.config.lsp.dockerfile',
+  'plugins.config.lsp.elixir',
+  'plugins.config.lsp.lua',
+  'plugins.config.lsp.ruby',
+  'plugins.config.lsp.rust',
+  'plugins.config.lsp.typescript'
 }
 
 -- Load Module Function

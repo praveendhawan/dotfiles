@@ -133,14 +133,6 @@ require('packer').startup(function()
     'neovim/nvim-lspconfig',
     config = function()
       require 'plugins.config.lsp'
-      require 'plugins.config.lsp.bash'
-      require 'plugins.config.lsp.css'
-      require 'plugins.config.lsp.dockerfile'
-      require 'plugins.config.lsp.elixir'
-      require 'plugins.config.lsp.lua'
-      require 'plugins.config.lsp.ruby'
-      require 'plugins.config.lsp.rust'
-      require 'plugins.config.lsp.typescript'
       require 'plugins.keybindings.lsp'
     end
   }
@@ -153,7 +145,6 @@ require('packer').startup(function()
   }
   use {
     'hrsh7th/nvim-compe',
-    event = "InsertEnter",
     after = "nvim-lspconfig",
     config = function()
       require 'plugins.config.lsp.compe'
