@@ -36,6 +36,7 @@ require('packer').startup(function()
   -- Nvim Tree
   use {
     'kyazdani42/nvim-tree.lua',
+    requires = { 'kyazdani42/nvim-web-devicons' },
     keys = "<Leader>e",
     config = function()
       require 'plugins.config.nvim_tree'
