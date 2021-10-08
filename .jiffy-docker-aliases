@@ -134,7 +134,7 @@ alias jd_attach_rails="jd_attach rails"
 alias jd_rspec="$DOCKER_SPRING_COMMAND bundle exec spring rspec"
 alias jd_postgres="$BASE_DOCKER_COMPOSE_COMMAND exec postgres psql -U postgres -d jiffyshirts_development"
 alias jd_rubo="$DOCKER_SPRING_COMMAND bundle exec rubocop -a"
-alias jd_setup_fspec="$DOCKER_SPRING_COMMAND bash -l -c bundle exec spring bin/scripts/setup_features.sh"
+alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c \"bundle exec bin/scripts/setup_features.sh\""
 alias jd_update_db="$DOCKER_SPRING_COMMAND bundle exec spring rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true RESET_SCHEMA=true"
 
 alias jd_rubo_ac="run_rubo_ac"
