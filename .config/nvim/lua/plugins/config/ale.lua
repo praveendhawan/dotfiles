@@ -1,12 +1,14 @@
 vim.g.ale_linters = {
   ruby = { 'rubocop', 'rufo' },
-  javascript = { 'eslint' },
+  javascript = { 'prettier', 'eslint' },
+  typescript = { 'prettier', 'eslint' },
   css = { 'stylelint' }
 }
 
 vim.g.ale_fixers = {
   ruby = { 'rubocop', 'rufo' },
-  javascript = { 'eslint' }
+  javascript = { 'prettier', 'eslint' },
+  typescript = { 'prettier', 'eslint' }
 }
 
 vim.g.ale_fix_on_save = 0

@@ -22,10 +22,16 @@ require('telescope').setup {
 
 -- Use Telescope Instead of FZF
 -- Ctrl + p
+-- vim.api.nvim_set_keymap(
+--   'n',
+--   '<C-p>',
+--   "<cmd>lua require('telescope').extensions.fzf_writer.files(require('telescope.themes').get_dropdown({ preview = false }))<cr>",
+--   noremap_silent_opt
+-- )
 vim.api.nvim_set_keymap(
   'n',
   '<C-p>',
-  "<cmd>lua require('telescope').extensions.fzf_writer.files(require('telescope.themes').get_dropdown({ preview = false }))<cr>",
+  "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({ preview = false }))<cr>",
   noremap_silent_opt
 )
 -- \b for switching to buffers

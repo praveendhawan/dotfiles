@@ -293,16 +293,16 @@ require('packer').startup(function()
     end
   }
 
-  use {
-    'nvim-telescope/telescope-fzf-writer.nvim',
-    requires = {
-      { 'nvim-telescope/telescope.nvim' }
-    },
-    after = "telescope.nvim",
-    config = function()
-      require 'plugins.config.telescope_fzf_writer'
-    end
-  }
+  -- use {
+  --   'nvim-telescope/telescope-fzf-writer.nvim',
+  --   requires = {
+  --     { 'nvim-telescope/telescope.nvim' }
+  --   },
+  --   after = "telescope.nvim",
+  --   config = function()
+  --     require 'plugins.config.telescope_fzf_writer'
+  --   end
+  -- }
 
   -- Searcher/Replacer/Grepper
   use {
@@ -315,17 +315,17 @@ require('packer').startup(function()
     end
   }
 
-  -- use {
-  --   'nvim-telescope/telescope-fzf-native.nvim',
-  --   requires = {
-  --     { 'nvim-telescope/telescope.nvim' }
-  --   },
-  --   run = 'make',
-  --   after = "telescope.nvim",
-  --   config = function()
-  --     require 'plugins.config.telescope_fzf_native'
-  --   end
-  -- }
+  use {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    requires = {
+      { 'nvim-telescope/telescope.nvim' }
+    },
+    run = 'make',
+    after = "telescope.nvim",
+    config = function()
+      require 'plugins.config.telescope_fzf_native'
+    end
+  }
 
   use {
     'folke/zen-mode.nvim',
