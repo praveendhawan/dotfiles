@@ -37,7 +37,6 @@ require('packer').startup(function()
   use {
     'kyazdani42/nvim-tree.lua',
     requires = { 'kyazdani42/nvim-web-devicons' },
-    keys = "<Leader>e",
     config = function()
       require 'plugins.config.nvim_tree'
       require 'plugins.keybindings.nvim_tree'
@@ -130,35 +129,36 @@ require('packer').startup(function()
   }
 
   -- New Autocomplete Framework + LSP
-  use {
-    'neovim/nvim-lspconfig',
-    config = function()
-      require 'plugins.config.lsp'
-      require 'plugins.keybindings.lsp'
-    end
-  }
-  use {
-    'kabouzeid/nvim-lspinstall',
-    after = 'nvim-lspconfig',
-    config = function()
-      require 'plugins.config.lsp.lsp_install'
-    end
-  }
-  use {
-    'hrsh7th/nvim-compe',
-    after = "nvim-lspconfig",
-    config = function()
-      require 'plugins.config.lsp.compe'
-    end
-  }
+  use 'hrsh7th/nvim-cmp'
+  -- LSP source for cmp
+  use 'hrsh7th/cmp-nvim-lsp'
+  -- Buffer Source for cmp
+  use 'hrsh7th/cmp-buffer'
+  -- Luasnip Source for cmp
+  use 'saadparwaiz1/cmp_luasnip'
+  -- nvim lua API Source for cmp
+  use 'hrsh7th/cmp-nvim-lua'
+  -- Treesitter Source for cmp
+  use 'ray-x/cmp-treesitter'
+  -- Calc Source for cmp
+  use 'hrsh7th/cmp-calc'
+  -- Spell Source for cmp
+  use 'f3fora/cmp-spell'
+  -- Tags Source for cmp
+  use 'quangnguyen30192/cmp-nvim-tags'
+  -- LSP for nvim
+  use 'neovim/nvim-lspconfig'
+  -- LSP Install
+  use 'kabouzeid/nvim-lspinstall'
+  -- LSP autocomplete kind icons and text
+  use 'onsails/lspkind-nvim'
+  -- Snippets
   use {
     'L3MON4D3/LuaSnip',
-    after = "nvim-compe",
     config = function()
       require 'plugins.config.lsp.snippets'
     end
   }
-
   -- For Linting and Fixing
   use {
     'dense-analysis/ale',
@@ -212,7 +212,7 @@ require('packer').startup(function()
   -- Load plugin on calling
   use {
     'AndrewRadev/splitjoin.vim',
-    cmd = { "SplitjoinJoin", "SplitjoinSplit" },
+    event = "BufReadPost",
     config = function()
       require 'plugins.config.splitjoin'
       require 'plugins.keybindings.splitjoin'
@@ -236,7 +236,7 @@ require('packer').startup(function()
   -- Load plugin on calling
   use {
     'vim-test/vim-test',
-    cmd = { "TestFile", "TestNearest", "TestSuite", "TestVisit" },
+    event = "BufReadPost",
     config = function()
       require 'plugins.config.vim_test'
       require 'plugins.keybindings.vim_test'
@@ -304,17 +304,6 @@ require('packer').startup(function()
   --   end
   -- }
 
-  -- Searcher/Replacer/Grepper
-  use {
-    'wincent/ferret',
-    cmd = { 'Ack', 'Ack!', 'Lack', 'Lack!' },
-    keys = { '<C-f>' },
-    config = function()
-      require 'plugins.config.ferret'
-      require 'plugins.keybindings.ferret'
-    end
-  }
-
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
     requires = {
@@ -324,6 +313,28 @@ require('packer').startup(function()
     after = "telescope.nvim",
     config = function()
       require 'plugins.config.telescope_fzf_native'
+    end
+  }
+
+
+  use {
+    'nvim-telescope/telescope-project.nvim',
+    requires = {
+      { 'nvim-telescope/telescope.nvim' }
+    },
+    after = "telescope.nvim",
+    config = function()
+      require 'plugins.config.telescope_project'
+    end
+  }
+  -- Searcher/Replacer/Grepper
+  use {
+    'wincent/ferret',
+    cmd = { 'Ack', 'Ack!', 'Lack', 'Lack!' },
+    keys = { '<C-f>' },
+    config = function()
+      require 'plugins.config.ferret'
+      require 'plugins.keybindings.ferret'
     end
   }
 

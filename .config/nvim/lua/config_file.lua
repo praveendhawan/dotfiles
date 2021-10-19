@@ -13,6 +13,10 @@ config.list = {
 -- env AK_PROFILER=1 nvim some_file 2>&1 >/dev/null | less
 -- List of Plugins
   'plugins',
+  'plugins.config.cmp',
+  'plugins.config.lsp',
+  'plugins.keybindings.lsp',
+  'plugins.config.lsp.lsp_install',
   'plugins.config.lsp.bash',
   'plugins.config.lsp.css',
   'plugins.config.lsp.dockerfile',

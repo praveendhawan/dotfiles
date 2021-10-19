@@ -1,2 +1,2 @@
-vim.api.nvim_set_keymap('n', '<leader>j', ':SplitjoinJoin<cr>', {})
-vim.api.nvim_set_keymap('n', '<leader>s', ':SplitjoinSplit<cr>', {})
+vim.api.nvim_set_keymap('n', '<leader>sj', ':SplitjoinJoin<cr>', {})
+vim.api.nvim_set_keymap('n', '<leader>ss', ':SplitjoinSplit<cr>', {})

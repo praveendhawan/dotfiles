@@ -34,10 +34,10 @@ vim.api.nvim_set_keymap(
   "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({ preview = false }))<cr>",
   noremap_silent_opt
 )
--- \b for switching to buffers
+-- \fb for switching to buffers
 vim.api.nvim_set_keymap(
   'n',
-  '<leader>b',
+  '<leader>fb',
   '<cmd>lua require("telescope.builtin").buffers()<cr>',
   noremap_silent_opt
 )
@@ -48,43 +48,51 @@ vim.api.nvim_set_keymap(
   '<cmd>lua require("telescope.builtin").help_tags()<cr>',
   noremap_silent_opt
 )
--- \t Treesitter symbols list of current buffer
+-- \ft Treesitter symbols list of current buffer
 vim.api.nvim_set_keymap(
 'n',
-'<leader>t',
+'<leader>ft',
 '<cmd>lua require("telescope.builtin").treesitter()<cr>',
 noremap_silent_opt
 )
 
--- \t Treesitter symbols list of current buffer
+-- \fk Treesitter symbols list of current buffer
 vim.api.nvim_set_keymap(
 'n',
-'<leader>k',
+'<leader>fk',
 '<cmd>lua require("telescope.builtin").keymaps()<cr>',
 noremap_silent_opt
 )
 
--- \gl Lists git commits with diff preview
+-- \fg Lists git commits with diff preview
 vim.api.nvim_set_keymap(
 'n',
-'<leader>gl',
+'<leader>fgc',
 '<cmd>lua require("telescope.builtin").git_commits()<cr>',
 noremap_silent_opt
 )
 
--- \gb Lists git commits with diff preview for the buffer
+-- \fgc Lists git commits with diff preview for the buffer
 vim.api.nvim_set_keymap(
 'n',
-'<leader>gbl',
+'<leader>fgbc',
 '<cmd>lua require("telescope.builtin").git_bcommits()<cr>',
 noremap_silent_opt
 )
 
--- \gbr Lists all branches with log preview
+-- \fgb Lists all branches with log preview
 vim.api.nvim_set_keymap(
 'n',
-'<leader>gbr',
+'<leader>fgb',
 '<cmd>lua require("telescope.builtin").git_branches()<cr>',
 noremap_silent_opt
 )
 
+
+-- \fp Lists all projects
+vim.api.nvim_set_keymap(
+'n',
+'<leader>fp',
+'<cmd>lua require("telescope").extensions.project.project({ display_type = "full" })<cr>',
+noremap_silent_opt
+)

@@ -8,6 +8,7 @@ alias personal_projects="cd ~/workspace/Personal"
 alias practice_projects="cd ~/workspace/Practice"
 alias reload_zsh="source ~/.zshrc"
 alias reload_bash="source ~/.bashrc"
+alias vimconf="cd ~/.config/nvim"
 # this is added because I mistype it a lot ;)
 alias gti="git"
 # alias ngrok="/Applications/ngrok"
