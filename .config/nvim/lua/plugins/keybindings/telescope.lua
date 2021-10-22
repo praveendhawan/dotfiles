@@ -96,3 +96,22 @@ vim.api.nvim_set_keymap(
 '<cmd>lua require("telescope").extensions.project.project({ display_type = "full" })<cr>',
 noremap_silent_opt
 )
+
+function smart_search_dash()
+  local current_word = vim.fn.expand("<cword>")
+  if current_word then
+    local key = vim.api.nvim_replace_termcodes(":Dash " .. current_word, true, true, true)
+    vim.api.nvim_feedkeys(key, 't', true)
+  else
+    local key = vim.api.nvim_replace_termcodes(":Dash ", true, true, true)
+    vim.api.nvim_feedkeys(key, 't', true)
+  end
+end
+
+-- \fd Search in dash for documentation
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>fd',
+  ':lua smart_search_dash()<CR>',
+  noremap_silent_opt
+)

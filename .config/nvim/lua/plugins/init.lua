@@ -168,10 +168,6 @@ require('packer').startup(function()
     end
   }
 
-  -- Dash support plugin for vim
-  -- NOTE: Only works on mac as Dash is only on Mac
-  use { 'rizzatti/dash.vim' }
-
   -- Vue JS syntax
   use { 'posva/vim-vue', ft = "vue" }
 
@@ -327,6 +323,19 @@ require('packer').startup(function()
       require 'plugins.config.telescope_project'
     end
   }
+
+  -- Dash Integration via Telescope
+  use {
+    'mrjones2014/dash.nvim',
+    requires = {
+      'nvim-telescope/telescope.nvim'
+    },
+    after = "telescope.nvim",
+    config = function()
+      require 'plugins.config.telescope_dash'
+    end
+  }
+
   -- Searcher/Replacer/Grepper
   use {
     'wincent/ferret',
