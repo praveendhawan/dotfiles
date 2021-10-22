@@ -133,7 +133,7 @@ require('packer').startup(function()
   -- LSP source for cmp
   use 'hrsh7th/cmp-nvim-lsp'
   -- Buffer Source for cmp
-  use 'hrsh7th/cmp-buffer'
+  use { 'hrsh7th/cmp-buffer', disable = true }
   -- Luasnip Source for cmp
   use 'saadparwaiz1/cmp_luasnip'
   -- nvim lua API Source for cmp
@@ -141,9 +141,9 @@ require('packer').startup(function()
   -- Treesitter Source for cmp
   use 'ray-x/cmp-treesitter'
   -- Calc Source for cmp
-  use 'hrsh7th/cmp-calc'
+  use { 'hrsh7th/cmp-calc', disable = true }
   -- Spell Source for cmp
-  use 'f3fora/cmp-spell'
+  use { 'f3fora/cmp-spell', disable = true }
   -- Tags Source for cmp
   use 'quangnguyen30192/cmp-nvim-tags'
   -- LSP for nvim
