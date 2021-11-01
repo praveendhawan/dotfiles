@@ -364,4 +364,12 @@ require('packer').startup(function()
       require("twilight").setup({})
     end
   }
+
+  -- Github Copilot
+  -- use {
+  --   'github/copilot.vim'
+  -- }
+  use {
+    'tpope/vim-rails'
+  }
 end)
