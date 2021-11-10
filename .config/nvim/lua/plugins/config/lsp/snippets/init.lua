@@ -37,7 +37,7 @@ ls.snippets = {
     })
   },
   ruby = {
-    s({ trig = 'fsl' }, { t("# frozen_string_literal: true") }),
+    s({ trig = 'fsl' }, { t({"# frozen_string_literal: true", ''}) }),
     -- all? { |JP1| JP2 }
     s({ trig = 'all' }, {
       t("all? { |"), i(1, 'block_args'),
