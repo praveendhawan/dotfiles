@@ -16,7 +16,7 @@ config.list = {
   'plugins.config.cmp',
   'plugins.config.lsp',
   'plugins.keybindings.lsp',
-  'plugins.config.lsp.lsp_install',
+  'plugins.config.lsp.lsp_installer',
   'plugins.config.lsp.bash',
   'plugins.config.lsp.css',
   'plugins.config.lsp.dockerfile',

@@ -149,7 +149,7 @@ require('packer').startup(function()
   -- LSP for nvim
   use 'neovim/nvim-lspconfig'
   -- LSP Install
-  use 'kabouzeid/nvim-lspinstall'
+  use 'williamboman/nvim-lsp-installer'
   -- LSP autocomplete kind icons and text
   use 'onsails/lspkind-nvim'
   -- Snippets
