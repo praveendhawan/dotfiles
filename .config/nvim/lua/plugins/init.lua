@@ -9,6 +9,11 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   execute('!git clone https://github.com/wbthomason/packer.nvim '.. install_path)
   execute 'packadd packer.nvim'
 end
+
+-- impatient needs to be setup before any other lua plugin is loaded
+-- so it is recommended you add the following near the start of your init.vim
+require('impatient')
+
 -- ############ END ################
 
 -- Autocompile packer if changes in init.lua
@@ -366,10 +371,18 @@ require('packer').startup(function()
   }
 
   -- Github Copilot
-  -- use {
-  --   'github/copilot.vim'
-  -- }
+  use {
+    'github/copilot.vim',
+    config = function()
+      require 'plugins.config.copilot'
+    end
+  }
+  -- Vim Rails
   use {
     'tpope/vim-rails'
+  }
+  -- Impatient vim - improves startup time
+  use {
+    'lewis6991/impatient.nvim'
   }
 end)
