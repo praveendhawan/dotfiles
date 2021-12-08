@@ -17,6 +17,16 @@ require('telescope').setup {
         ["<C-q>"] = actions.smart_send_to_loclist + actions.open_loclist
       }
     }
+  },
+  pickers = {
+    buffers = {
+      mappings = {
+        i = {
+          -- Ctrl + D to delete buffer from buffers picker
+          ["<C-d>"] = actions.delete_buffer
+        }
+      }
+    }
   }
 }
 
