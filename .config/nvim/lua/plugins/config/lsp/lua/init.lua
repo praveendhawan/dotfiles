@@ -1,17 +1,8 @@
 local lsp_utils = require('plugins.config.lsp.utils')
 
-lsp_utils.lsp_status_progress()
-
--- set the path to the sumneko installation;
--- Installed by LspInstall lua
-local sumneko_root_path = vim.fn.stdpath('data') .. '/lspinstall/lua'
-
-local sumneko_binary = sumneko_root_path .. '/sumneko-lua-language-server'
-
-lsp_utils.lspconfig.sumneko_lua.setup {
+local server_options = {
   -- Set default client capabilities plus window/workDoneProgress
   capabilities = lsp_utils.common_config.capabilities,
-  cmd = { sumneko_binary };
   flags = lsp_utils.common_config.flags,
   filetypes = { 'lua' },
   on_attach = lsp_utils.on_attach,
@@ -26,7 +17,7 @@ lsp_utils.lspconfig.sumneko_lua.setup {
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = { 'vim' },
+        globals = { "vim" },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
@@ -41,3 +32,5 @@ lsp_utils.lspconfig.sumneko_lua.setup {
     },
   },
 }
+
+return server_options

@@ -5,12 +5,20 @@ local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
     local opts = {}
 
-    -- (optional) Customize the options passed to the server
-    -- if server.name == "tsserver" then
-    --     opts.root_dir = function() ... end
-    -- end
+    local server_opts = {
+      ['bashls'] = require 'plugins.config.lsp.bash',
+      ['cssls'] = require 'plugins.config.lsp.css',
+      ['dockerls'] = require 'plugins.config.lsp.dockerfile',
+      ['elixirls'] = require 'plugins.config.lsp.elixir',
+      -- ['eslint'] = require 'plugins.config.lsp.eslint',
+      ['rust_analyzer'] = require 'plugins.config.lsp.rust',
+      ['solargraph'] = require 'plugins.config.lsp.ruby',
+      ['sumneko_lua'] = require 'plugins.config.lsp.lua',
+      ['tsserver'] = require 'plugins.config.lsp.typescript',
+    }
 
     -- This setup() function is exactly the same as lspconfig's setup function.
     -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    server:setup(opts)
+    local server_options = server_opts[server.name] or opts
+    server:setup(server_options)
 end)

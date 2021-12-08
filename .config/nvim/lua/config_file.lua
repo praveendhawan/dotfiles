@@ -17,14 +17,6 @@ config.list = {
   'plugins.config.lsp',
   'plugins.keybindings.lsp',
   'plugins.config.lsp.lsp_installer',
-  'plugins.config.lsp.bash',
-  'plugins.config.lsp.css',
-  'plugins.config.lsp.dockerfile',
-  'plugins.config.lsp.elixir',
-  'plugins.config.lsp.lua',
-  'plugins.config.lsp.ruby',
-  'plugins.config.lsp.rust',
-  'plugins.config.lsp.typescript'
 }
 
 -- Load Module Function
