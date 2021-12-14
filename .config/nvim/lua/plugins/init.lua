@@ -385,4 +385,18 @@ require('packer').startup(function()
   use {
     'lewis6991/impatient.nvim'
   }
+
+  -- Harpoon
+  use {
+    'ThePrimeagen/harpoon',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    },
+    config = function()
+      require 'plugins.config.harpoon'
+      require 'plugins.keybindings.harpoon'
+      require 'plugins.config.telescope_harpoon'
+      require 'plugins.keybindings.telescope_harpoon'
+    end
+  }
 end)
