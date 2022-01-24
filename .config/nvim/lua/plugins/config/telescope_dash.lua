@@ -6,6 +6,11 @@ require('telescope').setup({
         TelescopePrompt = false,
         terminal = false,
         packer = false,
+        ruby = { 'ror', 'ruby 2', 'jiffy', 'solidus' },
+        javascript = { 'js' },
+        typescript = { 'js' },
+        rust = { 'rs' },
+        elixir = { 'ex', 'eex' },
       },
     }
   }
