@@ -332,9 +332,6 @@ require('packer').startup(function()
   -- Dash Integration via Telescope
   use {
     'mrjones2014/dash.nvim',
-    requires = {
-      'nvim-telescope/telescope.nvim'
-    },
     after = "telescope.nvim",
     run = 'make install',
     config = function()
@@ -389,11 +386,7 @@ require('packer').startup(function()
   -- Harpoon
   use {
     'ThePrimeagen/harpoon',
-    requires = {
-      'nvim-lua/plenary.nvim'
-    },
     config = function()
-      require 'plugins.config.harpoon'
       require 'plugins.keybindings.harpoon'
       require 'plugins.config.telescope_harpoon'
       require 'plugins.keybindings.telescope_harpoon'
