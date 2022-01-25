@@ -26,7 +26,7 @@
 	excludesfile = ~/.gitignore_global
 # CRLF is replaced with LF when writing that file to the object database, and NOT vice versa
   autocrlf = input
-	editor = vim
+	editor = nvim
 
 # [diff]
 	tool = vimdiff
