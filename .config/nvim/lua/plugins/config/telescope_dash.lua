@@ -6,11 +6,12 @@ require('telescope').setup({
         TelescopePrompt = false,
         terminal = false,
         packer = false,
-        ruby = { 'ror', 'ruby 2', 'jiffy', 'solidus' },
-        javascript = { 'js' },
-        typescript = { 'js' },
-        rust = { 'rs' },
-        elixir = { 'ex', 'eex' },
+        ruby = { 'ruby', 'rails', 'rubygems', 'rubystrftime', 'railscli', 'rspec', 'yard',  },
+        javascript = { 'javascript', 'jquery', 'vue' },
+        typescript = { 'javascript', 'jquery', 'vue' },
+        vue = { 'javascript', 'jquery', 'vue' },
+        rust = { 'rust' },
+        elixir = { 'elixir', 'hex' },
       },
     }
   }
