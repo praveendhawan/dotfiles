@@ -22,7 +22,7 @@ require('telescope').setup {
       "tags/.*",
     },
     sorting_strategy = "ascending", -- Where first selection should be located
-    path_display = { "smart", "shorten" }, -- only display the first character of each directory
+    -- path_display = { "smart", "shorten" }, -- only display the first character of each directory
   },
   pickers = {
     find_files = {

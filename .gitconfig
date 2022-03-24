@@ -12,7 +12,7 @@
 	st = status
 	unstage = reset HEAD --
 	last = log -1 HEAD
-	visual = !gitk
+	; visual = !gitk
 	pretty = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	cb = rev-parse --abbrev-ref HEAD
 	undo = reset HEAD~
@@ -26,7 +26,7 @@
 	excludesfile = ~/.gitignore_global
 # CRLF is replaced with LF when writing that file to the object database, and NOT vice versa
   autocrlf = input
-	editor = nvim
+	editor = "nvim -u NONE"
 
 # [diff]
 	tool = vimdiff
