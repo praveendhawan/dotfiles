@@ -19,7 +19,7 @@ local c = ls.choice_node
 --    ls.snippets.scss = ls.snippets.css
 --    This should be done after the snippets are defined
 
-ls.snippets = {
+ls.add_snippets(nil, {
   all = {
     -- todo
     s({ trig = "todo" }, { t("TODO: ") }),
@@ -151,6 +151,7 @@ ls.snippets = {
     s({ trig = 'pos', name = 'position'}, { t("position: "), i(1, 'relative'), t(';'), i(0) }),
     s({ trig = 'imp', name = 'important'}, { t("!important: "), i(0) }),
   },
+  scss = {},
   javascript = {
     s({ trig = 'con', name = 'log'}, { t('console.log('), i(1, 'hi'), t(');') }),
     s({ trig = 'log', name = 'log'}, { t('console.log('), i(1, 'hi'), t(');') }),
@@ -164,12 +165,14 @@ ls.snippets = {
       i(0),
       t('}')
     }),
-  }
-}
+  },
+  vue = {},
+  coffee = {}
+})
 
 -- Reuse css snippets in scss files
-ls.snippets.scss = ls.snippets.css
+ls.filetype_extend('css', {'scss'})
 -- Reuse javascript snippets in vue files
-ls.snippets.vue = ls.snippets.javascript
+ls.filetype_extend('javascript', {'vue'})
 -- Reuse javascript snippets in coffee files
-ls.snippets.coffee = ls.snippets.javascript
+ls.filetype_extend('javascript', {'coffee'})
