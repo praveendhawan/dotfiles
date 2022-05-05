@@ -1,3 +1,15 @@
+-- Temporary Fix for
+-- https://github.com/nvim-treesitter/nvim-treesitter/pull/2801
+-- Although this was reverted here -
+-- https://github.com/nvim-treesitter/nvim-treesitter/pull/2833
+-- But I am still getting those deprecation warnings.
+--
+-- Fix was suggested in this reddit thread:
+-- https://www.reddit.com/r/neovim/comments/u6eu0q/treesitter_breaking_plugins/
+
+local ts_utils = require("nvim-treesitter.ts_utils")
+ts_utils.get_node_text = vim.treesitter.query.get_node_text
+
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
     'bash',
