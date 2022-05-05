@@ -68,6 +68,7 @@ require('packer').startup(function()
   -- Show buffer name and number is tabline
   use {
     'akinsho/nvim-bufferline.lua',
+    tag = "v2.*",
     requires = { 'kyazdani42/nvim-web-devicons' },
     config = function()
       require 'plugins.config.bufferline'
@@ -137,8 +138,14 @@ require('packer').startup(function()
   use 'hrsh7th/nvim-cmp'
   -- LSP source for cmp
   use 'hrsh7th/cmp-nvim-lsp'
+  -- LSP Document Symbols
+  use 'hrsh7th/cmp-nvim-lsp-document-symbol'
+  -- LSP signature help
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  -- 'Copilot'
+  use 'hrsh7th/cmp-copilot'
   -- Buffer Source for cmp
-  use { 'hrsh7th/cmp-buffer', disable = true }
+  use { 'hrsh7th/cmp-buffer', disable = false }
   -- Luasnip Source for cmp
   use 'saadparwaiz1/cmp_luasnip'
   -- nvim lua API Source for cmp
@@ -151,6 +158,11 @@ require('packer').startup(function()
   use { 'f3fora/cmp-spell', disable = true }
   -- Tags Source for cmp
   use 'quangnguyen30192/cmp-nvim-tags'
+  -- vim cmdline source for cmp
+  use 'hrsh7th/cmp-cmdline'
+  -- vim cmdline history source for cmp
+  use { 'dmitmel/cmp-cmdline-history', disable = true }
+
   -- LSP for nvim
   use 'neovim/nvim-lspconfig'
   -- LSP Install
@@ -332,8 +344,8 @@ require('packer').startup(function()
   -- Dash Integration via Telescope
   use {
     'mrjones2014/dash.nvim',
-    after = "telescope.nvim",
     run = 'make install',
+    after = "telescope.nvim",
     config = function()
       require 'plugins.config.telescope_dash'
     end
