@@ -1,8 +1,8 @@
 require'nvim-tree'.setup {
   -- closes neovim automatically when the tree is the last **WINDOW** in the view
-  auto_close          = false,
+  -- auto_close          = false,
   -- hijacks new directory buffers when they are opened.
-  update_to_buf_dir   = {
+  hijack_directories   = {
     -- enable the feature
     enable = true,
     -- allow to open the tree if it was previously closed
@@ -17,7 +17,9 @@ require'nvim-tree'.setup {
     -- do not show `dotfiles` (files starting with a `.`)
     dotfiles = false,
     custom = { '.git', 'node_modules', 'build', '.cache', 'public', 'coc' } -- Dont show these folders or files in tree
-  }
+  },
+  --  Disable Netrw
+  disable_netrw = true,
 }
 
 vim.g.nvim_tree_git_hl = 1 -- Highlight files for git attributes
