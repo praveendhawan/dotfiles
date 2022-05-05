@@ -59,7 +59,7 @@ cmp.setup {
     { name = 'copilot', priority = 5 },
     { name = 'nvim_lsp_signature_help', priority = 6 },
     -- { name = 'buffer' },
-    { name = 'tags', priority = 5, max_item_count = 7 },
+    { name = 'tags', priority = 7, max_item_count = 3 },
     -- { name = 'spell' },
   }
 }
@@ -67,7 +67,14 @@ cmp.setup {
 --  Enable nvim lua source only for lua files
 cmp.setup.filetype('lua', {
   sources = cmp.config.sources({
-    { name = 'nvim_lua', priority = 8 },
+    { name = 'nvim_lua', priority = 1 },
+    { name = 'path', priority = 2 },
+    { name = 'luasnip', priority = 3 },
+    { name = 'treesitter', priority = 4 },
+    { name = 'nvim_lsp', priority = 5 },
+    { name = 'copilot', priority = 6 },
+    { name = 'nvim_lsp_signature_help', priority = 7 },
+    { name = 'tags', priority = 8, max_item_count = 3 }
   })
 })
 
