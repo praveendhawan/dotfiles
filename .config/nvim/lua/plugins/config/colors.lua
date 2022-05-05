@@ -26,5 +26,8 @@ vim.cmd[[
 ]]
 --]]
 -- vim.cmd([[colorscheme gruvbox]])
+vim.g.tokyonight_colors = {
+  border = "orange"
+}
 vim.cmd([[colorscheme tokyonight]])
 vim.g.tokyonight_style = "night"
