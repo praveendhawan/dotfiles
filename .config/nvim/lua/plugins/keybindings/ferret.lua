@@ -1,7 +1,6 @@
-local noremap_opt = { noremap = true }
+FerretConfig = {}
 
-
-function smart_search()
+FerretConfig.smart_search =  function ()
   local current_word = vim.fn.expand("<cword>")
   if current_word then
     local key = vim.api.nvim_replace_termcodes(":Lack! " .. current_word, true, true, true)
@@ -16,6 +15,9 @@ end
 vim.api.nvim_set_keymap(
   'n',
   '<C-f>',
-  ':lua smart_search()<CR>',
-  noremap_opt
+  '',
+  {
+    callback = FerretConfig.smart_search,
+    desc = 'Search in project'
+  }
 )

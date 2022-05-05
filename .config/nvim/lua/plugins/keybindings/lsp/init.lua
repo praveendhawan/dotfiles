@@ -5,18 +5,18 @@ local function set_keymap(...)
 end
 
 -- Jump Mappings
-set_keymap('gd', '<cmd>lua vim.lsp.buf.definition()<CR>', noremap_silent_opt)
+set_keymap('gd', '', { callback = vim.lsp.buf.definition })
 
-set_keymap('gy', '<cmd>lua vim.lsp.buf.declaration()<CR>', noremap_silent_opt)
+set_keymap('gy', '', { callback = vim.lsp.buf.declaration })
 
-set_keymap('gr', '<cmd>lua vim.lsp.buf.references()<CR>', noremap_silent_opt)
+set_keymap('gr', '', { callback = vim.lsp.buf.references })
 
-set_keymap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', noremap_silent_opt)
+set_keymap('gi', '', { callback = vim.lsp.buf.implementation })
 
 -- Information
-set_keymap('K', '<cmd>lua vim.lsp.buf.hover()<CR>', noremap_silent_opt)
-set_keymap('<C-k>', '<cmd>lua vim.lsp.buf.hover()<CR>', noremap_silent_opt)
+set_keymap('K', '', { callback = vim.lsp.buf.hover })
+set_keymap('<C-k>', '', { callback = vim.lsp.buf.hover })
 -- Code Actions
 -- Rename
-set_keymap('<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', noremap_silent_opt)
+set_keymap('<leader>rn', '', { callback = vim.lsp.buf.rename })
 

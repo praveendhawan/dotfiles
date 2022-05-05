@@ -1,5 +1,28 @@
-local noremap_silent_opt = { noremap = true, silent = true}
 local actions = require('telescope.actions')
+local telescope_builtin = require('telescope.builtin')
+local telescope_themes = require('telescope.themes')
+local TelescopeConfig = {
+  find_files = function()
+    telescope_builtin.find_files(
+      telescope_themes.get_dropdown({ preview = false })
+    )
+  end,
+
+  list_projects = function()
+    require("telescope").extensions.project.project({ display_type = "full" })
+  end,
+
+  smart_search_dash = function()
+    local current_word = vim.fn.expand("<cword>")
+    if current_word then
+      local key = vim.api.nvim_replace_termcodes(":Dash " .. current_word, true, true, true)
+      vim.api.nvim_feedkeys(key, 't', true)
+    else
+      local key = vim.api.nvim_replace_termcodes(":Dash ", true, true, true)
+      vim.api.nvim_feedkeys(key, 't', true)
+    end
+  end
+}
 
 require('telescope').setup {
   defaults = {
@@ -38,90 +61,109 @@ require('telescope').setup {
 --   "<cmd>lua require('telescope').extensions.fzf_writer.files(require('telescope.themes').get_dropdown({ preview = false }))<cr>",
 --   noremap_silent_opt
 -- )
+
 vim.api.nvim_set_keymap(
   'n',
   '<C-p>',
-  "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({ preview = false }))<cr>",
-  noremap_silent_opt
+  '',
+  {
+    callback = TelescopeConfig.find_files,
+    desc = 'Find Files'
+  }
 )
 -- \fb for switching to buffers
 vim.api.nvim_set_keymap(
   'n',
   '<leader>fb',
-  '<cmd>lua require("telescope.builtin").buffers()<cr>',
-  noremap_silent_opt
+  '',
+  {
+    callback = telescope_builtin.buffers,
+    desc = 'List Buffers'
+  }
 )
 -- \fh for help tags
 vim.api.nvim_set_keymap(
   'n',
   '<leader>fh',
-  '<cmd>lua require("telescope.builtin").help_tags()<cr>',
-  noremap_silent_opt
+  '',
+  {
+    callback = telescope_builtin.help_tags,
+    desc = 'List Help Tags'
+  }
 )
 -- \ft Treesitter symbols list of current buffer
 vim.api.nvim_set_keymap(
-'n',
-'<leader>ft',
-'<cmd>lua require("telescope.builtin").treesitter()<cr>',
-noremap_silent_opt
+  'n',
+  '<leader>ft',
+  '',
+  {
+    callback = telescope_builtin.treesitter,
+    desc = 'List Treesitter Symbols'
+  }
 )
 
 -- \fk Treesitter symbols list of current buffer
 vim.api.nvim_set_keymap(
-'n',
-'<leader>fk',
-'<cmd>lua require("telescope.builtin").keymaps()<cr>',
-noremap_silent_opt
+  'n',
+  '<leader>fk',
+  '',
+  {
+    callback = telescope_builtin.keymaps,
+    desc = 'List Keymaps'
+  }
 )
 
 -- \fg Lists git commits with diff preview
 vim.api.nvim_set_keymap(
-'n',
-'<leader>fgc',
-'<cmd>lua require("telescope.builtin").git_commits()<cr>',
-noremap_silent_opt
+  'n',
+  '<leader>fgc',
+  '',
+  {
+    callback = telescope_builtin.git_commits,
+    desc = 'List Git Commits'
+  }
 )
 
 -- \fgc Lists git commits with diff preview for the buffer
 vim.api.nvim_set_keymap(
-'n',
-'<leader>fgbc',
-'<cmd>lua require("telescope.builtin").git_bcommits()<cr>',
-noremap_silent_opt
+  'n',
+  '<leader>fgbc',
+  '',
+  {
+    callback = telescope_builtin.git_bcommits,
+    desc = 'List Git Commits with preview for the buffer'
+  }
 )
 
 -- \fgb Lists all branches with log preview
 vim.api.nvim_set_keymap(
-'n',
-'<leader>fgb',
-'<cmd>lua require("telescope.builtin").git_branches()<cr>',
-noremap_silent_opt
+  'n',
+  '<leader>fgb',
+  '',
+  {
+    callback = telescope_builtin.git_branches,
+    desc = 'List Git Branches'
+  }
 )
-
 
 -- \fp Lists all projects
 vim.api.nvim_set_keymap(
-'n',
-'<leader>fp',
-'<cmd>lua require("telescope").extensions.project.project({ display_type = "full" })<cr>',
-noremap_silent_opt
+  'n',
+  '<leader>fp',
+  '',
+  {
+    callback = TelescopeConfig.list_projects,
+    desc = 'List Projects'
+  }
 )
-
-function smart_search_dash()
-  local current_word = vim.fn.expand("<cword>")
-  if current_word then
-    local key = vim.api.nvim_replace_termcodes(":Dash " .. current_word, true, true, true)
-    vim.api.nvim_feedkeys(key, 't', true)
-  else
-    local key = vim.api.nvim_replace_termcodes(":Dash ", true, true, true)
-    vim.api.nvim_feedkeys(key, 't', true)
-  end
-end
 
 -- \fd Search in dash for documentation
 vim.api.nvim_set_keymap(
   'n',
   '<leader>fd',
-  ':lua smart_search_dash()<CR>',
-  noremap_silent_opt
+  '',
+  {
+    callback = TelescopeConfig.smart_search_dash,
+    desc = 'Search Dash'
+  }
 )
