@@ -72,3 +72,6 @@ vim.o.updatetime = 100
 --  Show Tabline to show buffer name on top
 --  Handled by bufferline plugin
 -- vim.o.showtabline = 2
+
+-- Enable Global Status Lines
+vim.o.laststatus = 3
