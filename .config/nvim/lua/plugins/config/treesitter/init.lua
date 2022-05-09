@@ -47,7 +47,7 @@ require'nvim-treesitter.configs'.setup {
   },
   -- Indentation for =
   indent = {
-    enable = false
+    enable = true
   },
   -- Matchup
   matchup = {
@@ -56,7 +56,7 @@ require'nvim-treesitter.configs'.setup {
   -- Treesitter Refactor
   refactor = {
     -- Highlights definition and usages of the current symbol under the cursor.
-    highlight_definitions = { enable = true },
+    highlight_definitions = { enable = true, clear_on_cursor_move = true },
     -- Highlights the block from the current scope where the cursor is.
     highlight_current_scope = { enable = true },
     -- Renames the symbol under the cursor within the current scope (and current file).
@@ -80,7 +80,7 @@ require'nvim-treesitter.configs'.setup {
   -- Text Objects
   textobjects = {
     select = {
-      enable = false,
+      enable = true,
 
       -- Automatically jump forward to textobj, similar to targets.vim
       lookahead = true,
@@ -94,7 +94,7 @@ require'nvim-treesitter.configs'.setup {
       },
     },
     swap = {
-      enable = false,
+      enable = true,
       swap_next = {
         ["<leader>a"] = "@parameter.inner",
       },
@@ -103,7 +103,7 @@ require'nvim-treesitter.configs'.setup {
       },
     },
     move = {
-      enable = false,
+      enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
         ["]m"] = "@function.outer",
@@ -123,17 +123,17 @@ require'nvim-treesitter.configs'.setup {
       },
     },
     lsp_interop = {
-      enable = false,
+      enable = true,
       peek_definition_code = {
-        ["df"] = "@function.outer",
-        ["dF"] = "@class.outer",
+        ["<leader>df"] = "@function.outer",
+        ["<leader>dF"] = "@class.outer",
       },
     },
   },
   -- Playground
   playground = {
     enable = false,
-    disable = {},
+    -- disable = {},
     updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false, -- Whether the query persists across vim sessions
     keybindings = {
@@ -151,6 +151,6 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 -- Folding
-vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldmethod = 'expr'
 vim.o.foldenable = false

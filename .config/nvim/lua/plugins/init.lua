@@ -12,7 +12,7 @@ end
 
 -- impatient needs to be setup before any other lua plugin is loaded
 -- so it is recommended you add the following near the start of your init.vim
-require('impatient')
+require('impatient').enable_profile()
 
 -- ############ END ################
 
@@ -282,7 +282,7 @@ require('packer').startup(function()
     after = "nvim-treesitter"
   }
   use {
-    'romgrk/nvim-treesitter-context',
+    'lewis6991/nvim-treesitter-context',
     after = "nvim-treesitter",
     config = function()
       require 'plugins.config.treesitter.context'
