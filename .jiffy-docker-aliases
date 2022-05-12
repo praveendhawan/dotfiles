@@ -35,8 +35,8 @@ function run_rubo_ac() {
 # Running Feature specs
 function jd_fspec() {
   spec_file=${1:-""}
-  reskinned=${2:-""}
-  dc run --rm -p 5900:5900 rails bash -c -l "FEATURES_HEADED=yes $reskinned bin/scripts/run_features.sh $spec_file"
+  mobile_only=${2:-"FEATURES_DESKTOP=yes"}
+  dc run --rm -p 5900:5900 rails bash -c -l "FEATURES_HEADED=yes FEATURES_RESKINNED=yes $mobile_only bin/scripts/run_features.sh $spec_file"
 }
 
 # Running Migrations/Rollbacks
