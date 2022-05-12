@@ -12,15 +12,8 @@ local TelescopeConfig = {
     require("telescope").extensions.project.project({ display_type = "full" })
   end,
 
-  smart_search_dash = function()
-    local current_word = vim.fn.expand("<cword>")
-    if current_word then
-      local key = vim.api.nvim_replace_termcodes(":Dash " .. current_word, true, true, true)
-      vim.api.nvim_feedkeys(key, 't', true)
-    else
-      local key = vim.api.nvim_replace_termcodes(":Dash ", true, true, true)
-      vim.api.nvim_feedkeys(key, 't', true)
-    end
+  dash_search = function()
+    require('dash').search(false, vim.fn.expand("<cword>"))
   end
 }
 
@@ -163,7 +156,30 @@ vim.api.nvim_set_keymap(
   '<leader>fd',
   '',
   {
-    callback = TelescopeConfig.smart_search_dash,
+    callback = TelescopeConfig.dash_search,
     desc = 'Search Dash'
+  }
+)
+
+-- \fo Search in dash for documentation
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>fo',
+  '',
+  {
+    callback = telescope_builtin.oldfiles,
+    desc = 'Recently Opened Files'
+  }
+)
+
+
+-- \fc Search in dash for documentation
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>fc',
+  '',
+  {
+    callback = telescope_builtin.commands,
+    desc = 'Vim commands'
   }
 )

@@ -347,7 +347,7 @@ require('packer').startup(function()
     run = 'make install',
     after = "telescope.nvim",
     config = function()
-      require 'plugins.config.telescope_dash'
+      require 'plugins.config.dash'
     end
   }
 
