@@ -38,7 +38,7 @@ cmp.setup {
       menu = ({
         buffer                   = "[B]",
         cmdline                  = "[Cmd]",
-        copilot                  = "[Cop]",
+        -- copilot                  = "[Cop]",
         luasnip                  = "[Snip]",
         nvim_lsp                 = "[LSP]",
         nvim_lsp_document_symbol = "[LSP-DS]",
@@ -56,7 +56,7 @@ cmp.setup {
     { name = 'luasnip', priority = 2 },
     { name = 'treesitter', priority = 3 },
     { name = 'nvim_lsp', priority = 4 },
-    { name = 'copilot', priority = 5 },
+    -- { name = 'copilot', priority = 5 },
     { name = 'nvim_lsp_signature_help', priority = 6 },
     -- { name = 'buffer' },
     { name = 'tags', priority = 7, max_item_count = 3 },
@@ -72,7 +72,7 @@ cmp.setup.filetype('lua', {
     { name = 'luasnip', priority = 3 },
     { name = 'treesitter', priority = 4 },
     { name = 'nvim_lsp', priority = 5 },
-    { name = 'copilot', priority = 6 },
+    -- { name = 'copilot', priority = 6 },
     { name = 'nvim_lsp_signature_help', priority = 7 },
     { name = 'tags', priority = 8, max_item_count = 3 }
   })

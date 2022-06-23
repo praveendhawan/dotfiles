@@ -143,7 +143,7 @@ require('packer').startup(function()
   -- LSP signature help
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   -- 'Copilot'
-  use 'hrsh7th/cmp-copilot'
+  -- use 'hrsh7th/cmp-copilot'
   -- Buffer Source for cmp
   use { 'hrsh7th/cmp-buffer', disable = false }
   -- Luasnip Source for cmp
@@ -342,14 +342,14 @@ require('packer').startup(function()
   }
 
   -- Dash Integration via Telescope
-  use {
-    'mrjones2014/dash.nvim',
-    run = 'make install',
-    after = "telescope.nvim",
-    config = function()
-      require 'plugins.config.dash'
-    end
-  }
+  -- use {
+  --   'mrjones2014/dash.nvim',
+  --   run = 'make install',
+  --   after = "telescope.nvim",
+  --   config = function()
+  --     -- require 'plugins.config.dash'
+  --   end
+  -- }
 
   -- Searcher/Replacer/Grepper
   use {
@@ -380,12 +380,12 @@ require('packer').startup(function()
   }
 
   -- Github Copilot
-  use {
-    'github/copilot.vim',
-    config = function()
-      require 'plugins.config.copilot'
-    end
-  }
+  -- use {
+  --   'github/copilot.vim',
+  --   config = function()
+  --     require 'plugins.config.copilot'
+  --   end
+  -- }
   -- Vim Rails
   use {
     'tpope/vim-rails'

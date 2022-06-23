@@ -151,17 +151,17 @@ vim.api.nvim_set_keymap(
 )
 
 -- \fd Search in dash for documentation
-vim.api.nvim_set_keymap(
-  'n',
-  '<leader>fd',
-  '',
-  {
-    callback = TelescopeConfig.dash_search,
-    desc = 'Search Dash'
-  }
-)
+-- vim.api.nvim_set_keymap(
+--   'n',
+--   '<leader>fd',
+--   '',
+--   {
+--     callback = TelescopeConfig.dash_search,
+--     desc = 'Search Dash'
+--   }
+-- )
 
--- \fo Search in dash for documentation
+-- \fo Previously opened files
 vim.api.nvim_set_keymap(
   'n',
   '<leader>fo',
@@ -173,7 +173,7 @@ vim.api.nvim_set_keymap(
 )
 
 
--- \fc Search in dash for documentation
+-- \fc Previously run commands of nvim
 vim.api.nvim_set_keymap(
   'n',
   '<leader>fc',

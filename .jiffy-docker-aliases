@@ -122,7 +122,7 @@ function jiffy_travis_download() {
   build_number=${1}
   rm -f ${PWD}/tmp/screenshots/screenshots/*.html
   rm -f ${PWD}/tmp/screenshots/screenshots/*.png
-  aws s3 cp s3://jiffy-travis-artifacts/$build_number ${PWD}/tmp/screenshots/ --recursive
+  aws s3 cp s3://jiffy-github-ci-artifacts/artifacts/$build_number ${PWD}/tmp/screenshots/ --recursive
 }
 
 # Aliases
