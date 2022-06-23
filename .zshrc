@@ -152,6 +152,8 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 source "$HOME/.cargo/env"
 . "$HOME/.cargo/env"
 
+source "$HOME/.src_env"
+
 # Load RVM into a shell session *as a function
 # SHOULD BE LAST LINE IN ZSH
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
