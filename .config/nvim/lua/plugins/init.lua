@@ -274,12 +274,18 @@ require('packer').startup(function()
   }
   use {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    after = "nvim-treesitter"
+    after = "nvim-treesitter",
+    config = function()
+      require 'plugins.config.treesitter.textobjects'
+    end
   }
   use {
     'nvim-treesitter/playground',
     cmd = { 'TSPlaygroundToggle' },
-    after = "nvim-treesitter"
+    after = "nvim-treesitter",
+    config = function()
+      require 'plugins.config.treesitter.playground'
+    end
   }
   use {
     'lewis6991/nvim-treesitter-context',
@@ -290,7 +296,10 @@ require('packer').startup(function()
   }
   use {
     'nvim-treesitter/nvim-treesitter-refactor',
-    after = "nvim-treesitter"
+    after = "nvim-treesitter",
+    config = function()
+      require 'plugins.config.treesitter.refactor'
+    end
   }
 
   -- Telescope
