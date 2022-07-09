@@ -132,8 +132,8 @@ export HOMEBREW_NO_ANALYTICS=1
 # for elixir iex session history configs
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-if [ -f /usr/local/bin/component_tree/bin/ctree ]; then
-  export PATH="$PATH:/usr/local/bin/component_tree/bin"
+if [ -f /opt/component_tree/bin/ctree ]; then
+  export PATH="$PATH:/opt/component_tree/bin/ctree"
 else
   git clone git@github.com:shkrt/component_tree.git /usr/local/bin/component_tree
   chmod a+x /usr/local/bin/component_tree/bin/ctree
@@ -149,8 +149,8 @@ export HOMEBREW_BUNDLE_FILE=~/.Brewfile
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 
 # Load Cargo
-source "$HOME/.cargo/env"
-. "$HOME/.cargo/env"
+# source "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 source "$HOME/.src_env"
 
