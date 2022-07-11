@@ -32,3 +32,11 @@ docker-compose-mac.yml
 .ruby-version
 .solargraph.yml
 .my_env
+devbox_bootstrap.sh
+restart_sidekiq.sh
+restart.sh
+Procfile
+.overmind.env
+.overmind.sock
+.config/configstore
+.config/lazygit
