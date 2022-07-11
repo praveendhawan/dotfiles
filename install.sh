@@ -29,6 +29,8 @@ swinstall universal-ctags
 swinstall zsh
 swinstall imagemagick
 swinstall shared-mime-info
+swinstall zip
+swinstall unzip
 
 # install awscli
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -67,12 +69,3 @@ sudo mv nvim /usr/bin
 # install packer for nvim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
    ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
-# install ES
-curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elastic.gpg
-echo "deb [signed-by=/usr/share/keyrings/elastic.gpg] https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
-sudo apt update
-sudo apt install elasticsearch
-sudo systemctl start elasticsearch
-sudo systemctl enable elasticsearch
-
