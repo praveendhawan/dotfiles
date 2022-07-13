@@ -257,7 +257,7 @@ require('packer').startup(function()
   }
 
   -- VIM TMUX NAVIGATOR
-  use 'christoomey/vim-tmux-navigator'
+  -- use 'christoomey/vim-tmux-navigator'
 
   -- YAML Nested Key Finder
   use { 'henrik/vim-yaml-helper', ft = "yaml" }
