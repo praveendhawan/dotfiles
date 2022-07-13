@@ -1,11 +1,4 @@
-alias worksapce="cd ~/workspace"
-alias office="cd ~/workspace/Office"
-alias goto_dekeo="cd ~/workspace/Office/spree-jiffyshirts"
-alias musync="cd ~/workspace/Personal/musync"
-alias cd_pair="cd ~/workspace/Personal/Paironauts"
-alias elixir_practice="cd ~/workspace/Practice/Elixir"
-alias personal_projects="cd ~/workspace/Personal"
-alias practice_projects="cd ~/workspace/Practice"
+alias goto_dekeo="cd ~/jiffyshirts"
 alias reload_zsh="source ~/.zshrc"
 alias reload_bash="source ~/.bashrc"
 alias vimconf="cd ~/.config/nvim"
@@ -20,6 +13,14 @@ function ggrm() {
   gcm && gup && gco $bm && grbm
 }
 
-if [ -f ~/.jiffy-docker-aliases ]; then
-  source ~/.jiffy-docker-aliases
+alias pbcopy="xclip -sel clip"
+
+if [ -x "$(command -v docker)" ]; then
+  if [ -f ~/.jiffy-docker-aliases ]; then
+    source ~/.jiffy-docker-aliases
+  fi
+else
+  if [ -f ~/.jiffy-aliases ]; then
+    source ~/.jiffy-aliases
+  fi
 fi
