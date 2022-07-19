@@ -413,4 +413,13 @@ require('packer').startup(function()
       require 'plugins.keybindings.telescope_harpoon'
     end
   }
+
+  -- Copy to system clipboard over SSH
+  use {
+    'ojroques/vim-oscyank',
+    config = function()
+      require 'plugins.config.oscyank'
+      require 'plugins.keybindings.oscyank'
+    end
+  }
 end)
