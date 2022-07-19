@@ -154,6 +154,8 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 
 source "$HOME/.src_env"
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # Load RVM into a shell session *as a function
 # SHOULD BE LAST LINE IN ZSH
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"

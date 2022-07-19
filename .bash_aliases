@@ -13,7 +13,7 @@ function ggrm() {
   gcm && gup && gco $bm && grbm
 }
 
-alias pbcopy="xclip -sel clip"
+# alias pbcopy="xclip -sel clip"
 
 if [ -x "$(command -v docker)" ]; then
   if [ -f ~/.jiffy-docker-aliases ]; then
