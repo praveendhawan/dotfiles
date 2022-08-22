@@ -40,3 +40,6 @@ Procfile
 .overmind.sock
 .config/configstore
 .config/lazygit
+.config/gh
+.config/nvim/plugin
+yank.sh
