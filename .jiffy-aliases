@@ -70,10 +70,18 @@ function jd_deploy() {
 }
 
 alias jd_be="bundle exec"
+alias be="bundle exec"
 alias jd_bi="bundle"
+alias bi="bundle"
 alias jd_rails_c="bundle exec rails c"
+alias rc="bundle exec rails c"
 alias jd_rspec"rspec"
 alias jd_rubo="run_rubo_bc"
 alias jd_rubo_ac="run_rubo_ac"
 alias jd_migrate="run_migrations"
 alias jd_rollback="run_rollback"
+alias ostart="overmind start -D"
+alias oatt="overmind connect web"
+alias oquit="overmind quit"
+alias orem="rm -rf .overmind.sock"
+alias otail="tail -f log/development.log"

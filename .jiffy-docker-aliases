@@ -73,27 +73,26 @@ function run_migrations() {
 # build, upload and deploy to stack mentioned in argument
 # Build Upload and Deploy
 function jd_deploy() {
-  echo "Stopiing containers for deploy"
-  dc stop rails webpacker sidekiq kibana spring
+  echo 'stopping'
+  overmind quit
   source ~/.jiffy-deploy-env
 
   echo " delete hard sources"
-  dc run --rm webpacker bash -l -c "rm -rf node_modules/.cache/hard-source"
+  rm -rf node_modules/.cache/hard-source
 
   echo "start deploy"
-  dc run --rm \
-    -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-    -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-    -e AWS_REGION=$AWS_REGION \
-    -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
-    -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
-    rails bash -l -c "./bin/deploy.sh $1"
+    AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+    AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+    AWS_REGION=$AWS_REGION \
+    DEPLOY_BUCKET=$DEPLOY_BUCKET \
+    PACKAGE_FOLDER=$PACKAGE_FOLDER \
+    ./bin/deploy.sh $1
 
   echo "Running yarn install"
-  dc run --rm webpacker yarn install
+  yarn install
 
   echo "Starting containers back up"
-  dc start rails webpacker sidekiq kibana spring
+  overmind start -D
 }
 
 # Run any Code in Docker Ruby
