@@ -30,6 +30,9 @@ require'nvim-treesitter.configs'.setup {
     'yaml'
   },
 
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
   -- Highlight
   highlight = {
     enable = true,
