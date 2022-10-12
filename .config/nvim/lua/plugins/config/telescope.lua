@@ -27,7 +27,9 @@ require('telescope').setup {
   pickers = {
     find_files = {
       previewer = false,
-      theme = 'dropdown'
+      theme = 'dropdown',
+      wrap_results = true,
+      path_display = { shorten = { len = 4 } }
     },
     current_buffer_fuzzy_find = {
       theme = 'dropdown'
