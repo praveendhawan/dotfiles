@@ -6,6 +6,7 @@ alias vimconf="cd ~/.config/nvim"
 alias gti="git"
 # alias ngrok="/Applications/ngrok"
 alias c="clear -x"
+alias ctree="/opt/component_tree/bin/ctree"
 
 function ggrm() {
   local bm="$(git_current_branch)"
