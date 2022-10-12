@@ -1,3 +1,5 @@
+-- https://github.com/wincent/ferret#ferret-fails-to-find-patterns-containing-spaces
+
 FerretConfig = {}
 
 FerretConfig.smart_search =  function ()
