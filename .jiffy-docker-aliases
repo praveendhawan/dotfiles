@@ -92,7 +92,6 @@ function jd_deploy() {
   yarn install
 
   echo "Starting containers back up"
-  overmind start -D
 }
 
 # Run any Code in Docker Ruby

@@ -52,21 +52,28 @@ function run_migrations() {
 # build, upload and deploy to stack mentioned in argument
 # Build Upload and Deploy
 function jd_deploy() {
-  echo "Stopping containers for deploy"
-  overmind quit
+  if [ -f ".overmind.sock" ]; then
+    echo "Stopping containers for deploy"
+    overmind quit
+  fi
+
   source ~/.jiffy-deploy-env
 
   echo " delete hard sources"
   rm -rf node_modules/.cache/hard-source
 
   echo "start deploy"
-  bash ./bin/deploy.sh $1
+  AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+    AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+    AWS_REGION=$AWS_REGION \
+    DEPLOY_BUCKET=$DEPLOY_BUCKET \
+   ./bin/deploy.sh $1
 
-  echo "Running yarn install"
-  yarn install
+ #  echo "Running yarn install"
+ #  yarn install
 
-  echo "Starting containers back up"
-  overmind start
+ #  echo "Starting containers back up"
+ #  overmind start -D
 }
 
 alias jd_be="bundle exec"
