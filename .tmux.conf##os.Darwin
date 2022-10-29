@@ -1,0 +1,148 @@
+# change prefix to backtick
+unbind-key C-b
+set-option -g prefix `
+bind-key ` send-prefix
+
+# source config file
+# reload tmux with new config
+# press prefix and then r
+bind-key r source-file ~/.tmux.conf \; display "Reloaded!!!"
+
+# Just Press ctrl + r without prefix to source conf
+# -n option - specifies that this key binding doesn't require pressing prefix
+# this will hinder with vim's redo change key binding hence disabled
+# bind-key -n C-r source-file ~/.tmux.conf \; display "Reloaded!!!"
+
+# allow mouse scroll
+set -g mouse on
+
+# splitting
+unbind-key %
+bind-key | split-window -h
+unbind-key '"'
+bind-key - split-window -v
+
+# unbind arrow keys for switching panes in tmux
+unbind-key Left
+unbind-key Right
+unbind-key Up
+unbind-key Down
+
+# colon :
+bind-key : command-prompt
+
+# history
+set -g history-limit 40960
+
+# set true colors - 256-colors inside tmux
+# also set it back to default xterm outside tmux
+set -g default-terminal "screen-256color"
+# set -ga terminal-overrides ",xterm-256color:Tc"
+set -as terminal-overrides ',screen-256color:Ms=\E]52;%p1%s;%p2%s\007'
+set -as terminal-overrides ',xterm-256color:Ms=\E]52;%p1%s;%p2%s\007'
+
+# set the message display time to 4 sec
+set -g display-time 2000
+
+# there was a delay in escape key recognition for vim
+# this will set that delay to 1 ms
+# default value was 500 ms
+set -s escape-time 1
+
+# use vi key bindings in copy mode
+setw -g mode-keys vi
+
+# Set base index for window to 1
+set -g base-index 1
+
+# Set base index for panes to 1
+setw -g pane-base-index 1
+
+# Status line left side to show Session:window:pane
+set -g status-left-length 40
+set -g status-left "#[fg=black]Session: #S #[fg=red] Window: #I #[fg=red] Pane: #P"
+
+# Status line right side -  31-Oct 13:37
+set -g status-right "#[fg=red]%d %b %R"
+
+# Update the status line every sixty seconds
+set -g status-interval 60
+
+# Center the window list in the status line
+set -g status-justify centre
+
+# enable activity alerts
+setw -g monitor-activity on
+set -g visual-activity on
+
+# Copy Key Bindings
+# Press Prefix + ESC to enter copy mode
+unbind-key [
+# bind-key Escape copy-mode
+
+# yank="~/dotfiles/yank.sh"
+
+set -g set-clipboard on
+
+# use vim like keys for copy
+# bind-key -T copy-mode-vi v send -X begin-selection
+# bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+# bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "pbcopy"
+
+# Do not copy selection and cancel copy mode on Mouse drag end event
+# To Exit Copy mode -
+# Press Enter with copying the selected text
+# Press q without copying
+unbind -T copy-mode-vi MouseDragEnd1Pane
+
+# move panes around windows - attach and dettach panes
+# :joinp -s :2<CR>  move window 2 into a new pane in the current window
+# :joinp -t :1<CR>  move the current pane into a new pane in window 1
+# -s => source, -t => target
+# syntax for specifying pane address -
+# a:b:c - a - session name, b - window number, c - pane number
+# :c means - c numbered window in current session
+#
+# By default they will create pane with a horizontal split
+# - upper and lower
+# if we want to create vertical split pass the option -h to joinp
+#
+# this will create pane in current window of the window choosen
+bind-key j command-prompt -p "create pane from:" "joinp -s '%%'"
+# this will send the current pane to choosen window
+bind-key s command-prompt -p "send pane to:"  "joinp -t '%%'"
+
+# pane resizing key bindings
+# Fine adjustment (1 or 2 cursor cells per bump)
+# Press shift - arrow buttons
+bind -n S-Left resize-pane -L 2
+bind -n S-Right resize-pane -R 2
+bind -n S-Down resize-pane -D 1
+bind -n S-Up resize-pane -U 1
+
+# Iterm Tmux integration
+set-option -g set-titles on
+set-option -g set-titles-string '#T'
+
+# Smart pane switching with awareness of Vim splits.
+# See: https://github.com/christoomey/vim-tmux-navigator
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
+bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
+bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
+bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
+tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
+if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
+    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
+if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
+    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
+
+# bind-key -T copy-mode-vi 'C-h' select-pane -L
+# bind-key -T copy-mode-vi 'C-j' select-pane -D
+# bind-key -T copy-mode-vi 'C-k' select-pane -U
+# bind-key -T copy-mode-vi 'C-l' select-pane -R
+# bind-key -T copy-mode-vi 'C-\' select-pane -l
+# Pressing `+ctrl+l sends clear -x command
+# Restores ctrl+l command to clear screen
+# bind C-l send-keys 'C-l'
