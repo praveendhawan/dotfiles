@@ -15,7 +15,6 @@ require'nvim-treesitter.configs'.setup {
     'bash',
     'comment',
     'css',
-    'dockerfile',
     'elixir',
     'html',
     'javascript',
@@ -24,7 +23,6 @@ require'nvim-treesitter.configs'.setup {
     'ruby',
     'rust',
     'scss',
-    'typescript',
     'typescript',
     'vue',
     'yaml'
