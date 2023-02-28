@@ -8,3 +8,5 @@ vim.g.matchup_delim_noskips = 1
 -- Number of lines to search in either direction while highlighting matches
 -- Default is 400
 vim.g.matchup_matchparen_stopline = 100
+
+vim.g.matchup_matchparen_offscreen = { method = "popup" }

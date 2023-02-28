@@ -100,11 +100,12 @@ require('packer').startup(function()
 
   -- Fix trailing Whitespace and highlight whitespace
   -- Load plugin on buffer read event and when its called via cmd or keys
-  use {
-    'bronson/vim-trailing-whitespace',
-    event = "BufReadPost",
-    cmd = "FixWhitespace"
-  }
+  -- Until this is fixed - https://github.com/bronson/vim-trailing-whitespace/issues/26
+  -- use {
+  --   'bronson/vim-trailing-whitespace',
+  --   event = "BufReadPost",
+  --   cmd = "FixWhitespace"
+  -- }
 
   -- coffeescript support (syntax) etc.
   -- Load plugin only for coffee filetype
@@ -166,7 +167,9 @@ require('packer').startup(function()
   -- LSP for nvim
   use 'neovim/nvim-lspconfig'
   -- LSP Install
-  use 'williamboman/nvim-lsp-installer'
+  use 'williamboman/mason.nvim'
+  -- Mason Lsp config (For lspconfig)
+  use 'williamboman/mason-lspconfig.nvim'
   -- LSP autocomplete kind icons and text
   use 'onsails/lspkind-nvim'
   -- Snippets

@@ -20,7 +20,7 @@ tags.t*
 .byebug_history
 .yardoc/*
 doc/*
-jiffy_helpers.rb
+pry_helpers/
 
 # Ignore ripgrep ignore files
 .rgignore

@@ -30,6 +30,6 @@ vim.g.tokyonight_colors = {
   border = "orange"
 }
 
-vim.g.tokyonight_style = "night"
+vim.g.tokyonight_style = "moon"
 
 vim.cmd([[colorscheme tokyonight]])
