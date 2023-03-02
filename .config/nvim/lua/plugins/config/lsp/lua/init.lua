@@ -13,7 +13,7 @@ local server_options = {
         -- (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
         -- Setup your lua path
-        path = vim.split(package.path, ';'),
+        -- path = vim.split(package.path, ';'),
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
