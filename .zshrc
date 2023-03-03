@@ -119,9 +119,6 @@ if [ -f ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 
   source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 else
-  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-  source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
- ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -134,10 +131,6 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 if [ -f /opt/component_tree/bin/ctree ]; then
   export PATH="$PATH:/opt/component_tree/bin/ctree"
-else
-  git clone git@github.com:shkrt/component_tree.git /usr/local/bin/component_tree
-  chmod a+x /usr/local/bin/component_tree/bin/ctree
-  source ~/.zshrc
 fi
 export PATH="/usr/local/sbin:$PATH"
 
