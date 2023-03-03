@@ -93,13 +93,17 @@ if [[ ! -d ~/.oh-my-zsh ]]; then
 fi
 
 # Install Overmind
-if ! command -v overmind &> /dev/null; then
-  curl https://github.com/DarthSim/overmind/releases/download/v2.2.2/overmind-v2.2.2-linux-amd64.gz
-  gzip overmind-v2.2.2-linux-amd64.gz -d
-  sudo mv overmind-v2.2.2-linux-amd64 /usr/local/bin/overmind
-  chmod a+x /usr/local/bin/overmind
-else
-  echo "Overmind is already installed"
+uname=$(uname -s)
+
+if [[ "$uname" == "Linux" ]] ; then
+  if ! command -v overmind &> /dev/null; then
+    curl https://github.com/DarthSim/overmind/releases/download/v2.2.2/overmind-v2.2.2-linux-amd64.gz
+    gzip overmind-v2.2.2-linux-amd64.gz -d
+    sudo mv overmind-v2.2.2-linux-amd64 /usr/local/bin/overmind
+    chmod a+x /usr/local/bin/overmind
+  else
+    echo "Overmind is already installed"
+  fi
 fi
 
 # Set up Git
@@ -133,17 +137,30 @@ if [ ! -L /usr/local/bin/fd ]; then
   ln -s "$(which fdfind)" /usr/local/bin/fd
 fi
 
+# Instals brewfile content on Mac
+if [[ "$uname" == "Darwin" ]] ; then
+  brew bundle install
+fi
+
 # Check if AWS CLI v2 is already installed before attempting to install
-if ! command -v aws &> /dev/null; then
-  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  unzip awscliv2.zip
-  sudo ./aws/install
+if [[ "$uname" == "Linux" ]] ; then
+  if ! command -v aws &> /dev/null; then
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+  fi
 fi
 
 # Check if ctree is already installed before attempting to install
-if [ ! -d /opt/component_tree ]; then
+if [[ "$uname" == "Linux" ]] ; then
+  dir=/usr/local/bin
+else
+  dir=/opt/
+fi
+
+if [ ! -d "$dir" ]; then
   git clone git@github.com:shkrt/component_tree.git
-  sudo cp -R component_tree/ /opt/
-  sudo chmod a+x /opt/component_tree/bin/ctree
-  export PATH="$PATH:/opt/component_tree/bin"
+  sudo cp -R component_tree/ "$dir"
+  sudo chmod a+x "$dir/component_tree/bin/ctree"
+  export PATH="$PATH:$dir/component_tree/bin"
 fi
