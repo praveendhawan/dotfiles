@@ -16,12 +16,12 @@ function ggrm() {
 
 # alias pbcopy="xclip -sel clip"
 
-if [ -x "$(command -v docker)" ]; then
-  if [ -f ~/.jiffy-docker-aliases ]; then
-    source ~/.jiffy-docker-aliases
-  fi
-else
-  if [ -f ~/.jiffy-aliases ]; then
-    source ~/.jiffy-aliases
-  fi
+# if [ -x "$(command -v docker)" ]; then
+#   if [ -f ~/.jiffy-docker-aliases ]; then
+#     source ~/.jiffy-docker-aliases
+#   fi
+# else
+if [ -f ~/.jiffy-aliases ]; then
+  source ~/.jiffy-aliases
 fi
+# fi

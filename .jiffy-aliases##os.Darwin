@@ -1,30 +1,52 @@
-Function jd_attach() {
-  overmind connect $1
+# GLOBAL VARIABLES
+BASE_DOCKER_COMPOSE_COMMAND="docker compose -f docker-compose.yml --env-file .env --env-file .my_env"
+DOCKER_RAILS_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
+DOCKER_SPRING_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows spring"
+
+# BASE ALIAS
+alias dc="$BASE_DOCKER_COMPOSE_COMMAND"
+
+# Functions
+
+# Attach to process running inside docker container
+function jd_attach() {
+  attach_to=$1
+  docker attach $(docker ps | grep $attach_to | tr -s " " | cut -d " " -f 1)
 }
 
+# Docker attach or exec console's height and width
+function jd_stty_rows {
+  tput lines
+}
+
+function jd_stty_cols {
+  tput cols
+}
+
+# Running Rubocop for code changes
 function run_rubo_bc() {
-  git ls-files -m | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs bundle exec rubocop
+  dc run --rm rails bash -c -l "git ls-files -m | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs bundle exec rubocop"
 }
 
 function run_rubo_ac() {
-  git diff-tree -r --no-commit-id --name-only head origin/master | xargs bundle exec rubocop
+  dc run --rm rails bash -c -l "git diff-tree -r --no-commit-id --name-only head origin/master | xargs bundle exec rubocop"
 }
 
 # Running Feature specs
 function jd_fspec() {
   spec_file=${1:-""}
   mobile_only=${2:-"FEATURES_DESKTOP=yes"}
-  FEATURES_HEADED=yes FEATURES_RESKINNED=yes $mobile_only bin/scripts/run_features.sh $spec_file
+  dc run --rm -p 5900:5900 rails bash -c -l "FEATURES_HEADED=yes FEATURES_RESKINNED=yes $mobile_only bin/scripts/run_features.sh $spec_file"
 }
 
 # Running Migrations/Rollbacks
 # Running ROllback
 function run_rollback() {
   echo "Running Rollback for Dev Environment"
-  bundle exec rails db:rollback
+  dc exec spring bundle exec rails db:rollback
 
   echo "Running Rollback for Test Environment"
-  bundle exec rails db:rollback RAILS_ENV=test
+  dc exec spring bundle exec rails db:rollback RAILS_ENV=test
 }
 
 # Running Migrations
@@ -35,10 +57,10 @@ function run_migrations() {
   fi
 
   echo "Running Migrations for Dev Environment"
-  bundle exec rails db:migrate
+  dc exec spring bundle exec spring rails db:migrate
 
   echo "Now Running migrations for Test Env"
-  bundle exec rails db:migrate RAILS_ENV=test
+  dc exec spring bundle exec spring rails db:migrate RAILS_ENV=test
 
   if $checkout_changes; then
     echo "checking out db/structure.sql changes"
@@ -48,47 +70,78 @@ function run_migrations() {
   fi
 }
 
-
 # build, upload and deploy to stack mentioned in argument
 # Build Upload and Deploy
 function jd_deploy() {
-  if [ -f ".overmind.sock" ]; then
-    echo "Stopping containers for deploy"
-    overmind quit
-  fi
-
+  echo "Stopiing containers for deploy"
+  dc stop rails webpacker sidekiq kibana spring
   source ~/.jiffy-deploy-env
 
   echo " delete hard sources"
-  rm -rf node_modules/.cache/hard-source
+  dc run --rm webpacker bash -l -c "rm -rf node_modules/.cache/hard-source"
 
   echo "start deploy"
-  AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-    AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-    AWS_REGION=$AWS_REGION \
-    DEPLOY_BUCKET=$DEPLOY_BUCKET \
-   ./bin/deploy.sh $1
+  dc run --rm \
+    -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+    -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+    -e AWS_REGION=$AWS_REGION \
+    -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
+    -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
+    rails bash -l -c "./bin/deploy.sh $1"
 
- #  echo "Running yarn install"
- #  yarn install
+  echo "Running yarn install"
+  dc run --rm webpacker yarn install
 
- #  echo "Starting containers back up"
- #  overmind start -D
+  echo "Starting containers back up"
+  dc start rails webpacker sidekiq kibana spring
 }
 
-alias jd_be="bundle exec"
-alias be="bundle exec"
-alias jd_bi="bundle"
-alias bi="bundle"
-alias jd_rails_c="bundle exec rails c"
-alias rc="bundle exec rails c"
-alias jd_rspec"rspec"
-alias jd_rubo="run_rubo_bc"
+# Run any Code in Docker Ruby
+function run_in_docker() {
+ ruby_version=$1
+
+ docker run --rm -it -v ${PWD}:/home/app ruby:$ruby_version bash
+}
+
+# Get IP of any AWS EC2 instance of stack
+function jiffy_ip() {
+  stack=${1:-"jakku"}
+  layer=${2:-"rails"}
+
+  if [ $layer = "sidekiq" ]
+  then
+    stack_layer="opsworks:layer:sidekiq"
+  else
+    stack_layer="opsworks:layer:rails-app"
+  fi
+
+  aws ec2 describe-instances --filters "Name=tag:opsworks:stack,Values=$stack" "Name=tag-key,Values=$stack_layer" --query "Reservations[].Instances[].PublicDnsName" --output text
+}
+
+function jiffy_travis_download() {
+  build_number=${1}
+  rm -f ${PWD}/tmp/screenshots/screenshots/*.html
+  rm -f ${PWD}/tmp/screenshots/screenshots/*.png
+  aws s3 cp s3://jiffy-github-ci-artifacts/artifacts/$build_number ${PWD}/tmp/screenshots/ --recursive
+}
+
+# Aliases
+alias jd_be="$DOCKER_SPRING_COMMAND bundle exec"
+alias jd_bi="$DOCKER_SPRING_COMMAND bundle"
+alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
+alias jd_rails_c="$DOCKER_SPRING_COMMAND bundle exec spring rails c"
+alias jd_attach_rails="jd_attach rails"
+alias jd_rspec="$DOCKER_SPRING_COMMAND bundle exec spring rspec"
+alias jd_postgres="$BASE_DOCKER_COMPOSE_COMMAND exec postgres psql -U postgres -d jiffyshirts_development"
+alias jd_rubo="$DOCKER_SPRING_COMMAND bundle exec rubocop -a"
+alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c \"bundle exec bin/scripts/setup_features.sh\""
+alias jd_update_db="$DOCKER_SPRING_COMMAND bundle exec spring rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true RESET_SCHEMA=true"
+
 alias jd_rubo_ac="run_rubo_ac"
+alias jd_rubo_bc="run_rubo_bc"
+
 alias jd_migrate="run_migrations"
+
 alias jd_rollback="run_rollback"
-alias ostart="overmind start -D"
-alias oatt="overmind connect web"
-alias oquit="overmind quit"
-alias orem="rm -rf .overmind.sock"
-alias otail="tail -f log/development.log"
+
+alias dps_pretty="docker ps -a --format=\"table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}\""
