@@ -20,7 +20,7 @@ tags.t*
 .byebug_history
 .yardoc/*
 doc/*
-jiffy_helpers.rb
+pry_helpers/
 
 # Ignore ripgrep ignore files
 .rgignore
@@ -32,3 +32,14 @@ docker-compose-mac.yml
 .ruby-version
 .solargraph.yml
 .my_env
+devbox_bootstrap.sh
+restart_sidekiq.sh
+restart.sh
+Procfile
+.overmind.env
+.overmind.sock
+.config/configstore
+.config/lazygit
+.config/gh
+.config/nvim/plugin
+yank.sh

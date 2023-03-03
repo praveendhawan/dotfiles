@@ -15,7 +15,6 @@ require'nvim-treesitter.configs'.setup {
     'bash',
     'comment',
     'css',
-    'dockerfile',
     'elixir',
     'html',
     'javascript',
@@ -25,10 +24,12 @@ require'nvim-treesitter.configs'.setup {
     'rust',
     'scss',
     'typescript',
-    'typescript',
     'vue',
     'yaml'
   },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
 
   -- Highlight
   highlight = {

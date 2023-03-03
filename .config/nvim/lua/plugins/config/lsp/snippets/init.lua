@@ -38,6 +38,10 @@ ls.add_snippets(nil, {
   },
   ruby = {
     s({ trig = 'fsl' }, { t({"# frozen_string_literal: true", ''}) }),
+    s({ trig = 'bye' }, { t({"byebug"}) }),
+    s({ trig = 'bug' }, { t({"byebug"}) }),
+    s({ trig = 'pry' }, { t({"binding.pry"}) }),
+    s({ trig = 'bin' }, { t({"binding.pry"}) }),
     -- all? { |JP1| JP2 }
     s({ trig = 'all' }, {
       t("all? { |"), i(1, 'block_args'),
@@ -62,15 +66,15 @@ ls.add_snippets(nil, {
       t(", :"), i(2, 'old_name'), i(0)
     }),
     -- attr_reader :JP1
-    s({ trig = 'attrr' }, {
+    s({ trig = 'atrr' }, {
       t("attr_reader :"), i(1, "attribute_name"), i(0)
     }),
     -- attr_accessor :JP1
-    s({ trig = 'attra' }, {
+    s({ trig = 'atra' }, {
       t("attr_accessor :"), i(1, "attribute_name"), i(0)
     }),
     -- attr_accessor :JP1
-    s({ trig = 'attrw' }, {
+    s({ trig = 'atrw' }, {
       t("attr_writer :"), i(1, "attribute_name"), i(0)
     }),
     -- require 'JP1'

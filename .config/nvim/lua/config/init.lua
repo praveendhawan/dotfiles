@@ -75,3 +75,7 @@ vim.o.updatetime = 100
 
 -- Enable Global Status Lines
 vim.o.laststatus = 3
+
+vim.cmd([[
+set path+=
+]])

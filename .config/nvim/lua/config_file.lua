@@ -7,6 +7,7 @@ config.list = {
 -- Nvim Keybindings Overrides
   'config.keybindings',
   'config.external_commands_keybindings',
+  'functions.gbrowse',
 -- Profiler
 -- 'local_repo.profiler',
 -- Run the following command to profile
@@ -14,9 +15,10 @@ config.list = {
 -- List of Plugins
   'plugins',
   'plugins.config.cmp',
+  'plugins.config.lsp.mason',
+  'plugins.config.lsp.mason_config',
   'plugins.config.lsp',
-  'plugins.keybindings.lsp',
-  'plugins.config.lsp.lsp_installer',
+  'plugins.keybindings.lsp'
 }
 
 -- Load Module Function

@@ -4,7 +4,7 @@ local telescope_themes = require('telescope.themes')
 local TelescopeConfig = {
   find_files = function()
     telescope_builtin.find_files(
-      telescope_themes.get_dropdown({ preview = false })
+      telescope_themes.get_dropdown({ previewer = false, wrap_results = true, path_dsiplay = { shorten = { len = 4 } } })
     )
   end,
 

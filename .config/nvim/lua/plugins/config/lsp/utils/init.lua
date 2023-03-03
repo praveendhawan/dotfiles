@@ -3,8 +3,7 @@ local utils = {
 }
 
 -- For Snippets Support
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 function utils.on_attach(_client, _)
   -- utils.lsp_status.on_attach(client)

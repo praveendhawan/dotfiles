@@ -119,9 +119,6 @@ if [ -f ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 
   source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 else
-  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-  source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
- ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -132,12 +129,8 @@ export HOMEBREW_NO_ANALYTICS=1
 # for elixir iex session history configs
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-if [ -f /usr/local/bin/component_tree/bin/ctree ]; then
-  export PATH="$PATH:/usr/local/bin/component_tree/bin"
-else
-  git clone git@github.com:shkrt/component_tree.git /usr/local/bin/component_tree
-  chmod a+x /usr/local/bin/component_tree/bin/ctree
-  source ~/.zshrc
+if [ -f /opt/component_tree/bin/ctree ]; then
+  export PATH="$PATH:/opt/component_tree/bin/ctree"
 fi
 export PATH="/usr/local/sbin:$PATH"
 
@@ -149,10 +142,12 @@ export HOMEBREW_BUNDLE_FILE=~/.Brewfile
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 
 # Load Cargo
-source "$HOME/.cargo/env"
-. "$HOME/.cargo/env"
+# source "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 source "$HOME/.src_env"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Load RVM into a shell session *as a function
 # SHOULD BE LAST LINE IN ZSH

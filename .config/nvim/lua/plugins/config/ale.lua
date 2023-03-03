@@ -1,12 +1,12 @@
 vim.g.ale_linters = {
-  ruby = { 'rubocop', 'rufo' },
+  ruby = { 'rubocop' }, --, 'rufo' },
   javascript = { 'prettier', 'eslint' },
   typescript = { 'prettier', 'eslint' },
   css = { 'stylelint' }
 }
 
 vim.g.ale_fixers = {
-  ruby = { 'rubocop', 'rufo' },
+  ruby = { 'rubocop' }, --, 'rufo' },
   javascript = { 'prettier', 'eslint' },
   typescript = { 'prettier', 'eslint' }
 }
