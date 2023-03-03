@@ -1,5 +1,133 @@
 #!/bin/bash
 
+# Add a new non-sudo user
+sudo adduser praveen
+
+# Install necessary packages
+sudo apt update
+# Install necessary packages 
+packages=(
+  git
+  build-essential
+  libssl-dev
+  libreadline-dev
+  zlib1g-dev
+  python3
+  python3-pip
+  nodejs
+  yarn
+  yadm
+  bat
+  fd-find
+  fzf
+  ripgrep
+  tree
+  universal-ctags
+  imagemagick
+  shared-mime-inof
+  zip
+  unzip
+)
+
+for package in "${packages[@]}"; do
+  if ! dpkg -s "$package" >/dev/null 2>&1; then
+    sudo apt install -y "$package"
+  else
+    echo "$package is already installed"
+  fi
+done
+
+optional_packages=(
+  libsqlite3-dev
+  postgresql-13
+  postgresql-client-13
+  redis-server
+  apt-transport-https
+  elasticsearch=7.10.2
+  kibana=7.10.2
+)
+
+for package in "${optional_packages[@]}"; do
+	read -p "$package is not installed. Do you want to install it? (y/n)" choice 
+	case "$choice" in 
+	  y|Y ) sudo apt install -y "$package";; 
+	  n|N ) echo "Skipping $package";; 
+	  * ) echo "Invalid choice. Skipping $package";; 
+	esac
+done
+
+# Install Node.js (optional)
+if ! command -v node &> /dev/null; then
+  curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+  sudo apt install -y nodejs
+else
+  echo "Node is already installed"
+fi
+
+# Install RVM and Ruby
+if ! command -v rvm &> /dev/null; then
+  curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+  curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
+  curl -sSL https://get.rvm.io | bash -s stable --ruby
+  source ~/.rvm/scripts/rvm
+  rvm install 2.7.6
+else
+  echo "RVM is already installed"
+fi
+
+# Set up PostgreSQL for user praveen
+if ! sudo -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='praveen'" | grep -q 1; then 
+  sudo -u postgres createuser -s praveen 
+  sudo -u postgres createdb praveen 
+  sudo su - postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE praveen TO praveen;\""
+else
+  echo "PostgreSQL is already configured for praveen user"
+fi
+
+# Install Oh My Zsh (optional)
+if [[ ! -d ~/.oh-my-zsh ]]; then 
+  sudo apt install -y zsh 
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+  ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+fi
+
+# Install Overmind
+if ! command -v overmind &> /dev/null; then
+  curl https://github.com/DarthSim/overmind/releases/download/v2.2.2/overmind-v2.2.2-linux-amd64.gz
+  gzip overmind-v2.2.2-linux-amd64.gz -d
+  sudo mv overmind-v2.2.2-linux-amd64 /usr/local/bin/overmind
+  chmod a+x /usr/local/bin/overmind
+else
+  echo "Overmind is already installed"
+fi
+
+# Set up Git
+# git config --global user.name "Your Name"
+# git config --global user.email "your.email@example.com"
+
+# Install yadm and clone dotfiles repository
+yadm clone https://github.com/praveendhawan/dotfiles
+
+
+# Install neovim
+if ! command -v nvim &> /dev/null; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+  test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+  echo 'eval $(~/.linuxbrew/bin/brew shellenv)' >>~/.profile
+  brew install neovim
+else
+  echo "Neovim is already installed"
+fi
+
+# # Install Packer.nvim 
+if [[ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]]; then
+  git clone https://github.com/wbthomason/packer.nvim \
+    ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+else
+  echo "Packer.nvim is already installed"
+fi
+
 # Check if fd symlink already exists before creating
 if [ ! -L /usr/local/bin/fd ]; then
   ln -s "$(which fdfind)" /usr/local/bin/fd
