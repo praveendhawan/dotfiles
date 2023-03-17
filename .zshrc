@@ -129,8 +129,11 @@ export HOMEBREW_NO_ANALYTICS=1
 # for elixir iex session history configs
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-if [ -f /opt/component_tree/bin/ctree ]; then
-  export PATH="$PATH:/opt/component_tree/bin/ctree"
+uname=$(uname -s)
+if [[ "$uname" == "Darwin" ]] ; then
+  if [ -f /opt/component_tree/bin/ctree ]; then
+    export PATH="$PATH:/opt/component_tree/bin/ctree"
+  fi
 fi
 export PATH="/usr/local/sbin:$PATH"
 
@@ -147,7 +150,10 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 
 source "$HOME/.src_env"
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ "$uname" == "Darwin" ]] ; then
+else
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 # Load RVM into a shell session *as a function
 # SHOULD BE LAST LINE IN ZSH

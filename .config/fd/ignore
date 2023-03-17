@@ -1,0 +1,6 @@
+.git
+./node_modules
+./doc
+./vendor
+./pack/minpac
+./docs/database
