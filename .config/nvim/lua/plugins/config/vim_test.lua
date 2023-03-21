@@ -5,5 +5,5 @@ else
   let test#strategy='vimterminal'
 endif
 
-let test#ruby#rspec#executable='rspec'
+let test#ruby#rspec#executable='bundle exec spring rspec'
 ]])
