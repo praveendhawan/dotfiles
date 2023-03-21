@@ -215,35 +215,43 @@ require('packer').startup(function()
 
   -- quick scope for jumping to words in line
   -- Load plugin on calling
-  use {
-    'unblevable/quick-scope',
-    keys = "<Plug>(QuickScopeToggle)",
-    config = function()
-      require 'plugins.config.quick_scope'
-      require 'plugins.keybindings.quick_scope'
-    end
-  }
+  -- use {
+  --   'unblevable/quick-scope',
+  --   keys = "<Plug>(QuickScopeToggle)",
+  --   config = function()
+  --     require 'plugins.config.quick_scope'
+  --     require 'plugins.keybindings.quick_scope'
+  --   end
+  -- }
 
   -- switching between a single-line statement and a multi-line one
   -- Load plugin on calling
+  -- use {
+  --   'AndrewRadev/splitjoin.vim',
+  --   event = "BufReadPost",
+  --   config = function()
+  --     require 'plugins.config.splitjoin'
+  --     require 'plugins.keybindings.splitjoin'
+  --   end
+  -- }
   use {
-    'AndrewRadev/splitjoin.vim',
+    'Wansmer/treesj',
+    requires = { 'nvim-treesitter' },
     event = "BufReadPost",
     config = function()
-      require 'plugins.config.splitjoin'
-      require 'plugins.keybindings.splitjoin'
-    end
+      require 'plugins.config.treesj'
+    end,
   }
 
   -- ScratchPad for VIm
   -- Load plugin on calling
-  use {
-    'mtth/scratch.vim',
-    cmd = "Scratch",
-    config = function()
-      require 'plugins.config.scratch'
-    end
-  }
+  -- use {
+  --   'mtth/scratch.vim',
+  --   cmd = "Scratch",
+  --   config = function()
+  --     require 'plugins.config.scratch'
+  --   end
+  -- }
 
   -- Comment
   use 'tpope/vim-commentary'
