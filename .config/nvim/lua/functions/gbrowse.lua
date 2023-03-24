@@ -1,4 +1,6 @@
-function FindGitRoot()
+local custom_functions = require 'functions.utils'
+
+local function FindGitRoot()
   -- Determine the root of the Git repository
   local git_root = vim.fn.trim(
     vim.fn.system(
@@ -12,7 +14,7 @@ function FindGitRoot()
   return git_root
 end
 
-function GetGithubURL(remote_url, branch, rel_path)
+local function GetGithubURL(remote_url, branch, rel_path)
   -- Extract user and repo from GitHub remote URL
   local pattern = '^git@github.com:(.+)/(.+)%.git$'
   local user, repo = remote_url:match(pattern)
@@ -26,7 +28,7 @@ function GetGithubURL(remote_url, branch, rel_path)
   return github_url
 end
 
-function OpenOnGithub()
+function custom_functions.OpenOnGithub()
   -- Extract remote URL from git config
   local remote_url = vim.fn.trim(vim.fn.system('git config --get remote.origin.url'))
 
@@ -49,8 +51,4 @@ function OpenOnGithub()
   vim.fn.OSCYankString(github_url)
 end
 
--- Register command
-vim.cmd('command! OpenOnGithub lua OpenOnGithub()')
-
--- Create keybinding
-vim.api.nvim_set_keymap('n', '<leader>og', ':OpenOnGithub<CR>', { noremap = true })
+return custom_functions
