@@ -7,7 +7,8 @@ config.list = {
 -- Nvim Keybindings Overrides
   'config.keybindings',
   'config.external_commands_keybindings',
-  'functions.gbrowse',
+  'functions',
+  'config.custom_commands',
 -- Profiler
 -- 'local_repo.profiler',
 -- Run the following command to profile
