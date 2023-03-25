@@ -40,6 +40,7 @@ vim.api.nvim_create_user_command(
 
 ------------------------------------------------------------------------
 
+-- Ctree
 vim.api.nvim_create_user_command(
   'BuildComponentTree',
   "lua require('functions').component_tree_builder(vim.fn.expand('%:p:.:h'))",

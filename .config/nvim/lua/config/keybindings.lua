@@ -1,9 +1,8 @@
 local silent_noremap_opt = { noremap = true, silent = true }
-local silent_opt = { silent = true }
 local noremap_opt = { noremap = true }
 
 -- Pressing fn + F5 will show the buffers list in current worksapce
-vim.api.nvim_set_keymap('n', '<F5>', ':buffers<cr>:buffer<Space>', noremap_opt)
+-- vim.api.nvim_set_keymap('n', '<F5>', ':buffers<cr>:buffer<Space>', noremap_opt)
 
 -- Press \l to toggle visibility of invisible characters (listchars)
 vim.api.nvim_set_keymap('n', '<leader>l', ':set list!<cr>', noremap_opt)
