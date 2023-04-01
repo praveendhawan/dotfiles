@@ -98,24 +98,16 @@ require('packer').startup(function()
     end
   }
 
-  -- Fix trailing Whitespace and highlight whitespace
-  -- Load plugin on buffer read event and when its called via cmd or keys
-  -- Until this is fixed - https://github.com/bronson/vim-trailing-whitespace/issues/26
-  -- use {
-  --   'bronson/vim-trailing-whitespace',
-  --   event = "BufReadPost",
-  --   cmd = "FixWhitespace"
-  -- }
-
   -- coffeescript support (syntax) etc.
   -- Load plugin only for coffee filetype
   use {
     'kchmck/vim-coffee-script',
     ft = 'coffee'
   }
-
-  -- add 'end' to def, if, do etc.
-  -- use 'tpope/vim-endwise'
+  -- Vue JS syntax
+  use { 'posva/vim-vue', ft = "vue" }
+  -- YAML Nested Key Finder
+  use { 'henrik/vim-yaml-helper', ft = "yaml" }
 
   -- ctags mgmt
   use {
@@ -188,23 +180,8 @@ require('packer').startup(function()
     end
   }
 
-  -- Vue JS syntax
-  use { 'posva/vim-vue', ft = "vue" }
-
-
   -- Taming the quickfix window :)
   use { 'romainl/vim-qf', ft = "qf" }
-
-  -- Colorschemes for Vim
-  -- Seti
-  -- use 'trusktr/seti.vim'
-  -- GruvBox
-  -- use {
-  --   "npxbr/gruvbox.nvim",
-  --   requires = {
-  --     {"rktjmp/lush.nvim"}
-  --   }
-  -- }
 
   use {
     'folke/tokyonight.nvim',
@@ -213,27 +190,8 @@ require('packer').startup(function()
     end
   }
 
-  -- quick scope for jumping to words in line
-  -- Load plugin on calling
-  -- use {
-  --   'unblevable/quick-scope',
-  --   keys = "<Plug>(QuickScopeToggle)",
-  --   config = function()
-  --     require 'plugins.config.quick_scope'
-  --     require 'plugins.keybindings.quick_scope'
-  --   end
-  -- }
-
   -- switching between a single-line statement and a multi-line one
   -- Load plugin on calling
-  -- use {
-  --   'AndrewRadev/splitjoin.vim',
-  --   event = "BufReadPost",
-  --   config = function()
-  --     require 'plugins.config.splitjoin'
-  --     require 'plugins.keybindings.splitjoin'
-  --   end
-  -- }
   use {
     'Wansmer/treesj',
     requires = { 'nvim-treesitter' },
@@ -242,16 +200,6 @@ require('packer').startup(function()
       require 'plugins.config.treesj'
     end,
   }
-
-  -- ScratchPad for VIm
-  -- Load plugin on calling
-  -- use {
-  --   'mtth/scratch.vim',
-  --   cmd = "Scratch",
-  --   config = function()
-  --     require 'plugins.config.scratch'
-  --   end
-  -- }
 
   -- Comment
   use 'tpope/vim-commentary'
@@ -266,12 +214,6 @@ require('packer').startup(function()
       require 'plugins.keybindings.vim_test'
     end
   }
-
-  -- VIM TMUX NAVIGATOR
-  -- use 'christoomey/vim-tmux-navigator'
-
-  -- YAML Nested Key Finder
-  use { 'henrik/vim-yaml-helper', ft = "yaml" }
 
   -- Treesitter
   -- load it only if there’s a file loaded in a buffer
@@ -326,17 +268,6 @@ require('packer').startup(function()
     end
   }
 
-  -- use {
-  --   'nvim-telescope/telescope-fzf-writer.nvim',
-  --   requires = {
-  --     { 'nvim-telescope/telescope.nvim' }
-  --   },
-  --   after = "telescope.nvim",
-  --   config = function()
-  --     require 'plugins.config.telescope_fzf_writer'
-  --   end
-  -- }
-
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
     requires = {
@@ -349,7 +280,6 @@ require('packer').startup(function()
     end
   }
 
-
   use {
     'nvim-telescope/telescope-project.nvim',
     requires = {
@@ -360,16 +290,6 @@ require('packer').startup(function()
       require 'plugins.config.telescope_project'
     end
   }
-
-  -- Dash Integration via Telescope
-  -- use {
-  --   'mrjones2014/dash.nvim',
-  --   run = 'make install',
-  --   after = "telescope.nvim",
-  --   config = function()
-  --     -- require 'plugins.config.dash'
-  --   end
-  -- }
 
   -- Searcher/Replacer/Grepper
   use {
@@ -406,10 +326,10 @@ require('packer').startup(function()
   --     require 'plugins.config.copilot'
   --   end
   -- }
-  -- Vim Rails
-  use {
-    'tpope/vim-rails'
-  }
+  -- -- Vim Rails
+  -- use {
+  --   'tpope/vim-rails'
+  -- }
   -- Impatient vim - improves startup time
   use {
     'lewis6991/impatient.nvim'
