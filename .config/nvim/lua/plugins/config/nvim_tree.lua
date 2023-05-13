@@ -14,9 +14,23 @@ require'nvim-tree'.setup {
   update_cwd = true,
   -- filtering options
   filters = {
-    -- do not show `dotfiles` (files starting with a `.`)
+    -- do show `dotfiles` (files starting with a `.`)
     dotfiles = false,
-    custom = { '.git', 'node_modules', 'build', '.cache', 'public', 'coc' } -- Dont show these folders or files in tree
+    custom = {
+      '.git',
+      'node_modules',
+      'build',
+      '.cache',
+      'public',
+      'coc',
+      '.vscode'
+    } -- Dont show these folders or files in tree
+  },
+  -- Git filtering - enabled by default
+  git = {
+    -- show git ignore files
+    ignore = false,
+
   },
   --  Disable Netrw
   disable_netrw = true,
