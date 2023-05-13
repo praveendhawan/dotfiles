@@ -136,7 +136,7 @@ require('packer').startup(function()
   -- LSP signature help
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   -- 'Copilot'
-  -- use 'hrsh7th/cmp-copilot'
+  use 'hrsh7th/cmp-copilot'
   -- Buffer Source for cmp
   use { 'hrsh7th/cmp-buffer', disable = false }
   -- Luasnip Source for cmp
