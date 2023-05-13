@@ -1,3 +1,3 @@
 vim.g.copilot_filetypes = {
-                            TelescopePrompt = false,
-                          }
+  TelescopePrompt = false,
+}

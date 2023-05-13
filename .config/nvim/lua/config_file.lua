@@ -4,11 +4,11 @@ local config = {}
 config.list = {
 -- Nvim Config
   'config',
--- Nvim Keybindings Overrides
-  'config.keybindings',
-  'config.external_commands_keybindings',
   'functions',
   'config.custom_commands',
+-- Nvim Keybindings Overrides
+  'config.keybindings',
+  -- 'config.external_commands_keybindings',
 -- Profiler
 -- 'local_repo.profiler',
 -- Run the following command to profile
