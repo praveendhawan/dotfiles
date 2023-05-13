@@ -1,0 +1,46 @@
+theme = "onedark"
+
+[editor]
+line-number = "absolute"
+mouse = true
+cursorline = true
+cursorcolumn = false
+bufferline = "multiple"
+color-modes = true
+# Custom Functions and Commands
+# commands = { copy_git_path = "gbrowse.open_on_github" }
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.statusline]
+left = ["mode", "spinner", "version-control"]
+center = ["file-name"]
+right = ["diagnostics", "selections", "position", "file-type"]
+separator = "│"
+mode.normal = "[N]"
+mode.insert = "[I]"
+mode.select = "[V]"
+
+[editor.whitespace.render]
+space = "none"
+tab = "all"
+newline = "none"
+
+[editor.whitespace.characters]
+space = "·"
+nbsp = "⍽"
+tab = "→"
+newline = "⏎"
+tabpad = "·" # Tabs will look like "→···" (depending on tab width)
+
+[editor.lsp]
+display-messages = true
+
+# [keys.normal]
+# "space" = { o = { g = "copy_git_path" } }
