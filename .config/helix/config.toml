@@ -1,22 +1,18 @@
-theme = "onedark"
+theme = "mellow"
 
 [editor]
 line-number = "absolute"
-mouse = true
 cursorline = true
-cursorcolumn = false
 bufferline = "multiple"
 color-modes = true
+auto-format = false
 # Custom Functions and Commands
 # commands = { copy_git_path = "gbrowse.open_on_github" }
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
-select = "underline"
-
-[editor.file-picker]
-hidden = false
+select = "block"
 
 [editor.statusline]
 left = ["mode", "spinner", "version-control"]
@@ -28,9 +24,9 @@ mode.insert = "[I]"
 mode.select = "[V]"
 
 [editor.whitespace.render]
-space = "none"
+space = "all"
 tab = "all"
-newline = "none"
+newline = "all"
 
 [editor.whitespace.characters]
 space = "·"
@@ -42,5 +38,5 @@ tabpad = "·" # Tabs will look like "→···" (depending on tab width)
 [editor.lsp]
 display-messages = true
 
-# [keys.normal]
-# "space" = { o = { g = "copy_git_path" } }
+# [keys.normal.space]
+# og = "copy_git_path"
