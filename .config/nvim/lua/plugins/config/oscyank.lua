@@ -10,7 +10,7 @@ local yankPostPlusGroup = api.nvim_create_augroup("YankPostPlusGroup", { clear =
 api.nvim_create_autocmd("TextYankPost", {
   command = [[
     if v:event.operator is 'y' && v:event.regname is '*'
-      execute 'OSCYankReg *'
+      execute 'OSCYankRegister *'
     endif
   ]],
   group = yankPostStarGroup,
@@ -20,7 +20,7 @@ api.nvim_create_autocmd("TextYankPost", {
 api.nvim_create_autocmd("TextYankPost", {
   command = [[
     if v:event.operator is 'y' && v:event.regname is '+'
-      execute 'OSCYankReg +'
+      execute 'OSCYankRegister +'
     endif
   ]],
   group = yankPostPlusGroup,
