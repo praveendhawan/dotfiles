@@ -17,6 +17,11 @@ cmp.setup {
     -- The minimum length of a word to complete on
     keyword_length = 3
   },
+  performance = {
+    trigger_debounce_time = 500,
+    throttle = 550,
+    fetching_timeout = 80,
+  },
   mapping = {
     -- ["<c-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
     ["<c-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), {'i','c'}),
@@ -55,9 +60,9 @@ cmp.setup {
     -- { name = 'calc' },
     { name = 'luasnip', priority = 2 },
     { name = 'treesitter', priority = 3, max_item_count = 3},
-    { name = 'nvim_lsp', priority = 4, max_item_count = 3 },
-    -- { name = 'copilot', priority = 5 },
-    { name = 'nvim_lsp_signature_help', priority = 6 },
+    -- { name = 'nvim_lsp', priority = 4, max_item_count = 3 },
+    { name = 'copilot', priority = 5 },
+    -- { name = 'nvim_lsp_signature_help', priority = 6 },
     -- { name = 'buffer' },
     { name = 'tags', priority = 7, max_item_count = 3 },
     -- { name = 'spell' },
@@ -73,7 +78,7 @@ cmp.setup.filetype('lua', {
     { name = 'treesitter', priority = 4 },
     { name = 'nvim_lsp', priority = 5 },
     -- { name = 'copilot', priority = 6 },
-    { name = 'nvim_lsp_signature_help', priority = 7 },
+    -- { name = 'nvim_lsp_signature_help', priority = 7 },
     { name = 'tags', priority = 8, max_item_count = 3 }
   })
 })

@@ -128,33 +128,33 @@ require('packer').startup(function()
   }
 
   -- New Autocomplete Framework + LSP
-  use 'hrsh7th/nvim-cmp'
+  use { 'hrsh7th/nvim-cmp', disable = false }
   -- LSP source for cmp
-  use 'hrsh7th/cmp-nvim-lsp'
+  use { 'hrsh7th/cmp-nvim-lsp', disable = true }
   -- LSP Document Symbols
-  use 'hrsh7th/cmp-nvim-lsp-document-symbol'
+  use { 'hrsh7th/cmp-nvim-lsp-document-symbol', disable = true }
   -- LSP signature help
-  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use { 'hrsh7th/cmp-nvim-lsp-signature-help', disable = true }
   -- 'Copilot'
-  use 'hrsh7th/cmp-copilot'
+  use { 'hrsh7th/cmp-copilot', disable = false }
   -- Buffer Source for cmp
   use { 'hrsh7th/cmp-buffer', disable = false }
   -- Luasnip Source for cmp
-  use 'saadparwaiz1/cmp_luasnip'
+  use { 'saadparwaiz1/cmp_luasnip', disable = false }
   -- nvim lua API Source for cmp
-  use 'hrsh7th/cmp-nvim-lua'
+  use { 'hrsh7th/cmp-nvim-lua', disable = false }
   -- Treesitter Source for cmp
-  use 'ray-x/cmp-treesitter'
+  use { 'ray-x/cmp-treesitter', disable = false }
   -- Calc Source for cmp
   use { 'hrsh7th/cmp-calc', disable = true }
   -- Spell Source for cmp
   use { 'f3fora/cmp-spell', disable = true }
   -- Tags Source for cmp
-  use 'quangnguyen30192/cmp-nvim-tags'
+  use { 'quangnguyen30192/cmp-nvim-tags', disable = true }
   -- vim cmdline source for cmp
-  use 'hrsh7th/cmp-cmdline'
+  use { 'hrsh7th/cmp-cmdline', disable = false }
   -- vim cmdline history source for cmp
-  use { 'dmitmel/cmp-cmdline-history', disable = true }
+  use { 'dmitmel/cmp-cmdline-history', disable = false }
 
   -- LSP for nvim
   use 'neovim/nvim-lspconfig'
