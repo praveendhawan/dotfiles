@@ -34,6 +34,12 @@ require('packer').startup(function()
   -- Packer
   use 'wbthomason/packer.nvim'
   -- Used module to load it only when a plugin requires it
+
+  -- Replacement of filetype.vim for faster loading
+  use {
+    'nathom/filetype.nvim'
+  }
+
   use {
     "nvim-lua/plenary.nvim",
     module = "plenary"
