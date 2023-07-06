@@ -45,6 +45,12 @@ M.tests = {
   }
 }
 
+M.telescope = {
+  n = {
+    ["<leader>ft"] = { "<cmd> Telescope treesitter <CR>", 'Treesitter symbols', opts = { noremap = true } }
+  }
+}
+
 -- more keybinds!
 
 return M

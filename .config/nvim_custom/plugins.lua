@@ -119,6 +119,20 @@ local plugins = {
     config = function()
       require 'custom.oscyank'
     end
+  },
+
+  -- Telescope
+  {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "make",
+    config = function()
+      require("telescope").load_extension "fzf"
+    end,
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = overrides.telescope
   }
 
   -- To make a plugin not be loaded
