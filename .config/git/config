@@ -18,45 +18,27 @@
 	undo = reset HEAD~
   cp = cherry-pick
 
+# set the default branch name to main
+[init]
+  defaultBranch = main
+
+# deletes outdated remote references in your .git directory
+[fetch]
+  prune = true
+
 [apply]
 	# Detect whitespace errors when applying a patch
 	whitespace = fix
 
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.config/git/ignore
 # CRLF is replaced with LF when writing that file to the object database, and NOT vice versa
   autocrlf = input
 	editor = "nvim -u NONE"
 
-# [diff]
-	tool = vimdiff
-	# Detect copies as well as renames
-  renames = copies
-
 [diff "bin"]
 	# Use `hexdump` to diff binary files
 	textconv = hexdump -v -C
-
-# [color]
-#   ui = auto
-
-# [color "branch"]
-# with yello background color and terminal color font
-#   current = yellow reverse
-#   font color
-#   local = yellow
-#   remote = green
-
-# [color "diff"]
-#   meta = yellow bold
-#   frag = magenta bold # line info
-#   old = red # deletions
-#   new = green # additions
-
-# [color "status"]
-#   added = yellow
-#   changed = green
-#   untracked = cyan
 
 [pager]
   # force not to use pager for branches and status
