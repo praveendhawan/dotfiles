@@ -56,39 +56,12 @@ if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
   source ~/.config/exercism/exercism_completion.zsh
 fi
 
-# for brew analytics
-export HOMEBREW_NO_ANALYTICS=1
-
-# Brewfile location
-export HOMEBREW_BUNDLE_FILE="$HOME/.config/brewfile/.Brewfile"
-
-# for elixir iex session history configs
-export ERL_AFLAGS="-kernel shell_history enabled"
-
 uname=$(uname -s)
 if [[ "$uname" == "Darwin" ]] ; then
   if [ -f /opt/component_tree/bin/ctree ]; then
     export PATH="$PATH:/opt/component_tree/bin/ctree"
   fi
 fi
-export PATH="/usr/local/sbin:$PATH"
-
+export PATH="$PATH:/usr/local/sbin"
 
 source "$HOME/.src_env"
-
-if [[ "$uname" == "Darwin" ]] ; then
-else
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
-
-# Load RVM into a shell session *as a function
-# SHOULD BE LAST LINE IN ZSH
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
-
-eval "$(starship init zsh)"
