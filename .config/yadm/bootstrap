@@ -124,13 +124,14 @@ else
   echo "Neovim is already installed"
 fi
 
-# # Install Packer.nvim 
-if [[ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]]; then
-  git clone https://github.com/wbthomason/packer.nvim \
-    ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-else
-  echo "Packer.nvim is already installed"
-fi
+# Install NvChad 
+git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+
+# Add customization for Nvchad
+ln -s ~/.config/nvim_custom ~/.config/nvim/lua/custom
+
+nvim
+
 
 # Check if fd symlink already exists before creating
 if [ ! -L /usr/local/bin/fd ]; then
