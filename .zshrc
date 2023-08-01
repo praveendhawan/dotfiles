@@ -106,8 +106,8 @@ export SSH_KEY_PATH="~/.ssh/"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
+if [ -f ~/.aliases ]; then
+    source ~/.aliases
 fi
 
 # This will include exercism completetion script in zsh
