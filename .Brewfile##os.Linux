@@ -1,7 +1,0 @@
-tap "homebrew/bundle"
-tap "homebrew/core"
-brew "gh"
-brew "lua"
-brew "luarocks"
-brew "msgpack"
-brew "neovim"
