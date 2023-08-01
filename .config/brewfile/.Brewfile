@@ -8,6 +8,7 @@ brew "fd"
 brew "fzf"
 brew "gh"
 brew "git"
+brew "tree-sitter"
 brew "neovim"
 brew "ripgrep"
 brew "tmux"
@@ -17,4 +18,4 @@ brew "yadm"
 brew "yarn"
 cask "font-hack-nerd-font"
 
-main ./Brewfile.$OSTYPE
+load "~/.config/brewfile/.Brewfile.#{/darwin/i =~ `uname -a` ? 'darwin' : 'linux'}"
