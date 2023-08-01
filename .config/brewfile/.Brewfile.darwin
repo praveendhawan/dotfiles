@@ -1,0 +1,6 @@
+brew "awscli"
+brew "coreutils"
+brew "exercism"
+brew "libtool"
+brew "postgresql@13"
+brew "zlib"

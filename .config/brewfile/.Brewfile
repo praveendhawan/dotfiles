@@ -16,3 +16,5 @@ brew "wget"
 brew "yadm"
 brew "yarn"
 cask "font-hack-nerd-font"
+
+main ./Brewfile.$OSTYPE
