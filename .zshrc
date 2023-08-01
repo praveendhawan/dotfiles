@@ -9,12 +9,8 @@ export ZSH=~/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="cloud"
-ZSH_THEME="spaceship"
-
 # spaceship theme configs
-if [ -f ~/.spaceship_config ]; then
-  source ~/.spaceship_config
-fi
+ZSH_THEME="spaceship"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
