@@ -1,7 +1,7 @@
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 
-if [ -f ~/.bash_aliases ]; then
-	source ~/.bash_aliases
+if [ -f ~/.aliases ]; then
+	source ~/.aliases
 fi
 
 # Load Cargo
