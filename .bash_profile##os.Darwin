@@ -1,3 +1,0 @@
-[[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
-
-complete -C /usr/local/bin/terraform terraform
