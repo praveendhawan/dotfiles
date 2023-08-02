@@ -31,5 +31,3 @@ export HOMEBREW_BUNDLE_FILE="$HOME/.config/brewfile/.Brewfile"
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
-
-eval "$(starship init zsh)"

@@ -64,4 +64,16 @@ if [[ "$uname" == "Darwin" ]] ; then
 fi
 export PATH="$PATH:/usr/local/sbin"
 
-source "$HOME/.src_env"
+if [ -f $HOME/.src_env ]; then
+  source "$HOME/.src_env"
+fi
+
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+else
+  echo "Starship is not installed. Skipping initialization."
+fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
