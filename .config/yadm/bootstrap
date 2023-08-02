@@ -110,7 +110,7 @@ fi
 # OS agnostic setup
 #
 # NODE JS 
-read -p "Do you want to install nodejs" choice
+read -p "Do you want to install nodejs > " choice
 INSTALL_NODE=false
 case "$choice" in
   y|Y) INSTALL_NODE=true;;
@@ -127,13 +127,14 @@ if $INSTALL_NODE; then
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   # Install nodejs via nvm
   nvm install node
+  nvm install 16 # dependency for copilot nvim
 fi
 
 # RVM
-read -p "Do you want to install rvm" choice
+read -p "Do you want to install rvm > " choice
 INSTALL_RUBY=false
 case "$choice" in
-  y|Y ) INSTALL_RUBY = 1;;
+  y|Y ) INSTALL_RUBY=true;;
   * ) echo "Skipping ruby installation";;
 esac
 
@@ -151,9 +152,10 @@ fi
 
 # Postgres
 if ! command -v psql &> /dev/null 2>&1; then
-  read -p "Do you want to create a new postgres user" choice
-  case "$choice" in
-    y|Y ) CREATE_POSTGRES_USER = 1;;
+CREATE_POSTGRES_USER=false
+  read -p "Do you want to create a new postgres user > " choice
+  case "$choice
+    y|Y ) CREATE_POSTGRES_USER=1;;
     * ) echo "Skipping postgres user creation";;
   esac
 
