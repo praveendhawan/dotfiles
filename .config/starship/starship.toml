@@ -7,4 +7,20 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
-"""
+$character"""
+
+[character]
+success_symbol = '[➜](bold green)'
+error_symbol = '[✗](bold red)'
+
+[username]
+show_always = true
+format = '[$user]($style)@'
+
+[hostname]
+ssh_only = false
+ssh_symbol = ' 🌐'
+format = '[$hostname$ssh_symbol]($style)'
+
+[git_branch]
+format = '[$symbol$branch]($style)'
