@@ -88,8 +88,10 @@ local plugins = {
           'github/copilot.vim',
           event = "InsertEnter",
           config = function ()
-            local node_path = vim.fn.system('nvm which v16'):gsub('\n', '')
-            vim.cmd(string.format("let g:copilot_node_command = '%s'", node_path))
+            local node_path = vim.fn.system('asdf where nodejs 16.5.0'):gsub('\n', '')
+            node_path = node_path .. '/bin/node'
+            vim.g.copilot_node_command = node_path
+            -- vim.cmd(string.format("let g:copilot_node_command = '%s'", node_path))
           end
         }
       },
