@@ -110,12 +110,12 @@ local plugins = {
   },
 
   {
-    'ojroques/vim-oscyank',
+    'ojroques/nvim-osc52',
     cond = function()
         -- Check if connection is ssh
         return os.getenv("SSH_CLIENT") ~= nil
     end,
-    cmd = { 'OSCYank', 'OSCYankRegister' },
+    event = "TextYankPost",
     config = function()
       require 'custom.oscyank'
     end

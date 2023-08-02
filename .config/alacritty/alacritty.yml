@@ -15,3 +15,5 @@ font:
     family: FiraMono Nerd Font
     style: Bold Italic
   size: 15.0
+selection:
+  save_to_clipboard: true
