@@ -1,6 +1,7 @@
-brew "awscli"
+tap "homebrew/cask-fonts"
 brew "coreutils"
 brew "exercism"
 brew "libtool"
 brew "postgresql@13"
 brew "zlib"
+cask "font-hack-nerd-font"

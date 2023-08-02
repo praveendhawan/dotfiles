@@ -1,5 +1,4 @@
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
 brew "bat"
 brew "exa"
 brew "jq"
@@ -16,6 +15,6 @@ brew "wget"
 brew "yadm"
 brew "yarn"
 brew "starship"
-cask "font-hack-nerd-font"
+brew "awscli"
 
 load "~/.config/brewfile/.Brewfile.#{/darwin/i =~ `uname -a` ? 'darwin' : 'linux'}"
