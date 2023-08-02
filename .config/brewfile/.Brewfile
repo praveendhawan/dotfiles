@@ -16,5 +16,6 @@ brew "yadm"
 brew "yarn"
 brew "starship"
 brew "awscli"
+brew "asdf"
 
 load "~/.config/brewfile/.Brewfile.#{/darwin/i =~ `uname -a` ? 'darwin' : 'linux'}"

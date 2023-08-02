@@ -118,16 +118,15 @@ case "$choice" in
 esac
 
 if $INSTALL_NODE; then
-  if ! command -v nvm >/dev/null 2>&1; then
-    echo "Installing nvm"
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+  if ! command -v asdf &> /dev/null 2>&1; then
+    brew install asdf
   fi
-  # Load nvm
-  NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  # Install nodejs via nvm
-  nvm install node
-  nvm install 16 # dependency for copilot nvim
+  # Load asdf
+  . $(brew --prefix asdf)/libexec/asdf.sh
+  asdf plugin add nodejs
+  asdf install nodejs latest
+  asdf install nodejs 16.5.0
+  asdf global nodejs 16.5.0
 fi
 
 # RVM
@@ -139,22 +138,21 @@ case "$choice" in
 esac
 
 if $INSTALL_RUBY; then
-  if ! command -v rvm &> /dev/null 2>&1; then
-    curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-    curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
-    curl -sSL https://get.rvm.io | bash -s stable --ruby
-    source ~/.rvm/scripts/rvm
-    rvm install 2.7.6
-  else
-    echo "RVM is already installed"
+  if ! command -v asdf &> /dev/null 2>&1; then
+    brew install asdf
   fi
+  # Load asdf
+  . $(brew --prefix asdf)/libexec/asdf.sh
+  asdf plugin add ruby
+  asdf install ruby 2.7.6
+  asdf global ruby 2.7.6
 fi
 
 # Postgres
 if ! command -v psql &> /dev/null 2>&1; then
 CREATE_POSTGRES_USER=false
   read -p "Do you want to create a new postgres user > " choice
-  case "$choice
+  case "$choice"
     y|Y ) CREATE_POSTGRES_USER=1;;
     * ) echo "Skipping postgres user creation";;
   esac
