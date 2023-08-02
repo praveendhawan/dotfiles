@@ -91,6 +91,20 @@ if [[ "$SYSTEM_TYPE" == "Linux" ]] ; then
       * ) echo "Invalid choice. Skipping $package";; 
     esac
   done
+
+  # Install nerd fonts
+  if fc-list | grep -i "FiraMono" >/dev/null 2>&1; then
+    echo "FiraMono is already installed"
+  else
+    echo "Installing FiraMono"
+    git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts
+    cd nerd-fonts
+    ./install.sh FiraMono
+
+    # cleanup
+    cd ..
+    rm -rf nerd-fonts
+  fi
 fi
 
 # OS agnostic setup
