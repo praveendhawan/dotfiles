@@ -17,5 +17,6 @@ brew "yarn"
 brew "starship"
 brew "awscli"
 brew "asdf"
+brew "tealdeer"
 
 load "~/.config/brewfile/.Brewfile.#{/darwin/i =~ `uname -a` ? 'darwin' : 'linux'}"
