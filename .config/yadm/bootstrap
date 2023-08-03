@@ -32,6 +32,16 @@ if [ "$SYSTEM_TYPE" == "Darwin" ]; then
     echo "Updating homebrew bundle"
     brew bundle --file="$HOME/config/brewfile/.Brewfile"
   fi
+
+  if [ -f "$HOME/config/brewfile/.Brewfile.darwin" ]; then
+    echo "Updating homebrew bundle for mac"
+    brew bundle --file="$HOME/config/brewfile/.Brewfile.darwin"
+  fi
+
+  # force the linking of libpq to avoid issue with installing pg gem
+  if brew list libpq >/dev/null 2>&1; then
+    brew link --force libpq
+  fi
 fi
 
 # Linux specific setup
@@ -50,7 +60,6 @@ if [[ "$SYSTEM_TYPE" == "Linux" ]] ; then
     zlib1g-dev
     python3
     python3-pip
-    shared-mime-info
     zip
     unzip
     zsh
@@ -69,6 +78,11 @@ if [[ "$SYSTEM_TYPE" == "Linux" ]] ; then
       echo "Updating homebrew bundle"
       brew bundle --file="$HOME/config/brewfile/.Brewfile"
     fi
+
+    if [ -f "$HOME/config/brewfile/.Brewfile.linux" ]; then
+      echo "Updating homebrew bundle for linux"
+      brew bundle --file="$HOME/config/brewfile/.Brewfile.linux"
+    fi
   fi
 
   install_packages packages
@@ -84,7 +98,7 @@ if [[ "$SYSTEM_TYPE" == "Linux" ]] ; then
   )
 
   for package in "${optional_packages[@]}"; do
-    read -p "$package is not installed. Do you want to install it? (y/n)" choice 
+    read -p "$package is not installed. Do you want to install it? (y/n) > " choice 
     case "$choice" in 
       y|Y ) sudo apt install -y "$package";; 
       n|N ) echo "Skipping $package";; 
