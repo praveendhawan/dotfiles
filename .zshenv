@@ -23,4 +23,10 @@ export HOMEBREW_BUNDLE_FILE="$HOME/.config/brewfile/.Brewfile"
 # for elixir iex session history configs
 export ERL_AFLAGS="-kernel shell_history enabled"
 
+# starship prompt config path
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+# asdf config path
+export ASDF_CONFIG_FILE=~/.config/asdf/asdfrc
+export ASDF_GEM_DEFAULT_PACKAGES_FILE=~/.config/asdf/default-gems
+export ASDF_NPM_DEFAULT_PACKAGES_FILE=~/.config/asdf/default-npm-packages
