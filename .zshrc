@@ -24,6 +24,8 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+ZSH_COMPDUMP=$XDG_CACH_HOME/zsh/zcompdump
+
 # User configuration
 
 # You may need to manually set your language environment
