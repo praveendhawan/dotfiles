@@ -20,6 +20,7 @@ plugins=(
   docker-compose
   tmux
   terraform
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -40,6 +41,11 @@ fi
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/"
+
+# https://github.com/zsh-users/zsh-autosuggestions/issues/489
+# Start writing in shell, paste something and right arrow still
+# auto completes. To solve this is needed.
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh

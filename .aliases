@@ -1,9 +1,11 @@
 if uname -a | grep -q Darwin; then
-  alias goto_dekeo="cd ~/workspace/Office/spree-jiffyshirts"
+  alias jiffy="cd ~/workspace/Office/spree-jiffyshirts"
   alias personal_projects="cd ~/workspace/Personal"
   alias practice_projects="cd ~/workspace/Practice"
+  alias mindmap="cd ~/workspace/Personal/Obsidian/mindmap/mindmap-remote"
+  alias ledger="hledger"
 else
-  alias goto_dekeo="cd ~/jiffyshirts"
+  alias jiffy="cd ~/jiffyshirts"
 fi
 
 
