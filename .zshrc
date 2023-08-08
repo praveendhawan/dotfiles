@@ -83,4 +83,8 @@ else
 fi
 
 # Use asdf instead of rvm.RVM install doesnt work with M2 
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+if [[ "$uname" == "Darwin" ]] ; then
+  . /opt/homebrew/opt/asdf/libexec/asdf.sh
+else
+  . /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh
+fi
