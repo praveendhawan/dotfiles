@@ -18,12 +18,8 @@ M.general = {
         custom_functions.ctree_builder(vim.fn.expand('%:p:.:h'))
       end,
       'Build Component tree'
-    },
-    -- Close all buffers except current one
-    ["bda"] = { '<cmd> %bd|e#|bd#<cr>', 'Close all buffers except current'},
-    -- Close all buffers
-    ["bca"] = { '<cmd> %bufdo bd', 'Close all buffers except current'}
-  },
+    }
+  }
 }
 
 M.lazygit = {
