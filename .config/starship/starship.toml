@@ -1,5 +1,8 @@
 # Do not Inserts a blank line between shell prompts
 add_newline = false
+# Increase the `command_timeout` to 5000 milliseconds.
+command_timeout = 5000
+
 format = """
 $username\
 $hostname\
