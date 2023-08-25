@@ -201,7 +201,7 @@ fi
 
 if [ ! -d "$dir" ]; then
   git clone git@github.com:shkrt/component_tree.git
-  sudo cp -R component_tree/ "$dir"
+  sudo cp -R component_tree/ "$dir/component_tree"
   sudo chmod a+x "$dir/component_tree/bin/ctree"
   export PATH="$PATH:$dir/component_tree/bin"
 fi
