@@ -29,4 +29,6 @@ function ggrm() {
 
 # alias pbcopy="xclip -sel clip"
 
+alias swap_nvim="rm -rf ~/.local/state/nvim/swap/*.swp"
+
 source ~/.jiffy-aliases
