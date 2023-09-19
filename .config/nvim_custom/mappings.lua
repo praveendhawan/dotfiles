@@ -47,6 +47,12 @@ M.telescope = {
   }
 }
 
+M.gitsigns = {
+  n = {
+    ["<leader>gb"] = { "<cmd> Gitsigns toggle_current_line_blame <CR>", 'Toggle git blame', opts = { noremap = true } }
+  }
+}
+
 -- more keybinds!
 
 return M
