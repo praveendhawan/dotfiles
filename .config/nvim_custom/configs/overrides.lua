@@ -14,7 +14,8 @@ M.treesitter = {
     "markdown_inline",
     "ruby",
     "rust",
-    "elixir"
+    "elixir",
+    "json"
   },
   indent = {
     enable = true,
