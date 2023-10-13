@@ -43,7 +43,9 @@ M.tests = {
 
 M.telescope = {
   n = {
-    ["<leader>ft"] = { "<cmd> Telescope treesitter <CR>", 'Treesitter symbols', opts = { noremap = true } }
+    ["<leader>ft"] = { "<cmd> Telescope treesitter <CR>", 'Treesitter symbols', opts = { noremap = true } },
+    ["<leader>fs"] = { "<cmd> Telescope grep_string <CR>", 'Find word under cursor', opts = { noremap = true } },
+    ["<leader>fm"] = { "<cmd> Telescope marks <CR>", 'Find vim marks', opts = { noremap = true } }
   }
 }
 
