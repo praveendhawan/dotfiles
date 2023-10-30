@@ -24,7 +24,7 @@ alias ctree="/opt/component_tree/bin/ctree"
 function ggrm() {
   local bm="$(git_current_branch)"
   # gcm - git co master
-  gcm && gup && gco $bm && grbm
+  gcm && gpr && gco $bm && grbm
 }
 
 # alias pbcopy="xclip -sel clip"
