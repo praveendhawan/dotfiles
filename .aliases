@@ -31,4 +31,7 @@ function ggrm() {
 
 alias swap_nvim="rm -rf ~/.local/state/nvim/swap/*.swp"
 
+# alias ls to exa
+alias ls="exa"
+
 source ~/.jiffy-aliases
