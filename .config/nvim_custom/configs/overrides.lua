@@ -114,7 +114,7 @@ M.telescope = {
     --   previewer = false
     -- }
   },
-  extensions_list = { "themes", "terms", "fzf" },
+  extensions_list = { "themes", "terms", "fzf", "ui-select" },
   extensions = {
     fzf = {
       fuzzy = true,                    -- false will only do exact matching
