@@ -22,12 +22,6 @@ M.general = {
   }
 }
 
-M.lazygit = {
-  n = {
-    ["<leader>gg"] = { ":LazyGit<CR>", 'Toggle Lazygit', opts = { noremap = true } }
-  }
-}
-
 M.treesitter = {
   n = {
     ["<leader>s"] = { ":TSJToggle<CR>", 'Toggle Split and Join block', opts = { noremap = true } }
