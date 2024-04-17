@@ -114,6 +114,15 @@ local plugins = {
     }
   },
 
+  -- For Chat support for Local LLMs
+  {
+    "David-Kunz/gen.nvim",
+    cmd = { 'Gen' },
+    event = "InsertEnter",
+    config = function()
+      require "custom.configs.gen-llm"
+    end
+  },
   -- Vim Test
   {
     "klen/nvim-test",
