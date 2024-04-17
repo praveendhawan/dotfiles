@@ -121,6 +121,9 @@ local plugins = {
     event = "InsertEnter",
     config = function()
       require "custom.configs.gen-llm"
+    end,
+    cond = function()
+      return vim.fn.has('mac') == 1
     end
   },
   -- Vim Test
