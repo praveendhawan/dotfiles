@@ -1,21 +1,15 @@
 return {
+  -- Prettier
   {
     "stevearc/conform.nvim",
     config = function()
       require "configs.conform"
     end,
   },
+  -- LSP
   {
   	"williamboman/mason.nvim",
     opts = require('configs.mason')
-  },
-  {
-  	"nvim-treesitter/nvim-treesitter",
-  	opts = require("configs.treesitter")
-  },
-  {
-    "nvim-tree/nvim-tree.lua",
-    opts = require("configs.nvimtree"),
   },
   {
     "neovim/nvim-lspconfig",
@@ -24,6 +18,12 @@ return {
       require "configs.lspconfig"
     end,
   },
+  -- Treesitter
+  {
+  	"nvim-treesitter/nvim-treesitter",
+  	opts = require("configs.treesitter")
+  },
+  -- Split and Join Blocks
   {
     'Wansmer/treesj',
     cmd = { 'TSJToggle', 'TSJJoin', 'TSJSplit' },
@@ -35,6 +35,12 @@ return {
       })
     end,
   },
+  -- Nvim Folder Tree
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = require("configs.nvimtree"),
+  },
+  -- Lazygit
   {
     'kdheepak/lazygit.nvim',
     cmd = {
@@ -54,7 +60,8 @@ return {
       { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
     }
   },
-{
+  -- Local LLM
+  {
     "David-Kunz/gen.nvim",
     cmd = { 'Gen' },
     event = "InsertEnter",
@@ -76,7 +83,7 @@ return {
       }
     end
   },
-
+  -- Clipboard
   {
     'ojroques/nvim-osc52',
     cond = function()
@@ -88,7 +95,6 @@ return {
       require 'configs.oscyank'
     end
   },
-
   -- Telescope
   {
     "nvim-telescope/telescope-fzf-native.nvim",
@@ -108,6 +114,17 @@ return {
     event = "InsertEnter",
     config = function()
       require("configs.copilot")
+    end
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    dependencies = {
+      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+    },
+    config = function()
+      require("CopilotChat").setup()
     end
   },
   -- CMP

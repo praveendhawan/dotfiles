@@ -29,6 +29,41 @@ map("n", "<leader>fm", "<cmd> Telescope marks <CR>", { desc = 'Telescope Find vi
 
 map("n", "<leader>gb", "<cmd> Gitsigns toggle_current_line_blame <CR>", { desc = 'Git - Toggle git blame', noremap = true })
 
+-- Show help actions with telescope
+map(
+  "n",
+  "<leader>tgh",
+  function()
+    local actions = require("CopilotChat.actions")
+    require("CopilotChat.integrations.telescope").pick(actions.help_actions())
+  end,
+  { desc = 'Copilot Chat - Help', noremap = true }
+)
+-- Show prompts actions with telescope
+map(
+  "n",
+  "<leader>tgp",
+  function()
+    local actions = require("CopilotChat.actions")
+    require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+  end,
+  { desc = 'Copilot Chat - Prompts', noremap = true }
+)
+-- Quick chat full buffer context
+map(
+  "n",
+  "<leader>tgq",
+  function()
+    local input = vim.fn.input("Quick Chat: ")
+    if input ~= "" then
+      require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+    end
+  end,
+  { desc = 'Copilot Chat - Full Buffer', noremap = true }
+)
+map("n", "<leader>tgr", ":CopilotChatReview", { desc = 'Copilot Chat - Review selected', noremap = true })
+map("n", "<leader>tge", ":CopilotChatExplain", { desc = 'Copilot Chat - Explain selected', noremap = true })
+
 
 map("c", "bda<CR>", require("nvchad.tabufline").closeAllBufs, { desc = "Files - Close All Buffers", noremap = true, silent = true })
 map("c", "bca<CR>", require("nvchad.tabufline").closeOtherBufs, { desc = "Files - Close All Except Current Buffers", noremap = true, silent = true })
