@@ -18,6 +18,13 @@ return {
     opts = require("configs.nvimtree"),
   },
   {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("nvchad.configs.lspconfig").defaults()
+      require "configs.lspconfig"
+    end,
+  },
+  {
     'Wansmer/treesj',
     cmd = { 'TSJToggle', 'TSJJoin', 'TSJSplit' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },

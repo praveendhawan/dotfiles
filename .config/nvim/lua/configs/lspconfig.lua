@@ -24,13 +24,19 @@ lspconfig.tsserver.setup {
 
 -- Ruby Server
 local server_options = {
+  cmd = { "solargraph", "stdio" },
   capabilities = capabilities,
+  on_init = on_init,
   flags = {
     debounce_text_changes = 150,
   },
   init_options = {
     formatting = false
   },
+  filetypes = {
+    "ruby"
+  },
+  root_dir = lspconfig.util.root_pattern("Gemfile", ".git", "."),
   on_attach = on_attach,
   settings = {
     solargraph = {
