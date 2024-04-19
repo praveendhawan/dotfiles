@@ -22,9 +22,11 @@ lspconfig.tsserver.setup {
   capabilities = capabilities,
 }
 
+local solargraph_path = vim.fn.system("asdf which solargraph")
+
 -- Ruby Server
 local server_options = {
-  cmd = { "solargraph", "stdio" },
+  cmd = { solargraph_path, "stdio" },
   capabilities = capabilities,
   on_init = on_init,
   flags = {
@@ -33,10 +35,6 @@ local server_options = {
   init_options = {
     formatting = false
   },
-  filetypes = {
-    "ruby"
-  },
-  root_dir = lspconfig.util.root_pattern("Gemfile", ".git", "."),
   on_attach = on_attach,
   settings = {
     solargraph = {
@@ -58,4 +56,4 @@ local server_options = {
   }
 }
 
-lspconfig.solargraph.setup(server_options)
+-- lspconfig.solargraph.setup(server_options)

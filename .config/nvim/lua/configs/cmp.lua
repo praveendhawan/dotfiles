@@ -1,15 +1,22 @@
 local M = {}
 
+local hide_text_lsp = function (entry, _ctx)
+  return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
+end
+
 M.opts_overrides = {
   sources = {
-    { name = "copilot" },
-    { name = 'cmp_ai' },
-    { name = "nvim_lsp" },
-    { name = "luasnip" }, -- Installed by NvChad
-    { name = "buffer" }, -- 
-    { name = "nvim_lua" },
+    -- group_index => kind of source priority, see :h cmp-config.sources[n].group_index
+    -- entry_filter => hide certain entries from given source
+    { name = "luasnip", group_index = 1 }, -- Installed by NvChad
+    { name = "nvim_lua", group_index = 1 },
+    -- hide entries of Text Kind from LSP
+    { name = "nvim_lsp", group_index = 2, entry_filter = hide_text_lsp },
+    { name = "treesitter", group_index = 2 },
+    { name = "copilot", grpup_index = 3 },
+    { name = 'cmp_ai', group_index = 3 },
+    { name = "buffer", group_index = 4 }
     -- { name = "path" },
-    { name = "treesitter" }
   }
 }
 
