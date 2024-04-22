@@ -66,7 +66,7 @@ return {
     cmd = { 'Gen' },
     event = "InsertEnter",
     config = function()
-      require "configs.gen-llm"
+      require "configs.gen-llm-new"
     end,
     cond = function()
       return vim.fn.has('mac') == 1
