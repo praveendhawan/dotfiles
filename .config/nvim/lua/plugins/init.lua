@@ -125,28 +125,39 @@ return {
     },
     config = function()
       require("CopilotChat").setup()
-    end
+    end,
+    cmd = "CopilotChat"
   },
   -- CMP
   {
     "hrsh7th/nvim-cmp",
-    opts = require("configs.cmp").opts_overrides,
+    -- because we are using the require statements in the cmp config file
+    -- NVChad suggests to transform the opts to a function
+    -- It says - https://nvchad.com/docs/config/plugins#manage_plugins -> Telescope example
+    -- If your opts uses a function call ex: require*, then make opts spec a function
+    -- should return the modified default config as well
+    opts = function ()
+      local opts_overrides = require("configs.cmp").opts_overrides
+      local conf = require "nvchad.configs.cmp"
+      vim.tbl_deep_extend("force", conf, opts_overrides)
+      -- table.insert(conf.sources, opts_overrides.sources)
+      return conf
+    end,
     dependencies = {
       'ray-x/cmp-treesitter',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-nvim-lua',
-      'hrsh7th/cmp-nvim-lsp',
-      -- {
-      --   'tzachar/cmp-ai',
-      --   config = require("configs.cmp").cmp_ai_setup
-      -- },
       {
         "zbirenbaum/copilot-cmp",
         config = function ()
           require("copilot_cmp").setup()
         end
-      }
+      },
+      -- 'hrsh7th/cmp-buffer', -- included in Nvchad
+      -- 'hrsh7th/cmp-nvim-lua', -- included in Nvchad
+      -- 'hrsh7th/cmp-nvim-lsp', -- included in Nvchad
+      -- {
+      --   'tzachar/cmp-ai',
+      --   config = require("configs.cmp").cmp_ai_setup
+      -- },
     }
   },
 }
-
