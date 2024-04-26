@@ -17,8 +17,8 @@ M.opts_overrides = {
     { name = "treesitter", group_index = 2 },
     { name = "copilot", grpup_index = 3 },
     -- { name = 'cmp_ai', group_index = 3 },
-    { name = "buffer", group_index = 4 }
-    -- { name = "path" },
+    { name = "buffer", group_index = 4 },
+    { name = "path", group_index = 4 },
   },
   -- sorting = {
   --   priority_weight = 2,

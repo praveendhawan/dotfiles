@@ -139,7 +139,10 @@ return {
     opts = function ()
       local opts_overrides = require("configs.cmp").opts_overrides
       local conf = require "nvchad.configs.cmp"
-      vim.tbl_deep_extend("force", conf, opts_overrides)
+      -- vim.tbl_deep_extend("force", conf, opts_overrides)
+      -- somehow the above code doesnt work and overrides the sources
+      conf.sources = opts_overrides.sources
+      vim.print(vim.inspect(conf))
       -- table.insert(conf.sources, opts_overrides.sources)
       return conf
     end,
