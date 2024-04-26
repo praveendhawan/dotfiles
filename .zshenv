@@ -32,4 +32,4 @@ export ASDF_GEM_DEFAULT_PACKAGES_FILE=~/.config/asdf/default-gems
 export ASDF_NPM_DEFAULT_PACKAGES_FILE=~/.config/asdf/default-npm-packages
 
 # Hledger
-export LEDGER_FILE="$HOME/Documents/paisa/main.journal"
+export LEDGER_FILE="$HOME/Documents/paisa/2024.journal"
