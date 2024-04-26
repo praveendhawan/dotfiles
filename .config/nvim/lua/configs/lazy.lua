@@ -44,4 +44,7 @@ return {
       },
     },
   },
+  dev = {
+    path = vim.fn.stdpath "data" .. "local_plugins/"
+  }
 }

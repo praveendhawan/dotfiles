@@ -142,6 +142,7 @@ return {
       -- vim.tbl_deep_extend("force", conf, opts_overrides)
       -- somehow the above code doesnt work and overrides the sources
       conf.sources = opts_overrides.sources
+      conf.sorting = opts_overrides.sorting
       vim.print(vim.inspect(conf))
       -- table.insert(conf.sources, opts_overrides.sources)
       return conf
@@ -149,10 +150,11 @@ return {
     dependencies = {
       'ray-x/cmp-treesitter',
       {
-        "zbirenbaum/copilot-cmp",
+        "JosefLitos/cmp-copilot",
         config = function ()
-          require("copilot_cmp").setup()
-        end
+          require("cmp_copilot").setup()
+        end,
+        -- dev = true
       },
       -- 'hrsh7th/cmp-buffer', -- included in Nvchad
       -- 'hrsh7th/cmp-nvim-lua', -- included in Nvchad
