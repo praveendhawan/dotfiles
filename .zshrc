@@ -16,11 +16,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  docker
-  docker-compose
   tmux
-  terraform
   zsh-autosuggestions
+  eza
 )
 
 source $ZSH/oh-my-zsh.sh
