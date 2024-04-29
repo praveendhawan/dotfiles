@@ -145,7 +145,7 @@ return {
       -- somehow the above code doesnt work and overrides the sources
       conf.sources = opts_overrides.sources
       conf.sorting = opts_overrides.sorting
-      vim.print(vim.inspect(conf))
+      -- vim.print(vim.inspect(conf))
       -- table.insert(conf.sources, opts_overrides.sources)
       return conf
     end,

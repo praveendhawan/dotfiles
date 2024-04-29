@@ -7,6 +7,13 @@ local g = vim.g
 o.cursorlineopt ='both' -- to enable cursorline!
 g.lua_snippets_path = vim.fn.stdpath "config" .. "/lua/configs/snippets"
 
--- g.loaded_ruby_provider = 1 -- load ruby provider
+-- Need to enable Ruby as it is off by default in Nvchad
+-- https://github.com/NvChad/NvChad/issues/1417#issuecomment-1203490842
+local enable_providers = {
+  "ruby_provider"
+}
 
--- g.ruby_host_prog = "asdf which neovim-ruby-host"
+for _, plugin in pairs(enable_providers) do
+  g["loaded_" .. plugin] = nil
+  vim.cmd("runtime " .. plugin)
+end

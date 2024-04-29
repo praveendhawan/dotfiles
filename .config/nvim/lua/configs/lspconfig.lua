@@ -22,11 +22,16 @@ lspconfig.tsserver.setup {
   capabilities = capabilities,
 }
 
-local solargraph_path = vim.fn.system("asdf which solargraph")
+-- local solargraph_path = vim.fn.system("asdf which solargraph")
 
 -- Ruby Server
 local server_options = {
-  cmd = { solargraph_path, "stdio" },
+  cmd = {
+    "asdf",
+    "exec",
+    "solargraph",
+    "stdio"
+  },
   capabilities = capabilities,
   on_init = on_init,
   flags = {
@@ -56,4 +61,4 @@ local server_options = {
   }
 }
 
--- lspconfig.solargraph.setup(server_options)
+lspconfig.solargraph.setup(server_options)
