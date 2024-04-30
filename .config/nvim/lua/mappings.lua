@@ -80,6 +80,12 @@ map(
   { desc = "Files - Close All Except Current Buffers", noremap = true, silent = true }
 )
 
+if vim.fn.has "mac" == 1 then
+  map("n", "<Leader>og", ":OpenInGHFileLines! <CR>", { desc = "Github - Open Current Line" })
+else
+  map("n", "<Leader>og", ":OpenInGHFileLines+ <CR>", { desc = "GIthub - Copy Current Line URL" })
+end
+
 -- Delete mappings
 -- nomap("n", ";")
 -- nomap("i", "jk")

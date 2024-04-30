@@ -10,8 +10,8 @@ return {
   },
   -- LSP
   {
-  	"williamboman/mason.nvim",
-    opts = require('configs.mason')
+    "williamboman/mason.nvim",
+    opts = require "configs.mason",
   },
   {
     "neovim/nvim-lspconfig",
@@ -22,29 +22,29 @@ return {
   },
   -- Treesitter
   {
-  	"nvim-treesitter/nvim-treesitter",
-  	opts = require("configs.treesitter")
+    "nvim-treesitter/nvim-treesitter",
+    opts = require "configs.treesitter",
   },
   -- Split and Join Blocks
   {
-    'Wansmer/treesj',
-    cmd = { 'TSJToggle', 'TSJJoin', 'TSJSplit' },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    "Wansmer/treesj",
+    cmd = { "TSJToggle", "TSJJoin", "TSJSplit" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
-      require('treesj').setup({
+      require("treesj").setup {
         use_default_keymaps = false,
         max_join_length = 100,
-      })
+      }
     end,
   },
   -- Nvim Folder Tree
   {
     "nvim-tree/nvim-tree.lua",
-    opts = require("configs.nvimtree"),
+    opts = require "configs.nvimtree",
   },
   -- Lazygit
   {
-    'kdheepak/lazygit.nvim',
+    "kdheepak/lazygit.nvim",
     cmd = {
       "LazyGit",
       "LazyGitConfig",
@@ -59,43 +59,43 @@ return {
     -- setting the keybinding for LazyGit with 'keys' is recommended in
     -- order to load the plugin when the command is run for the first time
     keys = {
-      { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
-    }
+      { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+    },
   },
   -- Local LLM
   {
     "David-Kunz/gen.nvim",
-    cmd = { 'Gen' },
+    cmd = { "Gen" },
     event = "InsertEnter",
     config = function()
       require "configs.gen-llm-new"
     end,
     cond = function()
-      return vim.fn.has('mac') == 1
-    end
+      return vim.fn.has "mac" == 1
+    end,
   },
   -- Vim Test
   {
     "klen/nvim-test",
-    cmd = { 'TestNearest', 'TestFile', 'TestEdit', 'TestVisit' },
-    config = function ()
-      require("nvim-test").setup{
+    cmd = { "TestNearest", "TestFile", "TestEdit", "TestVisit" },
+    config = function()
+      require("nvim-test").setup {
         silent = false,
-        term = "terminal"
+        term = "terminal",
       }
-    end
+    end,
   },
   -- Clipboard
   {
-    'ojroques/nvim-osc52',
+    "ojroques/nvim-osc52",
     cond = function()
-        -- Check if connection is ssh
-        return os.getenv("SSH_CLIENT") ~= nil
+      -- Check if connection is ssh
+      return os.getenv "SSH_CLIENT" ~= nil
     end,
     event = "TextYankPost",
     config = function()
-      require 'configs.oscyank'
-    end
+      require "configs.oscyank"
+    end,
   },
   -- Telescope
   {
@@ -103,11 +103,11 @@ return {
     build = "make",
   },
   {
-    'nvim-telescope/telescope-ui-select.nvim',
+    "nvim-telescope/telescope-ui-select.nvim",
   },
   {
     "nvim-telescope/telescope.nvim",
-    opts = require("configs.telescope")
+    opts = require "configs.telescope",
   },
   -- Copilot
   {
@@ -115,8 +115,8 @@ return {
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
-      require("configs.copilot")
-    end
+      require "configs.copilot"
+    end,
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
@@ -128,7 +128,7 @@ return {
     config = function()
       require("CopilotChat").setup()
     end,
-    cmd = "CopilotChat"
+    cmd = "CopilotChat",
   },
   -- CMP
   {
@@ -138,7 +138,7 @@ return {
     -- It says - https://nvchad.com/docs/config/plugins#manage_plugins -> Telescope example
     -- If your opts uses a function call ex: require*, then make opts spec a function
     -- should return the modified default config as well
-    opts = function ()
+    opts = function()
       local opts_overrides = require("configs.cmp").opts_overrides
       local conf = require "nvchad.configs.cmp"
       -- vim.tbl_deep_extend("force", conf, opts_overrides)
@@ -150,10 +150,10 @@ return {
       return conf
     end,
     dependencies = {
-      'ray-x/cmp-treesitter',
+      "ray-x/cmp-treesitter",
       {
         "JosefLitos/cmp-copilot",
-        config = function ()
+        config = function()
           require("cmp_copilot").setup()
         end,
         -- dev = true
@@ -165,6 +165,11 @@ return {
       --   'tzachar/cmp-ai',
       --   config = require("configs.cmp").cmp_ai_setup
       -- },
-    }
+    },
+  },
+  -- Open file on github
+  {
+    "almo7aya/openingh.nvim",
+    cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
   },
 }
