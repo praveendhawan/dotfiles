@@ -82,5 +82,5 @@ else
 fi
 
 
-# Use asdf instead of rvm.RVM install doesnt work with M2 
+# Use asdf instead of rvm.RVM install doesnt work with M2
 . $(brew --prefix asdf)/libexec/asdf.sh
