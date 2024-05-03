@@ -1,4 +1,4 @@
--- EXAMPLE 
+-- EXAMPLE
 local on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
@@ -30,7 +30,7 @@ local server_options = {
     "asdf",
     "exec",
     "solargraph",
-    "stdio"
+    "stdio",
   },
   capabilities = capabilities,
   on_init = on_init,
@@ -38,7 +38,7 @@ local server_options = {
     debounce_text_changes = 150,
   },
   init_options = {
-    formatting = false
+    formatting = false,
   },
   on_attach = on_attach,
   settings = {
@@ -51,14 +51,14 @@ local server_options = {
       folding = false,
       formatting = false,
       hover = true,
-      logLevel = 'warn',
+      logLevel = "warn",
       references = true,
       rename = true,
       symbols = true,
-      transport = 'stdio',
-      useBundler = false
-    }
-  }
+      transport = "stdio",
+      useBundler = false,
+    },
+  },
 }
 
 lspconfig.solargraph.setup(server_options)

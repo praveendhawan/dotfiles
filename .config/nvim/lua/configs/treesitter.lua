@@ -13,7 +13,7 @@ return {
     "ruby",
     "rust",
     "elixir",
-    "json"
+    "json",
   },
   indent = {
     enable = true,

@@ -55,7 +55,7 @@ if [[ "$SYSTEM_TYPE" == "Linux" ]] ; then
 
   # Install necessary packages
   sudo apt update
-  # Install necessary packages 
+  # Install necessary packages
   packages=(
     git
     build-essential
@@ -102,11 +102,11 @@ if [[ "$SYSTEM_TYPE" == "Linux" ]] ; then
   )
 
   for package in "${optional_packages[@]}"; do
-    read -p "$package is not installed. Do you want to install it? (y/n) > " choice 
-    case "$choice" in 
-      y|Y ) sudo apt install -y "$package";; 
-      n|N ) echo "Skipping $package";; 
-      * ) echo "Invalid choice. Skipping $package";; 
+    read -p "$package is not installed. Do you want to install it? (y/n) > " choice
+    case "$choice" in
+      y|Y ) sudo apt install -y "$package";;
+      n|N ) echo "Skipping $package";;
+      * ) echo "Invalid choice. Skipping $package";;
     esac
   done
 
@@ -127,7 +127,7 @@ fi
 
 # OS agnostic setup
 #
-# NODE JS 
+# NODE JS
 read -p "Do you want to install nodejs > " choice
 INSTALL_NODE=false
 case "$choice" in
@@ -177,8 +177,8 @@ CREATE_POSTGRES_USER=false
 
   if $CREATE_POSTGRES_USER; then
     read -p "Enter the username: " username
-    if ! sudo -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='$username'" | grep -q 1; then 
-      sudo -u postgres createuser -s $username 
+    if ! sudo -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='$username'" | grep -q 1; then
+      sudo -u postgres createuser -s $username
       sudo -u postgres createdb $username
       sudo su - postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE $username TO $username;\""
     else

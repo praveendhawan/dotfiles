@@ -16,17 +16,17 @@ M.ollama = {
       name = "deepseek-coder:6.7b-instruct-q5_K_M",
       template = {
         prefix = "### Instruction:\n",
-        suffix = "\n### Response:"
-      }
+        suffix = "\n### Response:",
+      },
     },
     general = {
       name = "llama3:instruct",
       template = {
         prefix = "<|start_header_id|>user<|end_header_id|>",
-        suffix = "<|eot_id|>{{ end }}<|start_header_id|>assistant<|end_header_id|>"
-      }
+        suffix = "<|eot_id|>{{ end }}<|start_header_id|>assistant<|end_header_id|>",
+      },
     },
-  }
+  },
 }
 
 -- start ollama server
@@ -36,7 +36,7 @@ end
 
 -- list models installed
 M.list_models = function()
-  local response = vim.fn.systemlist("curl --silent --no-buffer " .. M.ollama.base_url ..  M.ollama.api_endpoints.tags)
+  local response = vim.fn.systemlist("curl --silent --no-buffer " .. M.ollama.base_url .. M.ollama.api_endpoints.tags)
   local list = vim.fn.json_decode(response)
   local models = {}
   for key, _ in pairs(list.models) do
@@ -47,7 +47,7 @@ M.list_models = function()
 end
 
 -- Setup Gen.nvim
-require('gen').setup({
+require("gen").setup {
   model = M.ollama.models.coder.name,
   display_mode = "float",
   show_prompt = false,
@@ -56,8 +56,8 @@ require('gen').setup({
   init = M.start_ollama,
   command = "curl --silent --no-buffer -X POST " .. M.ollama.base_url .. M.ollama.api_endpoints.chat .. " -d $body",
   list_models = M.list_models(),
-  debug = false
-})
+  debug = false,
+}
 
 -- Overwrite default prompts
 local prompts = require("gen").prompts
@@ -72,7 +72,7 @@ local general_prompts = {
   "Enhance_Wording",
   "Make_Concise",
   "Make_List",
-  "Make_Table"
+  "Make_Table",
 }
 
 for _, prompt in ipairs(general_prompts) do

@@ -1,10 +1,10 @@
 local M = {}
 
-local hide_text_lsp = function (entry, _)
-  return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
+local hide_text_lsp = function(entry, _)
+  return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
 end
 
-local cmp = require("cmp")
+local cmp = require "cmp"
 
 M.opts_overrides = {
   sources = {
