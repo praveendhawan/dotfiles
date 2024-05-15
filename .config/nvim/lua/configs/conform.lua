@@ -3,7 +3,7 @@ local options = {
     lua = { "stylua" },
     css = { "prettier" },
     html = { "prettier" },
-    ruby = { "rubocop" },
+    -- ruby = { "rubocop" },
     ["*"] = { "trim_whitespace" },
   },
 
