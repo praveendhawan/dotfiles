@@ -86,17 +86,17 @@ return {
     end,
   },
   -- Clipboard
-  {
-    "ojroques/nvim-osc52",
-    cond = function()
-      -- Check if connection is ssh
-      return os.getenv "SSH_CLIENT" ~= nil
-    end,
-    event = "TextYankPost",
-    config = function()
-      require "configs.oscyank"
-    end,
-  },
+  -- {
+  --   "ojroques/nvim-osc52",
+  --   cond = function()
+  --     -- Check if connection is ssh
+  --     return os.getenv "SSH_CLIENT" ~= nil
+  --   end,
+  --   event = "TextYankPost",
+  --   config = function()
+  --     require "configs.oscyank"
+  --   end,
+  -- },
   -- Telescope
   {
     "nvim-telescope/telescope-fzf-native.nvim",
