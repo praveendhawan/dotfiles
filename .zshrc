@@ -16,10 +16,12 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   aliases
+  aws
   git
   tmux
   zsh-autosuggestions
   eza
+  kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
