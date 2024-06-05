@@ -160,4 +160,13 @@ return {
     "almo7aya/openingh.nvim",
     cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
   },
+  --  Better Folds
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = { "kevinhwang91/promise-async" },
+    config = function()
+      require "configs.ufofolding"
+    end,
+    cmd = { "UfoEnable", "UfoEnableFold" },
+  },
 }
