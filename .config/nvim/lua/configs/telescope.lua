@@ -26,6 +26,15 @@ local file_ignore_patterns = {
 --   find_file_ignore_patterns = find_file_ignore_patterns .. "-g !**" .. pattern
 -- end
 --
+local path_display_opts = {
+  filename_first = {
+    reverse_directories = false
+  },
+  shorten = {
+    len = 4
+  }
+}
+
 return {
   defaults = {
     vimgrep_arguments = vimgrep_arguments,
@@ -35,8 +44,13 @@ return {
     find_files = {
       previewer = false,
       wrap_results = true,
-      path_display = { shorten = { len = 4 } },
+      path_display = path_display_opts
     },
+    git_files = { path_display = path_display_opts },
+    grep_string = { path_display = path_display_opts },
+    live_grep = { path_display = path_display_opts },
+    buffers = { path_display = path_display_opts },
+    oldfiles = { path_display = path_display_opts },
   },
   extensions_list = { "themes", "terms", "fzf", "ui-select" },
   extensions = {
@@ -44,7 +58,7 @@ return {
       fuzzy = true, -- false will only do exact matching
       override_generic_sorter = true, -- override the generic sorter
       override_file_sorter = true, -- override the file sorter
-      case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+      case_mode = "ignore_case", -- or "smart_case" or "respect_case"
     },
   },
 }
