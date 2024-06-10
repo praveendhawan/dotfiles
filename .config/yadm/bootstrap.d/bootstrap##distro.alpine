@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Install Oh My Zsh (optional)
+apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing
+apk update
 apk add oh-my-zsh
 
 # Install nerd fonts
