@@ -83,6 +83,10 @@ else
   echo "Starship is not installed. Skipping initialization."
 fi
 
-
 # Use asdf instead of rvm.RVM install doesnt work with M2
-. $(brew --prefix asdf)/libexec/asdf.sh
+if [[ "$uname" == Darwin ]]; then
+  . $(brew --prefix asdf)/libexec/asdf.sh
+elif grep -q '^ID=alpine' /etc/os-release; then
+else
+  . $(brew --prefix asdf)/libexec/asdf.sh
+fi

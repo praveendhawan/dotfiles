@@ -1,54 +1,26 @@
 #!/bin/bash
 
 # Install Oh My Zsh (optional)
-if [ ! -d ~/.oh-my-zsh ]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  # Install Zsh Autosuggestions
-  if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  fi
-fi
+apk add oh-my-zsh
 
-apk add zsh
-
-if ! command -v brew >/dev/null 2>&1; then
-  echo "Installing homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-  test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
-
-  if [ -f "$HOME/config/brewfile/.Brewfile" ]; then
-    echo "Updating homebrew bundle"
-    brew bundle --file="$HOME/config/brewfile/.Brewfile"
-  fi
-
-  if [ -f "$HOME/config/brewfile/.Brewfile.linux" ]; then
-    echo "Updating homebrew bundle for linux"
-    brew bundle --file="$HOME/config/brewfile/.Brewfile.linux"
-  fi
-fi
 # Install nerd fonts
-if fc-list | grep -i "FiraMono" >/dev/null 2>&1; then
-  echo "FiraMono is already installed"
-else
-  echo "Installing FiraMono"
-  git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts
-  cd nerd-fonts
-  ./install.sh FiraMono
+apk add font-fira-mono-nerd
 
-  # cleanup
-  cd ..
-  rm -rf nerd-fonts
-fi
+# basic utilities
+apk add util-linux pciutils hwdata-pci usbutils hwdata-usb coreutils binutils findutils grep iproute2
+
+# Install brew dependencies
+apk add bat eza lnav jq procs fd fzf tree-sitter neovim ripgrep tree wget yarn sd starship aws-cli tealdeer shared-mime-info libpq
+
+# Install asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+bash "$HOME/.asdf/asdf.sh"
+
+sudo chsh -s /bin/bash root
+sudo chsh -s /bin/zsh praveen
 
 if [ ! -L /usr/local/bin/fd ]; then
   ln -s "$(which fdfind)" /usr/local/bin/fd
 fi
 
-if ! command -v nvim &> /dev/null 2>&1; then
-  brew install neovim
-fi
-
-git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-ln -s ~/.config/nvim_custom ~/.config/nvim/lua/custom
 nvim
