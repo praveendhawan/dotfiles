@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Install Testing repo packages
-sudo apk add oh-my-zsh tealdeer --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
+sudo apk add zsh
+sudo apk add tealdeer --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
 
 # Install nerd fonts
 sudo apk add font-fira-mono-nerd
