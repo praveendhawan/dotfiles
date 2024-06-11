@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Install Testing repo packages
-apk add oh-my-zsh tealdeer --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
+sudo apk add oh-my-zsh tealdeer --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
 
 # Install nerd fonts
-apk add font-fira-mono-nerd
+sudo apk add font-fira-mono-nerd
 
 # basic utilities
-apk add util-linux pciutils hwdata-pci usbutils hwdata-usb coreutils binutils findutils grep iproute2
+sudo apk add util-linux pciutils hwdata-pci usbutils hwdata-usb coreutils binutils findutils grep iproute2
 
 # Install brew dependencies
-apk add bat eza lnav jq procs fd fzf tree-sitter neovim ripgrep tree wget yarn sd starship aws-cli shared-mime-info libpq
+sudo apk add bat eza lnav jq procs fd fzf tree-sitter neovim ripgrep tree wget yarn sd starship aws-cli shared-mime-info libpq
 
 # Install asdf
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
@@ -25,4 +25,4 @@ fi
 
 nvim
 
-apk add oh-my-zsh --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
+# apk add oh-my-zsh --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
