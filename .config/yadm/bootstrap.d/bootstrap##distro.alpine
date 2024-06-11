@@ -20,11 +20,3 @@ bash "$HOME/.asdf/asdf.sh"
 
 sudo chsh -s /bin/bash root
 sudo chsh -s /bin/zsh praveen
-
-if [ ! -L /usr/local/bin/fd ]; then
-  ln -s "$(which fdfind)" /usr/local/bin/fd
-fi
-
-nvim
-
-# apk add oh-my-zsh --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
