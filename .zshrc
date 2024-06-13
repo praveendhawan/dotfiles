@@ -18,11 +18,22 @@ plugins=(
   aliases
   aws
   git
-  tmux
   zsh-autosuggestions
   eza
   kubectl
 )
+
+if command -v tmux >/dev/null 2>&1; then
+  plugins+=(tmux)
+fi
+
+if command -v pacman >/dev/null 2>&1; then
+  plugins+=(archlinux)
+fi
+
+if command -v asdf >/dev/null 2>&1; then
+  plugins+=(asdf)
+fi
 
 source $ZSH/oh-my-zsh.sh
 

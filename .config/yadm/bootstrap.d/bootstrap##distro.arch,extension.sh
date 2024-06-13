@@ -10,7 +10,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # Install utility tools
-sudo pacman -Syu bat eza lnav jq procs fd fzf ncdu ripgrep tree wget yarn aws-cli tmux tealdeer tree-sitter neovim starship
+sudo pacman -Syu bat eza lnav jq procs fd fzf ncdu ripgrep tree wget yarn aws-cli tealdeer tree-sitter neovim starship
 
 # Install asdf
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
