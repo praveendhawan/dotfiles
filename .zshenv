@@ -3,6 +3,7 @@ uname=$(uname -s)
 # Load correct homebrew
 if [[ "$uname" == "Darwin" ]] ; then
 elif grep -q '^ID=alpine' /etc/os-release; then
+elif grep -q '^ID=arch' /etc/os-release; then
 else
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi

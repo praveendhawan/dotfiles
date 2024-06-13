@@ -9,18 +9,13 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # Install zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-# brew install
-if ! command -v brew >/dev/null 2>&1; then
-  echo "Installing homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Install utility tools
+sudo pacman -Syu bat eza lnav jq procs fd fzf ncdu ripgrep tree wget yarn aws-cli tmux tealdeer tree-sitter neovim starship
 
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# Install asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
 
-  if [ -f "$HOME/.config/brewfile/.Brewfile" ]; then
-    echo "Updating homebrew bundle"
-    brew bundle --file="$HOME/.config/brewfile/.Brewfile"
-  fi
-fi
+. "$HOME/.asdf/asdf.sh"
 
 # Install nerd fonts
 if fc-list | grep -i "FiraMono" >/dev/null 2>&1; then

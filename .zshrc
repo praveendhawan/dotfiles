@@ -88,6 +88,8 @@ if [[ "$uname" == Darwin ]]; then
   . $(brew --prefix asdf)/libexec/asdf.sh
 elif grep -q '^ID=alpine' /etc/os-release; then
   . "$HOME/.asdf/asdf.sh"
+elif grep -q '^ID=arch' /etc/os-release; then
+  . "$HOME/.asdf/asdf.sh"
 else
   . $(brew --prefix asdf)/libexec/asdf.sh
 fi
