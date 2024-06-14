@@ -10,7 +10,13 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # Install utility tools
-sudo pacman -Syu bat eza lnav jq procs fd fzf ncdu ripgrep tree wget yarn aws-cli tealdeer tree-sitter neovim starship
+sudo pacman -Syu bat eza lnav jq procs fd fzf ncdu ripgrep tree wget tealdeer tree-sitter neovim starship
+
+# Install yay (Just like brew)
+sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+cd .. && rm -rf yay
+
+yay aws-cli-v2-bin
 
 # Install asdf
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
@@ -28,8 +34,7 @@ fi
 # Install Nodejs
 asdf plugin add nodejs
 asdf install nodejs 20.5.0
-asdf install nodejs 16.5.0
-asdf global nodejs 16.5.0
+asdf global nodejs 20.5.0
 
 # Install Ruby
 asdf plugin add ruby
