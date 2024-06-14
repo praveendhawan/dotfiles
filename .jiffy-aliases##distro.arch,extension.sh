@@ -1,6 +1,6 @@
 if [ -x "$(command -v docker)" ]; then
 # GLOBAL VARIABLES
-  BASE_DOCKER_COMPOSE_COMMAND="docker compose -f docker-compose.yml -f docker-compose-without-nfs.yml --env-file .env --env-file .my_env"
+  BASE_DOCKER_COMPOSE_COMMAND="docker-compose -f docker-compose.yml -f docker-compose-without-nfs.yml --env-file .env --env-file .my_env"
   DOCKER_RAILS_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
   DOCKER_SPRING_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows spring"
 
