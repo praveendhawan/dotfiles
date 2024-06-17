@@ -25,8 +25,8 @@ pry_helpers/
 # Ignore ripgrep ignore files
 .rgignore
 # ignore overriden docker compose
-docker-compose-with-cerebro.yml
-docker-compose-mac.yml
+docker-compose-praveen.yml
+docker-compose-without-nfs-praveen.yml
 
 .ruby-gemset
 .ruby-version
