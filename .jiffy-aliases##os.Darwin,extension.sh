@@ -147,3 +147,52 @@ if [ -x "$(command -v docker)" ]; then
 
   alias dps_pretty="docker ps -a --format=\"table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}\""
 fi
+
+# Kube and ssh and staging and production
+alias stage-login="asp jiffy-staging login"
+alias prod-login="asp jiffy-staging login"
+alias stage-kube-conf="aws eks update-kubeconfig --region us-east-1 --name staging-cluster --profile jiffy-staging"
+alias prod-kube-conf="aws eks update-kubeconfig --region us-east-1 --name production-cluster --profile jiffy-production"
+alias k8stage='stage-login && stage-kube-conf'
+alias k8prod='prod-login && prod-kube-conf'
+
+function check_session() {
+  aws sts get-caller-identity --profile $1 > /dev/null 2>&1
+}
+
+function ssh-connect() {
+  local branch=$(git rev-parse --abbrev-ref HEAD)
+  local current_dir=$(basename "$PWD")
+
+  if [ "$current_dir" != "spree_jiffyshirts" ]; then
+    jiffy
+  fi
+
+  if [ "$branch" = "main" ]; then
+    if ! check_session "jiffy-production"; then
+      echo "Production session expired or not logged in, logging in..."
+      prod-login
+      prod-kube-conf
+    else
+      echo "Production session is valid."
+    fi
+    ./infrastructure/bin/connect_to_container.sh -a jiffy -e production -p jiffy-production
+  else
+    if ! check_session "jiffy-staging"; then
+      echo "Staging session expired or not logged in, logging in..."
+      stage-login
+      stage-kube-conf
+    else
+      echo "Staging session is valid."
+    fi
+  fi
+
+  if [ "$branch" = "main" ]; then
+    ./infrastructure/bin/connect_to_container.sh -a jiffy -e production -p jiffy-production
+  else
+    local pr_number=$(gh pr view --json number --jq '.number')
+    ./infrastructure/bin/connect_to_container.sh -a "jiffy-$pr_number" -p jiffy-staging
+  fi
+}
+
+alias sc="ssh-connect"
