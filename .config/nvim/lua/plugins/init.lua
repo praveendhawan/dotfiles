@@ -66,7 +66,6 @@ return {
   {
     "David-Kunz/gen.nvim",
     cmd = { "Gen" },
-    event = "InsertEnter",
     config = function()
       require "configs.gen-llm-new"
     end,
