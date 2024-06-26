@@ -150,7 +150,7 @@ fi
 
 # Kube and ssh and staging and production
 alias stage-login="asp jiffy-staging login"
-alias prod-login="asp jiffy-staging login"
+alias prod-login="asp jiffy-production login"
 alias stage-kube-conf="aws eks update-kubeconfig --region us-east-1 --name staging-cluster --profile jiffy-staging"
 alias prod-kube-conf="aws eks update-kubeconfig --region us-east-1 --name production-cluster --profile jiffy-production"
 alias k8stage='stage-login && stage-kube-conf'
@@ -163,12 +163,13 @@ function check_session() {
 function ssh-connect() {
   local branch=$(git rev-parse --abbrev-ref HEAD)
   local current_dir=$(basename "$PWD")
+  local target_env="$1"
 
   if [ "$current_dir" != "spree_jiffyshirts" ]; then
     jiffy
   fi
 
-  if [ "$branch" = "main" ]; then
+  if [ "$target_env" = "prod" ] || ([ -z "$target_env" ] && [ "$branch" = "main" ]); then
     if ! check_session "jiffy-production"; then
       echo "Production session expired or not logged in, logging in..."
       prod-login
@@ -185,13 +186,12 @@ function ssh-connect() {
     else
       echo "Staging session is valid."
     fi
-  fi
 
-  if [ "$branch" = "main" ]; then
-    ./infrastructure/bin/connect_to_container.sh -a jiffy -e production -p jiffy-production
-  else
-    local pr_number=$(gh pr view --json number --jq '.number')
-    ./infrastructure/bin/connect_to_container.sh -a "jiffy-$pr_number" -p jiffy-staging
+    if [ -z "$target_env" ]; then
+      target_env=$(gh pr view --json number --jq '.number')
+    fi
+    echo "connecting to jiffy-$target_env"
+    ./infrastructure/bin/connect_to_container.sh -a "jiffy-$target_env" -p jiffy-staging
   fi
 }
 
