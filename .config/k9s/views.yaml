@@ -1,0 +1,18 @@
+views:
+  v1/pods:
+    columns:
+      - NAMESPACE
+      - AGE
+      - READY
+      - RESTARTS
+      - CPU
+      - "%CPU/R"
+      - "%CPU/L"
+      - MEM
+      - "%MEM/R"
+      - "%MEM/L"
+      - STATUS
+      - NAME
+      - PF
+      - IP
+      - NODE

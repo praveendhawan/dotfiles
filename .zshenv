@@ -33,5 +33,8 @@ export ASDF_CONFIG_FILE=~/.config/asdf/asdfrc
 export ASDF_GEM_DEFAULT_PACKAGES_FILE=~/.config/asdf/default-gems
 export ASDF_NPM_DEFAULT_PACKAGES_FILE=~/.config/asdf/default-npm-packages
 
+# k9s config path
+export K9S_CONFIG_DIR=~/.config/k9s
+
 # Hledger
 export LEDGER_FILE="$HOME/Documents/paisa/2024.journal"
