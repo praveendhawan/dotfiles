@@ -195,4 +195,22 @@ function ssh-connect() {
   fi
 }
 
+function prod-custom-pod() {
+  local current_dir=$(basename "$PWD")
+
+  if [ "$current_dir" != "spree_jiffyshirts" ]; then
+    jiffy
+  fi
+
+  if ! check_session "jiffy-production"; then
+    echo "Production session expired or not logged in, logging in..."
+    prod-login
+    prod-kube-conf
+  else
+    echo "Production session is valid."
+  fi
+  ./infrastructure/bin/start_console.sh -n "$1" -p jiffy-production
+}
+
 alias sc="ssh-connect"
+alias npp="prod-custom-pod"
