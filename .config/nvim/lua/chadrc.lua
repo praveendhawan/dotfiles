@@ -7,12 +7,18 @@ local highlights = require "highlights"
 local M = {}
 
 M.ui = {
-  theme = "material-darker",
+  theme = "jabuti",
 
   hl_override = highlights.override,
   hl_add = highlights.add,
   nvdash = {
     load_on_startup = true,
+  },
+  statusline = {
+    theme = "minimal",
+  },
+  tabufline = {
+    order = { "treeOffset", "buffers", "btns" },
   },
 }
 

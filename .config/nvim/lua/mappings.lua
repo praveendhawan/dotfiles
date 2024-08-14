@@ -70,13 +70,17 @@ map("n", "<leader>tge", ":CopilotChatExplain", { desc = "Copilot Chat - Explain 
 map(
   "ca", -- ca means abbreviation in command line mode, ia for insert abbv, and !a for both
   "bda",
-  require("nvchad.tabufline").closeAllBufs,
+  function()
+    require("nvchad.tabufline").closeAllBufs()
+  end,
   { desc = "Files - Close All Buffers", noremap = true, silent = true }
 )
 map(
   "ca", -- ca means abbreviation in command line mode, ia for insert abbv, and !a for both
   "bca",
-  require("nvchad.tabufline").closeOtherBufs,
+  function()
+    require("nvchad.tabufline").closeAllBufs(false)
+  end,
   { desc = "Files - Close All Except Current Buffers", noremap = true, silent = true }
 )
 
