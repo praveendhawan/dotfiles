@@ -50,6 +50,7 @@ aws configure
 
 # Setup Jiffy repo
 if [ -d "/home/praveen/jiffyshirts" ]; then
+  echo "jiffy directory exists"
 else
   git clone git@github.com:sdtechdev/spree-jiffyshirts.git /home/praveen/jiffyshirts
 
