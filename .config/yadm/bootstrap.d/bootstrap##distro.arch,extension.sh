@@ -10,7 +10,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # Install utility tools
-sudo pacman -Syu bat eza lnav jq procs fd fzf ncdu ripgrep tree wget tealdeer tree-sitter neovim starship
+sudo pacman -Syu bat eza jq procs fd fzf ncdu ripgrep tree wget tree-sitter neovim starship
+# sudo pacman -Syu lnav tealdeer
 
 # Install yay (Just like brew)
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si

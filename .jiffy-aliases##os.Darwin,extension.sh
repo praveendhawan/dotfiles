@@ -148,6 +148,39 @@ if [ -x "$(command -v docker)" ]; then
   alias dps_pretty="docker ps -a --format=\"table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}\""
 fi
 
+# LINODE
+function start_linode() {
+  # Create the Linode and capture the output in a variable
+  linode_output=$(linode-cli linodes create \
+    --authorized_users praveendhawan \
+    --backups_enabled false \
+    --booted true \
+    --image private/25741247 \
+    --label devbox \
+    --private_ip false \
+    --region ap-west \
+    --root_pass 'praveen@jiffy#123' \
+    --type g6-standard-4 \
+    # --type g6-nanode-1 \
+    --json | grep -v '{}' | grep -Eo '\{.*\}')
+
+  # Extract the Linode ID and IP from the JSON output
+  linode_id=$(echo "$linode_output" | jq -r '..id')
+  linode_ip=$(echo "$linode_output" | jq -r '..ipv4[0]')
+
+  # Get the Volume ID for the volume named "storage"
+  volume_id=$(linode-cli volumes list --label storage --json | jq -r '.[0].id')
+
+  # Attach the volume to the Linode
+  linode-cli volumes attach $volume_id --linode_id $linode_id
+
+  # Reboot linode after attaching volume
+  linode-cli linodes reboot $linode_id
+
+  echo "Linode created with ID: $linode_id and IP: $linode_ip"
+  echo "Volume attached with ID: $volume_id"
+}
+
 # Kube and ssh and staging and production
 alias stage-login="asp jiffy-staging login"
 alias prod-login="asp jiffy-production login"
