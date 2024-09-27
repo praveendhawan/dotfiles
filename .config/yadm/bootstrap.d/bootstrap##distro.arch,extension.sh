@@ -59,3 +59,7 @@ else
   # Set permissions for development directory (adjust as needed)
   chown -R praveen:praveen /home/praveen/jiffyshirts
 fi
+
+yadm checkout .
+
+source ~/.zshrc
