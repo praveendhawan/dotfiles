@@ -4,7 +4,8 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers = { "html", "cssls" }
+-- local servers = { "html", "cssls" }
+local servers = {}
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -16,11 +17,11 @@ for _, lsp in ipairs(servers) do
 end
 
 -- typescript
-lspconfig.ts_ls.setup {
-  on_attach = on_attach,
-  on_init = on_init,
-  capabilities = capabilities,
-}
+-- lspconfig.ts_ls.setup {
+--   on_attach = on_attach,
+--   on_init = on_init,
+--   capabilities = capabilities,
+-- }
 
 -- local solargraph_path = vim.fn.system("asdf which solargraph")
 

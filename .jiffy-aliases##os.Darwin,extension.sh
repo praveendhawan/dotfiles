@@ -1,11 +1,10 @@
 if [ -x "$(command -v docker)" ]; then
 # GLOBAL VARIABLES
-  BASE_DOCKER_COMPOSE_COMMAND="docker compose -f docker-compose.yml --env-file .env --env-file .my_env"
-  DOCKER_RAILS_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows rails"
-  DOCKER_SPRING_COMMAND="$BASE_DOCKER_COMPOSE_COMMAND exec -e COLUMNS=jd_stty_cols -e LINES=jd_stty_rows spring"
+  BASE_DOCKER_COMPOSE_COMMAND="docker compose -f docker-compose.yml -f docker-compose-without-nfs.yml -f docker-compose-praveen.yml --env-file .env --env-file .my_env"
 
 # BASE ALIAS
   alias dc="$BASE_DOCKER_COMPOSE_COMMAND"
+  alias dces="$BASE_DOCKER_COMPOSE_COMMAND exec spring"
 
 # Functions
 
@@ -15,22 +14,13 @@ if [ -x "$(command -v docker)" ]; then
     docker attach $(docker ps | grep $attach_to | tr -s " " | cut -d " " -f 1)
   }
 
-# Docker attach or exec console's height and width
-  function jd_stty_rows {
-    tput lines
-  }
-
-  function jd_stty_cols {
-    tput cols
-  }
-
 # Running Rubocop for code changes
   function run_rubo_bc() {
     dc run --rm rails bash -c -l "git ls-files -m | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs bundle exec rubocop"
   }
 
   function run_rubo_ac() {
-    dc run --rm rails bash -c -l "git diff-tree -r --no-commit-id --name-only head origin/master | xargs bundle exec rubocop"
+    dc run --rm rails bash -c -l "git diff-tree -r --no-commit-id --name-only head origin/main | xargs bundle exec rubocop"
   }
 
 # Running Feature specs
@@ -44,10 +34,10 @@ if [ -x "$(command -v docker)" ]; then
 # Running ROllback
   function run_rollback() {
     echo "Running Rollback for Dev Environment"
-    dc exec spring bundle exec rails db:rollback
+    dces bundle exec spring rails db:rollback
 
     echo "Running Rollback for Test Environment"
-    dc exec spring bundle exec rails db:rollback RAILS_ENV=test
+    dces bundle exec spring rails db:rollback RAILS_ENV=test
   }
 
 # Running Migrations
@@ -58,10 +48,12 @@ if [ -x "$(command -v docker)" ]; then
     fi
 
     echo "Running Migrations for Dev Environment"
-    dc exec spring bundle exec spring rails db:migrate
+    dces bundle exec spring rails db:migrate
+    # dc exec rails bundle exec spring rails db:migrate
 
     echo "Now Running migrations for Test Env"
-    dc exec spring bundle exec spring rails db:migrate RAILS_ENV=test
+    dces bundle exec spring rails db:migrate RAILS_ENV=test
+    # dc exec rails bundle exec spring rails db:migrate RAILS_ENV=test
 
     if $checkout_changes; then
       echo "checking out db/structure.sql changes"
@@ -71,32 +63,6 @@ if [ -x "$(command -v docker)" ]; then
     fi
   }
 
-# build, upload and deploy to stack mentioned in argument
-# Build Upload and Deploy
-  function jd_deploy() {
-    echo "Stopiing containers for deploy"
-    dc stop rails webpacker sidekiq kibana spring
-    source ~/.jiffy-deploy-env
-
-    echo " delete hard sources"
-    dc run --rm webpacker bash -l -c "rm -rf node_modules/.cache/hard-source"
-
-    echo "start deploy"
-    dc run --rm \
-      -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-      -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-      -e AWS_REGION=$AWS_REGION \
-      -e DEPLOY_BUCKET=$DEPLOY_BUCKET \
-      -e PACKAGE_FOLDER=$PACKAGE_FOLDER \
-      rails bash -l -c "./bin/deploy.sh $1"
-
-    echo "Running yarn install"
-    dc run --rm webpacker yarn install
-
-    echo "Starting containers back up"
-    dc start rails webpacker sidekiq kibana spring
-  }
-
 # Run any Code in Docker Ruby
   function run_in_docker() {
    ruby_version=$1
@@ -104,39 +70,17 @@ if [ -x "$(command -v docker)" ]; then
    docker run --rm -it -v ${PWD}:/home/app ruby:$ruby_version bash
   }
 
-# Get IP of any AWS EC2 instance of stack
-  function jiffy_ip() {
-    stack=${1:-"jakku"}
-    layer=${2:-"rails"}
-
-    if [ $layer = "sidekiq" ]
-    then
-      stack_layer="opsworks:layer:sidekiq"
-    else
-      stack_layer="opsworks:layer:rails-app"
-    fi
-
-    aws ec2 describe-instances --filters "Name=tag:opsworks:stack,Values=$stack" "Name=tag-key,Values=$stack_layer" --query "Reservations[].Instances[].PublicDnsName" --output text
-  }
-
-  function jiffy_travis_download() {
-    build_number=${1}
-    rm -f ${PWD}/tmp/screenshots/screenshots/*.html
-    rm -f ${PWD}/tmp/screenshots/screenshots/*.png
-    aws s3 cp s3://jiffy-github-ci-artifacts/artifacts/$build_number ${PWD}/tmp/screenshots/ --recursive
-  }
-
 # Aliases
-  alias jd_be="$DOCKER_SPRING_COMMAND bundle exec"
-  alias jd_bi="$DOCKER_SPRING_COMMAND bundle"
-  alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
-  alias jd_rails_c="$DOCKER_SPRING_COMMAND bundle exec spring rails c"
+  alias jd_be="dces bundle exec"
+  alias jd_bi="dces bundle"
+  # alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
+  alias jd_rc="dces bundle exec spring rails c"
   alias jd_attach_rails="jd_attach rails"
-  alias jd_rspec="$DOCKER_SPRING_COMMAND bundle exec spring rspec"
-  alias jd_postgres="$BASE_DOCKER_COMPOSE_COMMAND exec postgres psql -U postgres -d jiffyshirts_development"
-  alias jd_rubo="$DOCKER_SPRING_COMMAND bundle exec rubocop -a"
-  alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c \"bundle exec bin/scripts/setup_features.sh\""
-  alias jd_update_db="$DOCKER_SPRING_COMMAND bundle exec spring rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true RESET_SCHEMA=true"
+  alias jd_rspec="dces bundle exec spring rspec"
+  alias jd_postgres="dc exec postgres psql -U postgres -d jiffyshirts_development"
+  alias jd_rubo="dces bundle exec rubocop -a"
+  # alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c \"bundle exec bin/scripts/setup_features.sh\""
+  alias jd_update_db="dces bundle exec spring rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true RESET_SCHEMA=true"
 
   alias jd_rubo_ac="run_rubo_ac"
   alias jd_rubo_bc="run_rubo_bc"
