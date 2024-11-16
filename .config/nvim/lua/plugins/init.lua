@@ -168,4 +168,10 @@ return {
     end,
     cmd = { "UfoEnable", "UfoEnableFold" },
   },
+
+  -- D2 Diagrams
+  {
+    "terrastruct/d2-vim",
+    ft = "d2",
+  },
 }
