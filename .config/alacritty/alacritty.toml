@@ -1,21 +1,9 @@
 [font]
 size = 15.0
-
-[font.bold]
-family = "FiraMono Nerd Font"
-style = "Bold"
-
-[font.bold_italic]
-family = "FiraMono Nerd Font"
-style = "Bold Italic"
-
-[font.italic]
-family = "FiraMono Nerd Font"
-style = "Italic"
-
-[font.normal]
-family = "FiraMono Nerd Font"
-style = "Regular"
+normal = { family = "FiraMono Nerd Font", style = "Regular" }
+bold = { family = "FiraMono Nerd Font", style = "Bold" }
+italic = { family = "FiraMono Nerd Font", style = "Italic" }
+bold_italic = { family = "FiraMono Nerd Font", style = "Bold Italic" }
 
 [selection]
 save_to_clipboard = true
