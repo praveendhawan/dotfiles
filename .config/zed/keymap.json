@@ -1,9 +1,14 @@
 [
   {
+    "bindings": {
+      "space f f": "file_finder::Toggle",
+      "space f k": "zed::OpenKeymap"
+    }
+  },
+  {
     "context": "Editor",
     "bindings": {}
   },
-
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
     "bindings": {

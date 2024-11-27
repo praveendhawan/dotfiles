@@ -7,6 +7,13 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "assistant": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4o"
+    },
+    "version": "2"
+  },
   "theme": "Catppuccin Mocha",
   "telemetry": {
     "metrics": false
@@ -16,6 +23,7 @@
   "buffer_font_size": 16,
   "buffer_font_family": "FiraMono Nerd Font",
   "tab_size": 2,
+  "soft_wrap": "preferred_line_length",
   "lsp": {
     "solargraph": {
       "initialization_options": {
@@ -23,5 +31,8 @@
         "formatting": true
       }
     }
-  }
+  },
+  "format_on_save": "off",
+  "remove_trailing_whitespace_on_save": true,
+  "ensure_final_newline_on_save": true
 }
