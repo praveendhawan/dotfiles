@@ -17,6 +17,7 @@ tags.t*
 
 # Ignore pry/ruby/yard files
 .pryrc
+jiffy_helpers.rb
 .byebug_history
 .yardoc/*
 doc/*
