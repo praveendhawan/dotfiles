@@ -6,7 +6,7 @@ local highlights = require "highlights"
 ---@type ChadrcConfig
 local M = {}
 
-M.ui = {
+M.base46 = {
   theme = "catppuccin",
 
   hl_override = highlights.override,
