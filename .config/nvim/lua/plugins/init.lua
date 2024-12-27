@@ -112,11 +112,9 @@ return {
       { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
     },
-    opts = {
-      require("configs.copilot-chat").opts,
-    },
+    opts = {},
     config = function()
-      require("CopilotChat").setup()
+      require "configs.copilot-chat"
     end,
     cmd = "CopilotChat",
   },
