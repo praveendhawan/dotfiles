@@ -16,28 +16,28 @@ if [ -x "$(command -v docker)" ]; then
 
 # Running Rubocop for code changes
   function run_rubo_bc() {
-    dc run --rm rails bash -c -l "git ls-files -m | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs bundle exec rubocop"
+    eval "$BASE_DOCKER_COMPOSE_COMMAND run --rm rails bash -c -l \"git ls-files -m | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs bundle exec rubocop\""
   }
 
   function run_rubo_ac() {
-    dc run --rm rails bash -c -l "git diff-tree -r --no-commit-id --name-only head origin/main | xargs bundle exec rubocop"
+    eval "$BASE_DOCKER_COMPOSE_COMMAND run --rm rails bash -c -l \"git diff-tree -r --no-commit-id --name-only head origin/main | xargs bundle exec rubocop\""
   }
 
 # Running Feature specs
   function jd_fspec() {
     spec_file=${1:-""}
     mobile_only=${2:-"FEATURES_DESKTOP=yes"}
-    dc run --rm -p 5900:5900 rails bash -c -l "FEATURES_HEADED=yes FEATURES_RESKINNED=yes $mobile_only bin/scripts/run_features.sh $spec_file"
+    eval "$BASE_DOCKER_COMPOSE_COMMAND run --rm -p 5900:5900 rails bash -c -l \"FEATURES_HEADED=yes FEATURES_RESKINNED=yes $mobile_only bin/scripts/run_features.sh $spec_file\""
   }
 
 # Running Migrations/Rollbacks
-# Running ROllback
+# Running Rollback
   function run_rollback() {
     echo "Running Rollback for Dev Environment"
-    dces bundle exec spring rails db:rollback
+    eval "$BASE_DOCKER_COMPOSE_COMMAND exec spring bundle exec spring rails db:rollback"
 
     echo "Running Rollback for Test Environment"
-    dces bundle exec spring rails db:rollback RAILS_ENV=test
+    eval "$BASE_DOCKER_COMPOSE_COMMAND exec spring bundle exec spring rails db:rollback RAILS_ENV=test"
   }
 
 # Running Migrations
@@ -48,12 +48,10 @@ if [ -x "$(command -v docker)" ]; then
     fi
 
     echo "Running Migrations for Dev Environment"
-    dces bundle exec spring rails db:migrate
-    # dc exec rails bundle exec spring rails db:migrate
+    eval "$BASE_DOCKER_COMPOSE_COMMAND exec spring bundle exec spring rails db:migrate"
 
     echo "Now Running migrations for Test Env"
-    dces bundle exec spring rails db:migrate RAILS_ENV=test
-    # dc exec rails bundle exec spring rails db:migrate RAILS_ENV=test
+    eval "$BASE_DOCKER_COMPOSE_COMMAND exec spring bundle exec spring rails db:migrate RAILS_ENV=test"
 
     if $checkout_changes; then
       echo "checking out db/structure.sql changes"
@@ -91,39 +89,6 @@ if [ -x "$(command -v docker)" ]; then
 
   alias dps_pretty="docker ps -a --format=\"table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}\""
 fi
-
-# LINODE
-function start_linode() {
-  # Create the Linode and capture the output in a variable
-  linode_output=$(linode-cli linodes create \
-    --authorized_users praveendhawan \
-    --backups_enabled false \
-    --booted true \
-    --image private/25741247 \
-    --label devbox \
-    --private_ip false \
-    --region ap-west \
-    --root_pass 'praveen@jiffy#123' \
-    --type g6-standard-4 \
-    # --type g6-nanode-1 \
-    --json | grep -v '{}' | grep -Eo '\{.*\}')
-
-  # Extract the Linode ID and IP from the JSON output
-  linode_id=$(echo "$linode_output" | jq -r '..id')
-  linode_ip=$(echo "$linode_output" | jq -r '..ipv4[0]')
-
-  # Get the Volume ID for the volume named "storage"
-  volume_id=$(linode-cli volumes list --label storage --json | jq -r '.[0].id')
-
-  # Attach the volume to the Linode
-  linode-cli volumes attach $volume_id --linode_id $linode_id
-
-  # Reboot linode after attaching volume
-  linode-cli linodes reboot $linode_id
-
-  echo "Linode created with ID: $linode_id and IP: $linode_ip"
-  echo "Volume attached with ID: $volume_id"
-}
 
 # Kube and ssh and staging and production
 alias stage-login="asp jiffy-staging login"
@@ -166,9 +131,15 @@ function ssh-connect() {
 
     if [ -z "$target_env" ]; then
       target_env=$(gh pr view --json number --jq '.number')
+      echo "connecting to jiffy-$target_env"
+      ./infrastructure/bin/connect_to_container.sh -a "jiffy-$target_env" -p jiffy-staging
+    elif ([ "$target_env" = "stage" ] || [ "$target_env" = "staging" ]); then
+      echo "connecting to jiffy-$target_env"
+      ./infrastructure/bin/connect_to_container.sh -p jiffy-staging
+    elif ([ "$target_env" = "mobile" ]); then
+      echo "connecting to jiffy-$target_env"
+      ./infrastructure/bin/connect_to_container.sh  -a jiffy-mobile -p jiffy-staging
     fi
-    echo "connecting to jiffy-$target_env"
-    ./infrastructure/bin/connect_to_container.sh -a "jiffy-$target_env" -p jiffy-staging
   fi
 }
 
@@ -186,7 +157,7 @@ function prod-custom-pod() {
   else
     echo "Production session is valid."
   fi
-  ./infrastructure/bin/start_console.sh -n "$1" -p jiffy-production
+  ./infrastructure/bin/start_console.sh -n "$1"
 }
 
 alias sc="ssh-connect"
