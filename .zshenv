@@ -37,4 +37,4 @@ export ASDF_NPM_DEFAULT_PACKAGES_FILE=~/.config/asdf/default-npm-packages
 export K9S_CONFIG_DIR=~/.config/k9s
 
 # Hledger
-export LEDGER_FILE="$HOME/Documents/paisa/2024.journal"
+export LEDGER_FILE="$HOME/Documents/paisa/2025.journal"
