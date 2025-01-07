@@ -7,17 +7,23 @@ local highlights = require "highlights"
 local M = {}
 
 M.base46 = {
-  theme = "catppuccin",
+  theme = "nightlamp",
 
   hl_override = highlights.override,
   hl_add = highlights.add,
+  theme_toggle = { "catppuccin", "nightlamp" },
+}
+
+M.ui = {
   nvdash = {
     load_on_startup = true,
   },
   statusline = {
     theme = "minimal",
+    separator_style = "round",
   },
   tabufline = {
+    lazyload = false,
     order = { "treeOffset", "buffers", "btns" },
   },
 }
