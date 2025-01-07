@@ -28,8 +28,6 @@ end
 -- Ruby Server
 local server_options = {
   cmd = {
-    "asdf",
-    "exec",
     "solargraph",
     "stdio",
   },

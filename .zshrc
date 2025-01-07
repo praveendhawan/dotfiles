@@ -31,8 +31,8 @@ if command -v pacman >/dev/null 2>&1; then
   plugins+=(archlinux)
 fi
 
-if command -v asdf >/dev/null 2>&1; then
-  plugins+=(asdf)
+if command -v mise >/dev/null 2>&1; then
+  plugins+=(mise)
 fi
 
 source $ZSH/oh-my-zsh.sh
@@ -96,13 +96,13 @@ fi
 
 # Use asdf instead of rvm.RVM install doesnt work with M2
 if [[ "$uname" == Darwin ]]; then
-  . $(brew --prefix asdf)/libexec/asdf.sh
-elif grep -q '^ID=alpine' /etc/os-release; then
-  . "$HOME/.asdf/asdf.sh"
-elif grep -q '^ID=arch' /etc/os-release; then
-  . "$HOME/.asdf/asdf.sh"
-else
-  . $(brew --prefix asdf)/libexec/asdf.sh
+  # mise activate
+# elif grep -q '^ID=alpine' /etc/os-release; then
+#   . "$HOME/.asdf/asdf.sh"
+# elif grep -q '^ID=arch' /etc/os-release; then
+#   . "$HOME/.asdf/asdf.sh"
+# else
+#   . $(brew --prefix asdf)/libexec/asdf.sh
 fi
 
 # Created by `pipx` on 2024-08-13 07:59:31
