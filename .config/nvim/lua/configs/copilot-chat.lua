@@ -2,7 +2,7 @@ local chat = require "CopilotChat"
 
 chat.setup {
   -- Default model
-  model = "gpt-4o-2024-08-06",
+  model = "claude-3.5-sonnet",
   -- Default context for differnt context types
   contexts = {
     file = {

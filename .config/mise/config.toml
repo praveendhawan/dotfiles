@@ -3,10 +3,10 @@ MISE_RUBY_DEFAULT_PACKAGES_FILE = '~/.config/mise/default-gems'
 MISE_NODE_DEFAULT_PACKAGES_FILE = '~/.config/"mise/default-npm-packages'
 
 [tools]
-node = '22'
+node = '22.12.0'
 ruby = '2.7.6'
 zig = '0.13.0'
-pnpm = '9.9.0'
+pnpm = '9.14.2'
 
 [settings]
 # configure `mise install` to always keep the downloaded archive
