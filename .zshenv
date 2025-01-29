@@ -33,3 +33,14 @@ export K9S_CONFIG_DIR=~/.config/k9s
 
 # Hledger
 export LEDGER_FILE="$HOME/Documents/paisa/2025.journal"
+
+# Created by `pipx` on 2024-08-13 07:59:31
+export PATH="$PATH:/Users/praveen/.local/bin"
+
+# pnpm
+export PNPM_HOME="/Users/praveen/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

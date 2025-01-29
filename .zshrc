@@ -104,6 +104,3 @@ if [[ "$uname" == Darwin ]]; then
 # else
 #   . $(brew --prefix asdf)/libexec/asdf.sh
 fi
-
-# Created by `pipx` on 2024-08-13 07:59:31
-export PATH="$PATH:/Users/praveen/.local/bin"
