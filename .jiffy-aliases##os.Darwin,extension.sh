@@ -3,7 +3,7 @@ if [ -x "$(command -v docker)" ]; then
   BASE_DOCKER_COMPOSE_COMMAND="docker compose -f docker-compose.yml -f docker-compose-without-nfs.yml -f docker-compose-praveen.yml --env-file .env --env-file .my_env"
 
 # BASE ALIAS
-  alias dc="$BASE_DOCKER_COMPOSE_COMMAND"
+  alias jdc="$BASE_DOCKER_COMPOSE_COMMAND"
   alias dces="$BASE_DOCKER_COMPOSE_COMMAND exec spring"
 
 # Functions
@@ -75,7 +75,7 @@ if [ -x "$(command -v docker)" ]; then
   alias jd_rc="dces bundle exec spring rails c"
   alias jd_attach_rails="jd_attach rails"
   alias jd_rspec="dces bundle exec spring rspec"
-  alias jd_postgres="dc exec postgres psql -U postgres -d jiffyshirts_development"
+  alias jd_postgres="jdc exec postgres psql -U postgres -d jiffyshirts_development"
   alias jd_rubo="dces bundle exec rubocop -a"
   # alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c \"bundle exec bin/scripts/setup_features.sh\""
   alias jd_update_db="dces bundle exec spring rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true RESET_SCHEMA=true"
