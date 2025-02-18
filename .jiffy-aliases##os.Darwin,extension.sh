@@ -15,7 +15,7 @@ if [ -x "$(command -v docker)" ]; then
   }
 
 # Running Rubocop for code changes
-  function run_rubo_bc() {
+  function run_rubo_bc(){
     eval "$BASE_DOCKER_COMPOSE_COMMAND run --rm rails bash -c -l \"git ls-files -m | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs bundle exec rubocop\""
   }
 
@@ -157,7 +157,8 @@ function prod-custom-pod() {
   else
     echo "Production session is valid."
   fi
-  ./infrastructure/bin/start_console.sh -n "$1"
+
+  ~/workspace/Office/spree-jiffyshirts/infrastructure/bin/start_console.sh -n "$1" -f ~/workspace/Office/spree-jiffyshirts/pry_helpers/pod_pryrc.rb -d /jiffyshirts/.pryrc
 }
 
 alias sc="ssh-connect"
