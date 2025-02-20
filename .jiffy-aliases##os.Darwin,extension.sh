@@ -158,7 +158,7 @@ function prod-custom-pod() {
     echo "Production session is valid."
   fi
 
-  ~/workspace/Office/spree-jiffyshirts/infrastructure/bin/start_console.sh -n "$1" -f ~/workspace/Office/spree-jiffyshirts/pry_helpers/pod_pryrc.rb -d /jiffyshirts/.pryrc
+  ~/workspace/Office/spree-jiffyshirts/infrastructure/bin/start_console.sh -n "$1" -f ~/workspace/Office/spree-jiffyshirts/pry_helpers/pryrc_nice.rb -d /jiffyshirts/.pryrc
 }
 
 alias sc="ssh-connect"
