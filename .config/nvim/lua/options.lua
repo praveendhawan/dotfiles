@@ -5,7 +5,7 @@ require "nvchad.options"
 local o = vim.o
 local g = vim.g
 o.cursorlineopt = "both" -- to enable cursorline!
-g.lua_snippets_path = vim.fn.stdpath "config" .. "/lua/configs/snippets"
+-- g.lua_snippets_path = vim.fn.stdpath "config" .. "/lua/configs/snippets"
 
 -- OSC52 clipboard config
 -- osc52 is provided by default in neovim 0.10

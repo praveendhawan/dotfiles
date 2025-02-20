@@ -1,10 +1,13 @@
-local ls = require "luasnip"
+vim.tbl_map(function(type)
+  require("luasnip.loaders.from_" .. type).lazy_load()
+end, { "vscode", "snipmate", "lua" })
 
 -- Reuse ruby snippets in rails files
-ls.filetype_extend("ruby", { "rails" })
+require("luasnip").filetype_extend("ruby", { "rdoc" })
+require("luasnip").filetype_extend("ruby", { "rails" })
 -- Reuse css snippets in scss files
-ls.filetype_extend("css", { "scss" })
+require("luasnip").filetype_extend("css", { "scss" })
 -- Reuse javascript snippets in vue files
-ls.filetype_extend("javascript", { "vue" })
+require("luasnip").filetype_extend("javascript", { "vue" })
 -- Reuse javascript snippets in coffee files
-ls.filetype_extend("javascript", { "coffee" })
+require("luasnip").filetype_extend("javascript", { "coffee" })

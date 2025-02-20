@@ -121,6 +121,41 @@ return {
   -- CMP
   {
     "hrsh7th/nvim-cmp",
+    dependencies = {
+      {
+        -- snippet plugin
+        "L3MON4D3/LuaSnip",
+        version = "v2.*",
+        dependencies = "rafamadriz/friendly-snippets",
+        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+        config = function(_, opts)
+          require("luasnip").config.set_config(opts)
+          require "configs.snippets"
+          require "nvchad.configs.luasnip"
+        end,
+      },
+
+      -- cmp sources plugins
+      {
+        "saadparwaiz1/cmp_luasnip",
+        -- "hrsh7th/cmp-nvim-lua", -- included in Nvchad
+        -- "hrsh7th/cmp-nvim-lsp", -- included in Nvchad
+        -- "hrsh7th/cmp-buffer", -- included in Nvchad
+        "hrsh7th/cmp-path",
+        "ray-x/cmp-treesitter",
+        {
+          "JosefLitos/cmp-copilot",
+          config = function()
+            require("cmp_copilot").setup()
+          end,
+          -- dev = true
+        },
+        -- {
+        --   'tzachar/cmp-ai',
+        --   config = require("configs.cmp").cmp_ai_setup
+        -- },
+      },
+    },
     -- because we are using the require statements in the cmp config file
     -- NVChad suggests to transform the opts to a function
     -- It says - https://nvchad.com/docs/config/plugins#manage_plugins -> Telescope example
@@ -137,29 +172,13 @@ return {
       -- table.insert(conf.sources, opts_overrides.sources)
       return conf
     end,
-    dependencies = {
-      "ray-x/cmp-treesitter",
-      {
-        "JosefLitos/cmp-copilot",
-        config = function()
-          require("cmp_copilot").setup()
-        end,
-        -- dev = true
-      },
-      -- 'hrsh7th/cmp-buffer', -- included in Nvchad
-      -- 'hrsh7th/cmp-nvim-lua', -- included in Nvchad
-      -- 'hrsh7th/cmp-nvim-lsp', -- included in Nvchad
-      -- {
-      --   'tzachar/cmp-ai',
-      --   config = require("configs.cmp").cmp_ai_setup
-      -- },
-    },
   },
   -- Open file on github
   {
     "almo7aya/openingh.nvim",
     cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
   },
+
   --  Better Folds
   {
     "kevinhwang91/nvim-ufo",
@@ -169,10 +188,10 @@ return {
     end,
     cmd = { "UfoEnable", "UfoEnableFold" },
   },
-
-  -- D2 Diagrams
-  {
-    "terrastruct/d2-vim",
-    ft = "d2",
-  },
+  --
+  -- -- D2 Diagrams
+  -- {
+  --   "terrastruct/d2-vim",
+  --   ft = "d2",
+  -- },
 }
