@@ -138,9 +138,9 @@ return {
       -- cmp sources plugins
       {
         "saadparwaiz1/cmp_luasnip",
-        -- "hrsh7th/cmp-nvim-lua", -- included in Nvchad
-        -- "hrsh7th/cmp-nvim-lsp", -- included in Nvchad
-        -- "hrsh7th/cmp-buffer", -- included in Nvchad
+        "hrsh7th/cmp-nvim-lua", -- included in Nvchad
+        "hrsh7th/cmp-nvim-lsp", -- included in Nvchad
+        "hrsh7th/cmp-buffer", -- included in Nvchad
         "hrsh7th/cmp-path",
         "ray-x/cmp-treesitter",
         {
