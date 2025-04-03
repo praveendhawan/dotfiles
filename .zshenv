@@ -34,6 +34,9 @@ export K9S_CONFIG_DIR=~/.config/k9s
 # Hledger
 export LEDGER_FILE="$HOME/Documents/paisa/2025.journal"
 
+# Tealdeer config override
+export TEALDEER_CONFIG_DIR=~/.config/tealdeer/
+
 # Created by `pipx` on 2024-08-13 07:59:31
 export PATH="$PATH:/Users/praveen/.local/bin"
 
