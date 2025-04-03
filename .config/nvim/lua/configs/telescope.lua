@@ -28,12 +28,19 @@ local file_ignore_patterns = {
 --
 local path_display_opts = {
   filename_first = {
-    reverse_directories = false
+    reverse_directories = false,
   },
   shorten = {
-    len = 4
-  }
+    len = 4,
+  },
 }
+
+local delete_marks = function(prompt_bufnr, map)
+  map({ "i", "n" }, "<C-d>", function()
+    require("telescope.actions").delete_mark(prompt_bufnr)
+  end)
+  return true -- Keep default mappings as well as the custom ones
+end
 
 return {
   defaults = {
@@ -44,13 +51,14 @@ return {
     find_files = {
       previewer = false,
       wrap_results = true,
-      path_display = path_display_opts
+      path_display = path_display_opts,
     },
     git_files = { path_display = path_display_opts },
     grep_string = { path_display = path_display_opts },
     live_grep = { path_display = path_display_opts },
     buffers = { path_display = path_display_opts },
     oldfiles = { path_display = path_display_opts },
+    marks = { attach_mappings = delete_marks },
   },
   extensions_list = { "themes", "terms", "fzf", "ui-select" },
   extensions = {

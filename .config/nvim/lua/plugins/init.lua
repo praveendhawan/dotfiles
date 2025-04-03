@@ -78,10 +78,7 @@ return {
     "klen/nvim-test",
     cmd = { "TestNearest", "TestFile", "TestEdit", "TestVisit" },
     config = function()
-      require("nvim-test").setup {
-        silent = false,
-        term = "terminal",
-      }
+      require "configs.nvim-tests"
     end,
   },
   -- Telescope
