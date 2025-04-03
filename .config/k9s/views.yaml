@@ -1,18 +1,19 @@
 views:
   v1/pods:
     columns:
-      - NAMESPACE
+      - TYPETAG:.metadata.labels.type
+      - NAME
+      # - TAG:.metadata.labels.app
       - AGE
       - READY
       - RESTARTS
-      - CPU
+      # - CPU
       - "%CPU/R"
       - "%CPU/L"
       - MEM
       - "%MEM/R"
       - "%MEM/L"
       - STATUS
-      - NAME
       - PF
       - IP
       - NODE
