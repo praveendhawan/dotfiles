@@ -1,6 +1,6 @@
 if [ -x "$(command -v docker)" ]; then
 # GLOBAL VARIABLES
-  BASE_DOCKER_COMPOSE_COMMAND="docker compose -f docker-compose.yml -f docker-compose-without-nfs.yml -f docker-compose-praveen.yml --env-file .env --env-file .my_env"
+  BASE_DOCKER_COMPOSE_COMMAND="docker compose -f docker-compose.yml --env-file .env --env-file .my_env"
 
 # BASE ALIAS
   alias jdc="$BASE_DOCKER_COMPOSE_COMMAND"
