@@ -1,6 +1,8 @@
 if uname -a | grep -q Darwin; then
   alias jiffy="cd ~/workspace/Office/spree-jiffyshirts"
   alias pp="cd ~/workspace/Personal"
+  alias remna="pp && cd remnast"
+  alias ultra="cd ~/.config/ultra"
   alias prep="cd ~/workspace/Practice"
   alias mobs="cd ~/workspace/Personal/Obsidian/mindmap/mindmap-remote"
   alias ledger="cd ~/Documents/paisa/"
