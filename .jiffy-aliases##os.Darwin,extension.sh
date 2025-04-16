@@ -161,5 +161,84 @@ function prod-custom-pod() {
   ~/workspace/Office/spree-jiffyshirts/infrastructure/bin/start_console.sh -n "$1" -f ~/workspace/Office/spree-jiffyshirts/pry_helpers/pryrc_nice.rb -d /jiffyshirts/.pryrc
 }
 
+# Used when I want to kcp files to and from pod
+# Only support production cluster for now.
+# kcp /local/path/file.txt $POD_NAME:/remote/path/
+# kcp $POD_NAME:/remote/path /local/path/file
+function get-pod-name() {
+  local QUIET="false"
+  local NAME="praveen"
+
+  # Parse arguments
+  if [[ "$1" == "-q" || "$1" == "--quiet" ]]; then
+    QUIET="true"
+    # If a second argument exists, use it as NAME, otherwise use default
+    if [[ -n "$2" ]]; then
+      NAME="$2"
+    fi
+  else
+    # If first argument exists and is not a quiet flag, use it as NAME
+    if [[ -n "$1" ]]; then
+      NAME="$1"
+    fi
+  fi
+
+  # Check if current context is production using regex
+  local CURRENT_CONTEXT=$(kubectl config current-context)
+
+  # Match any context containing "production"
+  if [[ "$CURRENT_CONTEXT" =~ production ]]; then
+    # Get pod name and export as env var
+    local JOB="jiffy-console-$NAME"
+    export POD_NAME=$(kubectl get pods --selector=job-name=$JOB --output=jsonpath='{.items[0].metadata.name}')
+
+    if [[ -n "$POD_NAME" ]]; then
+      if [[ "$QUIET" != "true" ]]; then
+        echo "You can now use following"
+        echo "kcp /local/path/file.txt \$POD_NAME:/remote/path/"
+        echo "kcp \$POD_NAME:/remote/path /local/path/file"
+      fi
+      return 0
+    else
+      if [[ "$QUIET" != "true" ]]; then
+        echo "No pod found with job name: $NAME"
+      fi
+      return 1
+    fi
+  else
+    if [[ "$QUIET" != "true" ]]; then
+      echo "Not in production context. Current context is: $CURRENT_CONTEXT"
+    fi
+    return 1
+  fi
+}
+
+function copy-to-pod() {
+  local NAME="${1:-praveen}"
+  local LOCAL_PATH="$2"
+  local POD_PATH="$3"
+
+  # Get pod name
+  if get-pod-name "$NAME" -q; then
+    echo "Copying $LOCAL_PATH to $POD_NAME:$POD_PATH"
+    kcp "$LOCAL_PATH" "$POD_NAME:$POD_PATH" --retries=999
+  fi
+}
+
+function copy-from-pod() {
+  local NAME="${1:-praveen}"
+  local LOCAL_PATH="$2"
+  local POD_PATH="$3"
+
+  # Get pod name
+  if get-pod-name "$NAME" -q; then
+    echo "Copying $POD_NAME:$POD_PATH to $LOCAL_PATH"
+    kcp "$POD_NAME:$POD_PATH" "$LOCAL_PATH" --retries=999
+  fi
+}
+
 alias sc="ssh-connect"
 alias npp="prod-custom-pod"
+alias jpod="get-pod-name"
+alias kcpto="copy-to-pod"
+alias kcpfrom="copy-from-pod"
