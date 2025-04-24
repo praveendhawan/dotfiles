@@ -197,6 +197,7 @@ function get-pod-name() {
         echo "You can now use following"
         echo "kcp /local/path/file.txt \$POD_NAME:/remote/path/"
         echo "kcp \$POD_NAME:/remote/path /local/path/file"
+        echo "kcpto - copy to pod and kcpfrom - copy from pod"
       fi
       return 0
     else
