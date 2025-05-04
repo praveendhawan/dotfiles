@@ -16,3 +16,9 @@ map(
   { desc = "Telescope current buffer fuzzy find", noremap = true }
 )
 map("n", "<leader>fk", "<cmd> Telescope keymaps <CR>", { desc = "Telescope keymaps", noremap = true })
+map(
+  "n",
+  "<leader>fl",
+  "<cmd> Telescope lsp_workspace_symbols <CR>",
+  { desc = "Telescope Find Workspace Symbols", noremap = true }
+)
