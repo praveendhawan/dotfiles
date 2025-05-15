@@ -4,7 +4,7 @@ map("n", "<leader>s", ":TSJToggle<CR>", { desc = "SJ - Split and Join block", no
 map("n", "<leader>tn", ":TestNearest<CR>", { desc = "Test Nearest", silent = true })
 map("n", "<leader>tf", ":TestFile<CR>", { desc = "Test File", silent = true })
 
-map("n", "<leader>gb", ":Gitsigns toggle_current_line_blame <CR>", { desc = "Git - Toggle git blame", noremap = true })
+map("n", "<leader>gb", ":Gitsigns blame <CR>", { desc = "Git - Toggle git blame", noremap = true })
 
 -- Show prompts actions with telescope
 map("n", "<leader>cc", function()

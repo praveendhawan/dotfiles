@@ -19,6 +19,6 @@ map("n", "<leader>fk", "<cmd> Telescope keymaps <CR>", { desc = "Telescope keyma
 map(
   "n",
   "<leader>fl",
-  "<cmd> Telescope lsp_workspace_symbols <CR>",
+  "<cmd> Telescope lsp_dynamic_workspace_symbols <CR>",
   { desc = "Telescope Find Workspace Symbols", noremap = true }
 )
