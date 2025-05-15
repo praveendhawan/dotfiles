@@ -170,6 +170,8 @@ return {
       return conf
     end,
   },
+
+  { import = "nvchad.blink.lazyspec" },
   -- Open file on github
   {
     "almo7aya/openingh.nvim",

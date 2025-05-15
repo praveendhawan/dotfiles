@@ -1,51 +1,37 @@
 [
   {
+    "context": "MessageEditor > Editor",
+    "bindings": {
+      "space f f": null,
+      "space f k": null
+    }
+  },
+  {
+    "context": "(Pane > Editor) || ProjectPanel",
     "bindings": {
       "space f f": "file_finder::Toggle",
       "space f k": "zed::OpenKeymap"
     }
   },
   {
-    "context": "Editor",
-    "bindings": {}
-  },
-  {
-    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
+    "context": "Editor && VimControl && !menu",
     "bindings": {
       // put key-bindings here if you want them to work in normal & visual mode
       // menu is true when a menu is open (e.g. the completions menu)
       // VimWaiting is true after you type f or t when we’re waiting for a new key
       "gd": "editor::GoToDefinition",
-      // "gr": "editor::FindAllReferences",
+      "grr": "editor::FindAllReferences",
       "shift >": "editor::Indent",
       "shift <": "editor::Outdent",
       "space f t": "outline::Toggle",
-      "space f f": "file_finder::Toggle",
-      "space f k": "zed::OpenKeymap"
-    }
-  },
-  {
-    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
-    "bindings": {
-      // put key-bindings here if you want them to work only in normal mode
-      // "down": ["workspace::SendKeystrokes", "4 j"]
-      // "up": ["workspace::SendKeystrokes", "4 k"]
-      // "space f f": "file_finder::Toggle"
+      "space f l": "project_symbols::Toggle"
     }
   },
   {
     "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
     "bindings": {
       // visual, visual line & visual block modes
-      "=": "editor::Format"
-    }
-  },
-  {
-    "context": "Editor && vim_mode == insert && !menu",
-    "bindings": {
-      // put key-bindings here if you want them to work in insert mode
-      // e.g.
-      // "j j": "vim::NormalBefore" // remap jj in insert mode to escape.
+      "=": "vim::AutoIndent"
     }
   }
 ]

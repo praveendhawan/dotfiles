@@ -12,4 +12,5 @@ pnpm = '9.14.2'
 # configure `mise install` to always keep the downloaded archive
 always_keep_download = false        # deleted after install by default
 always_keep_install = false         # deleted on failure by default
+idiomatic_version_file_enable_tools = ["ruby"]
 

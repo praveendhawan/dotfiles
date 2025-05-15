@@ -15,6 +15,7 @@ M.opts_overrides = {
     -- hide entries of Text Kind from LSP
     { name = "nvim_lsp", group_index = 2, entry_filter = hide_text_lsp, max_item_count = 3 },
     { name = "treesitter", group_index = 2, max_item_count = 3 },
+
     { name = "copilot", group_index = 3, max_item_count = 2 },
     -- { name = 'cmp_ai', group_index = 3 },
     { name = "buffer", group_index = 4, max_item_count = 2 },

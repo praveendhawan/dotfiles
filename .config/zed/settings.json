@@ -12,17 +12,15 @@
       "host": "linp",
       "projects": [
         {
-          "paths": [
-            "~/work"
-          ]
+          "paths": ["~/work"]
         }
       ]
     }
   ],
-  "assistant": {
+  "agent": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gpt-4o"
+      "model": "claude-3.5-sonnet"
     },
     "version": "2"
   },
@@ -36,15 +34,38 @@
   "buffer_font_family": "FiraMono Nerd Font",
   "tab_size": 2,
   "soft_wrap": "preferred_line_length",
+  "languages": {
+    "Ruby": {
+      "language_servers": ["ruby-lsp", "rubocop", "!solargraph"]
+    }
+  },
   "lsp": {
-    "solargraph": {
+    "rubocop": {
       "initialization_options": {
-        "diagnostics": true,
-        "formatting": true
+        "safeAutocorrect": false,
+        "lintMode": true
+      }
+    },
+    "ruby-lsp": {
+      "initialization_options": {
+        "enabledFeatures": {
+          // This disables diagnostics
+          // Ruby LSP uses pull-based diagnostics which Zed doesn't support yet.
+          // https://zed.dev/docs/languages/ruby#setting-up-ruby-lsp
+          "diagnostics": false,
+          "workspaceSymbol": true
+        }
       }
     }
   },
-  "format_on_save": "off",
+  "context_servers": {
+    "postgres-context-server": {
+      "settings": {
+        "database_url": "postgresql://postgres@localhost:5432/jiffyshirts_development"
+      }
+    }
+  },
+  "format_on_save": "on",
   "remove_trailing_whitespace_on_save": true,
   "ensure_final_newline_on_save": true
 }
