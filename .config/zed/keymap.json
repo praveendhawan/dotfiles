@@ -7,6 +7,13 @@
     }
   },
   {
+    "context": "EmptyPane",
+    "bindings": {
+      "space f f": "file_finder::Toggle",
+      "space f k": "zed::OpenKeymap"
+    }
+  },
+  {
     "context": "(Pane > Editor) || ProjectPanel",
     "bindings": {
       "space f f": "file_finder::Toggle",
