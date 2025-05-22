@@ -62,17 +62,6 @@ return {
       { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
     },
   },
-  -- Local LLM
-  {
-    "David-Kunz/gen.nvim",
-    cmd = { "Gen" },
-    config = function()
-      require "configs.gen-llm-new"
-    end,
-    cond = function()
-      return vim.fn.has "mac" == 1
-    end,
-  },
   -- Vim Test
   {
     "klen/nvim-test",
@@ -115,63 +104,16 @@ return {
     end,
     cmd = "CopilotChat",
   },
-  -- CMP
   {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      {
-        -- snippet plugin
-        "L3MON4D3/LuaSnip",
-        version = "v2.*",
-        dependencies = "rafamadriz/friendly-snippets",
-        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-        config = function(_, opts)
-          require("luasnip").config.set_config(opts)
-          require "configs.snippets"
-          require "nvchad.configs.luasnip"
-        end,
-      },
-
-      -- cmp sources plugins
-      {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua", -- included in Nvchad
-        "hrsh7th/cmp-nvim-lsp", -- included in Nvchad
-        "hrsh7th/cmp-buffer", -- included in Nvchad
-        "hrsh7th/cmp-path",
-        "ray-x/cmp-treesitter",
-        {
-          "JosefLitos/cmp-copilot",
-          config = function()
-            require("cmp_copilot").setup()
-          end,
-          -- dev = true
-        },
-        -- {
-        --   'tzachar/cmp-ai',
-        --   config = require("configs.cmp").cmp_ai_setup
-        -- },
-      },
-    },
-    -- because we are using the require statements in the cmp config file
-    -- NVChad suggests to transform the opts to a function
-    -- It says - https://nvchad.com/docs/config/plugins#manage_plugins -> Telescope example
-    -- If your opts uses a function call ex: require*, then make opts spec a function
-    -- should return the modified default config as well
-    opts = function()
-      local opts_overrides = require("configs.cmp").opts_overrides
-      local conf = require "nvchad.configs.cmp"
-      -- vim.tbl_deep_extend("force", conf, opts_overrides)
-      -- somehow the above code doesnt work and overrides the sources
-      conf.sources = opts_overrides.sources
-      conf.sorting = opts_overrides.sorting
-      -- vim.print(vim.inspect(conf))
-      -- table.insert(conf.sources, opts_overrides.sources)
-      return conf
-    end,
+    "augmentcode/augment.vim",
+    cmd = "Augment",
+    event = "InsertEnter",
   },
-
+  -- CMP
   { import = "nvchad.blink.lazyspec" },
+  {
+    "giuxtaposition/blink-cmp-copilot",
+  },
   -- Open file on github
   {
     "almo7aya/openingh.nvim",

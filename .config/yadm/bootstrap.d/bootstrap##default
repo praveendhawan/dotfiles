@@ -34,12 +34,12 @@ if [ "$SYSTEM_TYPE" == "Darwin" ]; then
 
   if [ -f "$HOME/config/brewfile/.Brewfile" ]; then
     echo "Updating homebrew bundle"
-    brew bundle --file="$HOME/config/brewfile/.Brewfile"
+    brew bundle --file="$HOME/.config/brewfile/.Brewfile"
   fi
 
   if [ -f "$HOME/config/brewfile/.Brewfile.darwin" ]; then
     echo "Updating homebrew bundle for mac"
-    brew bundle --file="$HOME/config/brewfile/.Brewfile.darwin"
+    brew bundle --file="$HOME/.config/brewfile/.Brewfile.darwin"
   fi
 
   # force the linking of libpq to avoid issue with installing pg gem
@@ -170,7 +170,7 @@ fi
 if ! command -v psql &> /dev/null 2>&1; then
 CREATE_POSTGRES_USER=false
   read -p "Do you want to create a new postgres user > " choice
-  case "$choice"
+  case "$choice" in
     y|Y ) CREATE_POSTGRES_USER=1;;
     * ) echo "Skipping postgres user creation";;
   esac

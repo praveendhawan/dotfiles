@@ -68,9 +68,9 @@ end
 
 -- Only setup ruby-lsp if not in jiffy
 -- if current_dir ~= "spree-jiffyshirts" then
-local ruby_lsp_path = vim.fn.system("mise which ruby-lsp"):gsub("\n", "")
+-- local ruby_lsp_path = vim.fn.system("mise which ruby-lsp"):gsub("\n", "")
 local ruby_lsp_config = {
-  cmd = { ruby_lsp_path },
+  cmd = { "mise x -- ruby-lsp" },
 }
 
 lspconfig.ruby_lsp.setup { ruby_lsp_config }
