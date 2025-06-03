@@ -4,6 +4,7 @@
 # ignore IDE specific folders
 .vscode
 .idea/
+.zed/
 .projections.json
 
 # ignore config files
