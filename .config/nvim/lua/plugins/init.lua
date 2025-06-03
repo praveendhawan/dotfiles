@@ -104,11 +104,6 @@ return {
     end,
     cmd = "CopilotChat",
   },
-  {
-    "augmentcode/augment.vim",
-    cmd = "Augment",
-    event = "InsertEnter",
-  },
   -- CMP
   { import = "nvchad.blink.lazyspec" },
   {
