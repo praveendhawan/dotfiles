@@ -4,7 +4,7 @@ if uname -a | grep -q Darwin; then
   alias remna="pp && cd remnast"
   alias ultra="cd ~/.config/ultra"
   alias prep="cd ~/workspace/Practice"
-  alias mobs="cd ~/workspace/Personal/Obsidian/mindmap/mindmap-remote"
+  alias mobs="cd ~/workspace/Personal/Obsidian/mindmap-remote"
   alias ledger="cd ~/Documents/paisa/"
   alias vitt="pp && cd vittarth"
   alias zigp="prep && cd Zig"
