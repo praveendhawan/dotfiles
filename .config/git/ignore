@@ -44,3 +44,8 @@ Procfile
 .config/gh
 .config/nvim/plugin
 yank.sh
+.cursorignore
+
+# AI Rules
+# Zed rules file
+*.rules
