@@ -7,11 +7,11 @@ local highlights = require "highlights"
 local M = {}
 
 M.base46 = {
-  theme = "catppuccin",
+  theme = "nightfox",
 
   hl_override = highlights.override,
   hl_add = highlights.add,
-  theme_toggle = { "catppuccin", "nightlamp" },
+  theme_toggle = { "nightfox", "nightlamp" },
 }
 
 M.ui = {

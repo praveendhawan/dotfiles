@@ -6,6 +6,7 @@
 .idea/
 .zed/
 .projections.json
+.vectorcode/
 
 # ignore config files
 config/elastic.yml

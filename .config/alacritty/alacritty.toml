@@ -1,6 +1,6 @@
 [general]
 import = [
-    "~/.config/alacritty/themes/themes/catppuccin_mocha.toml"
+    "~/.config/alacritty/themes/themes/nightfox.toml"
 ]
 
 [font]
@@ -15,3 +15,6 @@ save_to_clipboard = true
 
 [scrolling]
 history = 100000
+
+[window]
+option_as_alt = "Both"
