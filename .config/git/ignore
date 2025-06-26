@@ -7,6 +7,7 @@
 .zed/
 .projections.json
 .vectorcode/
+.cursor/rules/custom/
 
 # ignore config files
 config/elastic.yml
