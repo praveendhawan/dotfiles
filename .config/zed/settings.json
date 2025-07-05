@@ -67,6 +67,8 @@
   },
   "context_servers": {
     "mcp-server-figma": {
+      "source": "extension",
+      "enabled": false,
       "settings": {
         "figma_api_key": "${FIGMA_API_KEY}"
       }
@@ -74,12 +76,18 @@
     "jiffy-confluence-mcp": {
       "command": {
         "path": "npx",
-        "args": ["mcp-remote", "https://mcp.atlassian.com/v1/sse"],
-        "env": null
+        "args": [
+          "mcp-remote",
+          "https://mcp.atlassian.com/v1/sse"
+        ],
+        "env": {}
       },
-      "settings": {}
+      "source": "custom",
+      "enabled": false
     },
     "postgres-context-server": {
+      "source": "extension",
+      "enabled": false,
       "settings": {
         "database_url": "postgresql://postgres@localhost:5432/jiffyshirts_development"
       }
