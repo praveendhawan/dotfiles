@@ -7,6 +7,8 @@ node = '22.12.0'
 ruby = "3.4.1"
 zig = '0.14.0'
 pnpm = '9.14.2'
+erlang = "28.0.1"
+elixir = "1.18.4"
 
 [settings]
 # configure `mise install` to always keep the downloaded archive
