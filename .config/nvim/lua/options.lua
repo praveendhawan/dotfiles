@@ -32,3 +32,10 @@ g.augment_workspace_folders = {
 
 -- Prepend mise shims to PATH
 vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
+
+-- Add custom Filetypes based on extensions
+vim.filetype.add({
+  pattern = {
+    ['.*alias.*'] = 'sh',
+  },
+})

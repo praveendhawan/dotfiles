@@ -1,17 +1,22 @@
 if uname -a | grep -q Darwin; then
+  # Jiffy
   alias jiffy="cd ~/workspace/Office/spree-jiffyshirts"
+  # Personal
   alias pp="cd ~/workspace/Personal"
   alias remna="pp && cd remnast"
-  alias ultra="cd ~/.config/ultra"
-  alias prep="cd ~/workspace/Practice"
-  alias mobs="cd ~/workspace/Personal/Obsidian/mindmap-remote"
-  alias ledger="cd ~/Documents/paisa/"
   alias vitt="pp && cd vittarth"
+  alias p2k="pp && cd proton2kdbx"
+  alias rp2k="p2k && cd proton2kdbx-ruby"
+  alias zp2k="p2k && cd kdbx"
+  alias mobs="pp && cd Obsidian/mindmap-remote"
+  # Finance
+  alias ledger="cd ~/Documents/paisa/"
+  # Configs
+  alias ultra="cd ~/.config/ultra"
+  # Practice
+  alias prep="cd ~/workspace/Practice"
   alias zigp="prep && cd Zig"
   alias zige="prep && cd exercism/zig"
-  # alias exerrb="prep && cd exercism/ruby"
-  # alias exerru="prep && cd exercism/rust"
-  # alias exerel="prep && cd exercism/elxir"
 else
   alias jiffy="cd ~/jiffyshirts"
 fi
@@ -32,15 +37,13 @@ alias ctree="/opt/component_tree/bin/ctree"
 function ggrm() {
   local bm="$(git_current_branch)"
   # gcm - git co master
-  gcm && gpr && gco $bm && grbm
+  gcm && gprom && gco $bm && grbm
 }
 
 # alias pbcopy="xclip -sel clip"
 
 alias swap_nvim="rm -rf ~/.local/state/nvim/swap/*.swp"
 
-# alias ls to exa
-# alias ls="eza"
 alias dc="docker compose"
 
 source ~/.jiffy-aliases
