@@ -69,31 +69,31 @@ if [ -x "$(command -v docker)" ]; then
   }
 
 # Aliases
-  alias jd_be="dces bundle exec"
-  alias jd_bi="dces bundle"
+  alias jbe="dces bundle exec"
+  alias jbi="dces bundle"
   # alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
-  alias jd_rc="dces bundle exec spring rails c"
-  alias jd_attach_rails="jd_attach rails"
-  alias jd_rspec="dces bundle exec spring rspec"
-  alias jd_postgres="jdc exec postgres psql -U postgres -d jiffyshirts_development"
-  alias jd_rubo="dces bundle exec rubocop -a"
+  alias jrc="dces bundle exec spring rails c"
+  alias jra="jd_attach rails"
+  alias jrspec="dces bundle exec spring rspec"
+  alias jdb="jdc exec postgres psql -U postgres -d jiffyshirts_development"
+  alias jrubo="dces bundle exec rubocop -a"
   # alias jd_setup_fspec="$DOCKER_RAILS_COMMAND bash -l -c \"bundle exec bin/scripts/setup_features.sh\""
-  alias jd_update_db="dces bundle exec spring rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true RESET_SCHEMA=true"
+  alias jbootstrap="dces bundle exec spring rails db:bootstrap_jiffy REINDEX=false DOWNLOAD=true RESET_SCHEMA=true"
 
   alias jd_rubo_ac="run_rubo_ac"
   alias jd_rubo_bc="run_rubo_bc"
 
-  alias jd_migrate="run_migrations"
+  alias jmigrate="run_migrations"
 
-  alias jd_rollback="run_rollback"
+  alias jrollback="run_rollback"
 
   alias dps_pretty="docker ps -a --format=\"table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}\""
 fi
 
 # Kube and ssh and staging and production
-alias stage-login="asp jiffy-staging login"
+alias stage-login="asp jiffy-staging-dev login"
 alias prod-login="asp jiffy-production login"
-alias stage-kube-conf="aws eks update-kubeconfig --region us-east-1 --name staging-cluster --profile jiffy-staging"
+alias stage-kube-conf="aws eks update-kubeconfig --region us-east-1 --name staging-cluster --profile jiffy-staging-dev"
 alias prod-kube-conf="aws eks update-kubeconfig --region us-east-1 --name production-cluster --profile jiffy-production"
 alias k8stage='stage-login && stage-kube-conf'
 alias k8prod='prod-login && prod-kube-conf'
@@ -132,13 +132,16 @@ function ssh-connect() {
     if [ -z "$target_env" ]; then
       target_env=$(gh pr view --json number --jq '.number')
       echo "connecting to jiffy-$target_env"
-      ./infrastructure/bin/connect_to_container.sh -a "jiffy-$target_env" -p jiffy-staging
+      ./infrastructure/bin/connect_to_container.sh -a "jiffy-$target_env" -p jiffy-staging-dev
     elif ([ "$target_env" = "stage" ] || [ "$target_env" = "staging" ]); then
       echo "connecting to jiffy-$target_env"
-      ./infrastructure/bin/connect_to_container.sh -p jiffy-staging
+      ./infrastructure/bin/connect_to_container.sh -p jiffy-staging-dev
+    elif ([ "$target_env" = "rc" ] || [ "$target_env" = "develop" ]); then
+      echo "connecting to jiffy-$target_env"
+      ./infrastructure/bin/connect_to_container.sh -p jiffy-staging-dev -a "jiffy-$target_env" -c "bash"
     elif ([ "$target_env" = "mobile" ]); then
       echo "connecting to jiffy-$target_env"
-      ./infrastructure/bin/connect_to_container.sh  -a jiffy-mobile -p jiffy-staging
+      ./infrastructure/bin/connect_to_container.sh  -a jiffy-mobile -p jiffy-staging-dev
     fi
   fi
 }
@@ -158,7 +161,23 @@ function prod-custom-pod() {
     echo "Production session is valid."
   fi
 
+  # Save current pane border styles before changing
+  ORIG_BORDER_STYLE=$(tmux show-options -gwv pane-border-style)
+  ORIG_ACTIVE_BORDER_STYLE=$(tmux show-options -gwv pane-active-border-style)
+
+  # Set pane title
+  printf '\033]2;🔴 PRODUCTION CONSOLE 🔴\033\\'
+
+  # Make border extra thick and red
+  tmux setw pane-active-border-style "fg=red,bg=red"
+  tmux setw pane-border-style "fg=red"
+
   ~/workspace/Office/spree-jiffyshirts/infrastructure/bin/start_console.sh -n "$1" -f ~/workspace/Office/spree-jiffyshirts/pry_helpers/pryrc_nice.rb -d /jiffyshirts/.pryrc
+
+  # Reset
+  printf '\033]2;\033\\'
+  tmux setw pane-active-border-style "$ORIG_ACTIVE_BORDER_STYLE"
+  tmux setw pane-border-style "$ORIG_BORDER_STYLE"
 }
 
 # Used when I want to kcp files to and from pod

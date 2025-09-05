@@ -7,7 +7,7 @@ if uname -a | grep -q Darwin; then
   alias vitt="pp && cd vittarth"
   alias p2k="pp && cd proton2kdbx"
   alias rp2k="p2k && cd proton2kdbx-ruby"
-  alias zp2k="p2k && cd kdbx"
+  alias zp2k="p2k && cd p2kdbx"
   alias mobs="pp && cd Obsidian/mindmap-remote"
   # Finance
   alias ledger="cd ~/Documents/paisa/"

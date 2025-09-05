@@ -53,3 +53,5 @@ yank.sh
 # AI Rules
 # Zed rules file
 *.rules
+
+.zig-cache/

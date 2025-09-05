@@ -85,6 +85,7 @@ return {
   -- Copilot
   {
     "zbirenbaum/copilot.lua",
+    enabled = false,
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
@@ -94,6 +95,7 @@ return {
   -- AI
   {
     "olimorris/codecompanion.nvim",
+    enabled = false,
     cmd = {
       "CodeCompanionChat",
       "CodeCompanion",
@@ -141,9 +143,9 @@ return {
     opts = {
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
-        per_filetype = {
-          codecompanion = { 'codecompanion', 'lsp', 'path', 'buffer' }
-        }
+        -- per_filetype = {
+        --   codecompanion = { 'codecompanion', 'lsp', 'path', 'buffer' }
+        -- }
       }
     },
   },

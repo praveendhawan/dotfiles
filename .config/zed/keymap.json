@@ -26,8 +26,6 @@
       // put key-bindings here if you want them to work in normal & visual mode
       // menu is true when a menu is open (e.g. the completions menu)
       // VimWaiting is true after you type f or t when we’re waiting for a new key
-      "gd": "editor::GoToDefinition",
-      "grr": "editor::FindAllReferences",
       "shift >": "editor::Indent",
       "shift <": "editor::Outdent",
       "space f t": "outline::Toggle",
