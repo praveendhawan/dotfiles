@@ -1,7 +1,7 @@
 vim.tbl_map(function(type)
   require("luasnip.loaders.from_" .. type).lazy_load()
 end, { "vscode", "snipmate", "lua" })
-
+--
 -- Reuse ruby snippets in rails files
 require("luasnip").filetype_extend("ruby", { "rdoc" })
 require("luasnip").filetype_extend("ruby", { "rails" })
@@ -11,3 +11,4 @@ require("luasnip").filetype_extend("css", { "scss" })
 require("luasnip").filetype_extend("javascript", { "vue" })
 -- Reuse javascript snippets in coffee files
 require("luasnip").filetype_extend("javascript", { "coffee" })
+

@@ -71,6 +71,7 @@ if [ -x "$(command -v docker)" ]; then
 # Aliases
   alias jbe="dces bundle exec"
   alias jbi="dces bundle"
+  alias jsh="dces bash"
   # alias jd_rails_bash="$DOCKER_RAILS_COMMAND bash"
   alias jrc="dces bundle exec spring rails c"
   alias jra="jd_attach rails"
@@ -86,7 +87,9 @@ if [ -x "$(command -v docker)" ]; then
   alias jmigrate="run_migrations"
 
   alias jrollback="run_rollback"
+  alias jpnpm="jdc run --rm webpacker bash -c \"./bin/pnpm_reinstall.sh\""
 
+  alias jlint="jsh -c ./bin/lint/check-run main"
   alias dps_pretty="docker ps -a --format=\"table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}\""
 fi
 
@@ -132,7 +135,8 @@ function ssh-connect() {
     if [ -z "$target_env" ]; then
       target_env=$(gh pr view --json number --jq '.number')
       echo "connecting to jiffy-$target_env"
-      ./infrastructure/bin/connect_to_container.sh -a "jiffy-$target_env" -p jiffy-staging-dev
+      # ./infrastructure/bin/connect_to_container.sh -a "jiffy-$target_env" -p jiffy-staging-dev
+      ./infrastructure/bin/start_console.sh -n "praveen" -p jiffy-staging-dev -e staging -a "jiffy-$target_env"
     elif ([ "$target_env" = "stage" ] || [ "$target_env" = "staging" ]); then
       echo "connecting to jiffy-$target_env"
       ./infrastructure/bin/connect_to_container.sh -p jiffy-staging-dev

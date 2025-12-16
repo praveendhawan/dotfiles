@@ -16,6 +16,7 @@ local ignore_dirs = {
   "^log",
   "^.sass-cache",
 }
+
 return {
   git = {
     enable = true,
@@ -25,12 +26,21 @@ return {
   --   show_on_dirs = true,
   --   show_on_open_dirs = true,
   -- },
-  -- filters = {
-  --   enable = true,
-  --   git_ignored = false,
-  --   dotfiles = false,
-  --   custom = ignore_dirs,
-  -- },
+  filters = {
+    enable = true,
+    git_ignored = true, -- Hide git ignored files by default
+    dotfiles = false,
+    custom = ignore_dirs,
+    exclude = {
+      "config/application.yml",
+      "config/master.key",
+      "config/secrets.yml",
+      "config/settings.local.yml",
+      "config/database.yml",
+      "tmp",
+      "tmp/raw_dev",
+    },
+  },
   renderer = {
     -- add_trailing = true,
     -- highlight_modified = "icon",

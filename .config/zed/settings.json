@@ -32,11 +32,12 @@
     }
   ],
   "agent": {
+    "always_allow_tool_actions": true,
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-3-7-sonnet"
+      "model": "claude-sonnet-4-5"
     },
-    "version": "2"
+    "model_parameters": []
   },
   "telemetry": {
     "metrics": false
@@ -65,34 +66,7 @@
       }
     }
   },
-  "context_servers": {
-    "mcp-server-figma": {
-      "source": "extension",
-      "enabled": false,
-      "settings": {
-        "figma_api_key": "${FIGMA_API_KEY}"
-      }
-    },
-    "jiffy-confluence-mcp": {
-      "command": {
-        "path": "npx",
-        "args": [
-          "mcp-remote",
-          "https://mcp.atlassian.com/v1/sse"
-        ],
-        "env": {}
-      },
-      "source": "custom",
-      "enabled": false
-    },
-    "postgres-context-server": {
-      "source": "extension",
-      "enabled": false,
-      "settings": {
-        "database_url": "postgresql://postgres@localhost:5432/jiffyshirts_development"
-      }
-    }
-  },
+  "context_servers": {},
   "features": {
     "edit_prediction_provider": "zed"
   },
