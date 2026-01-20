@@ -1,3 +1,5 @@
+# Gitlab cli Alias
+alias gh="glab"
 # SCP Aliases
 LOCAL_SETTINGS="--settings=sovereign.config.dev_settings"
 SCP_BASE_LOCAL="python manage.py "
