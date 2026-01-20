@@ -1,0 +1,10 @@
+# SCP Aliases
+LOCAL_SETTINGS="--settings=sovereign.config.dev_settings"
+SCP_BASE_LOCAL="python manage.py "
+alias pyc="cd ~/workspace/Office/E2E/scp-backend/sovereign/ && $SCP_BASE_LOCAL shell $LOCAL_SETTINGS"
+alias pys="cd ~/workspace/Office/E2E/scp-backend/sovereign/ && $SCP_BASE_LOCAL runserver $LOCAL_SETTINGS"
+alias pym="cd ~/workspace/Office/E2E/scp-backend/sovereign/ && $SCP_BASE_LOCAL migrate $LOCAL_SETTINGS"
+alias pymm="cd ~/workspace/Office/E2E/scp-backend/sovereign/ && $SCP_BASE_LOCAL makemigrations $LOCAL_SETTINGS"
+alias fes="cd ~/workspace/Office/E2E/awakening-admin && pnpm dev"
+alias cdb="mysql -u sovereign -p scp_db"
+alias spy="cd ~/workspace/Office/E2E/scp-backend/sovereign/ && $SCP_BASE_LOCAL $LOCAL_SETTINGS"
