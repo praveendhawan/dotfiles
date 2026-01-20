@@ -8,7 +8,10 @@
 .projections.json
 .vectorcode/
 .cursor/rules/custom/
+.cursor/plans/
 .warpindexingignore
+tmp/
+mise.toml
 
 # ignore config files
 config/elastic.yml

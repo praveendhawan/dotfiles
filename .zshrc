@@ -104,3 +104,5 @@ if [[ "$uname" == Darwin ]]; then
 # else
 #   . $(brew --prefix asdf)/libexec/asdf.sh
 fi
+eval "$(~/.local/bin/mise activate zsh)"
+# eval "$(mise activate zsh)"

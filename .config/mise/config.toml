@@ -10,6 +10,7 @@ pnpm = '9.14.2'
 erlang = "28.2"
 elixir = "1.19.4"
 zls = "0.15.1"
+python = "3.12"
 
 [settings]
 # configure `mise install` to always keep the downloaded archive

@@ -47,4 +47,6 @@ alias swap_nvim="rm -rf ~/.local/state/nvim/swap/*.swp"
 alias dc="docker compose"
 
 source ~/.jiffy-aliases
+source ~/.e2e-vpn
+source ~/.e2e-aliases
 # source ~/.docker-aliases

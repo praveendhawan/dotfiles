@@ -3,17 +3,21 @@ local on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
-local lspconfig = require "lspconfig"
+local vlsp = vim.lsp
+local lspconfig = vlsp.config
+
 -- local servers = { "html", "cssls" }
-local servers = { "zls" }
+local servers = { "zls", "ty" }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    on_init = on_init,
+  lspconfig(lsp, {
     capabilities = capabilities,
-  }
+    on_attach = on_attach,
+    on_init = on_init
+  })
+
+  vlsp.enable(lsp)
 end
 
 -- typescript
@@ -73,5 +77,7 @@ local ruby_lsp_config = {
   cmd = { "mise x -- ruby-lsp" },
 }
 
-lspconfig.ruby_lsp.setup { ruby_lsp_config }
+-- lspconfig.ruby_lsp.setup { ruby_lsp_config }
+lspconfig("ruby_lsp", ruby_lsp_config)
+vlsp.enable("ruby_lsp")
 -- end
