@@ -59,3 +59,5 @@ yank.sh
 .env
 
 .zig-cache/
+
+**/.claude/settings.local.json

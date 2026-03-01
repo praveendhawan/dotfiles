@@ -3,7 +3,7 @@ MISE_RUBY_DEFAULT_PACKAGES_FILE = '~/.config/mise/default-gems'
 MISE_NODE_DEFAULT_PACKAGES_FILE = '~/.config/"mise/default-npm-packages'
 
 [tools]
-node = '22.12.0'
+node = "latest"
 ruby = "3.4.1"
 zig = '0.15.2'
 pnpm = '9.14.2'

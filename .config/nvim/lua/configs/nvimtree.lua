@@ -12,7 +12,6 @@ local ignore_dirs = {
   "^.git",
   "^.github",
   "^.dockerdev",
-  "^docs",
   "^log",
   "^.sass-cache",
 }
