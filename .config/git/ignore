@@ -62,5 +62,4 @@ yank.sh
 .zig-cache/
 
 .claude/
-CLAUDE.md
-.cursor
+.cursor/
