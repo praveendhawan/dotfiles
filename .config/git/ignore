@@ -12,6 +12,7 @@
 .warpindexingignore
 tmp/
 mise.toml
+pnpm-lock.yaml
 
 # ignore config files
 config/elastic.yml
@@ -60,4 +61,6 @@ yank.sh
 
 .zig-cache/
 
-**/.claude/settings.local.json
+.claude/
+CLAUDE.md
+.cursor

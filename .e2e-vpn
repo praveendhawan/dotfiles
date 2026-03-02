@@ -1,49 +1,39 @@
-# VPN Aliases
+# VPN Aliases — E2E (openfortivpn + ProtonPass)
 
-# Get VPN Auth from proton cli - pass-cli
+# Envs that support connect_all / status_all / disconnect_all
+VPN_ENVS=(stage prod chennai)
+
+# Get VPN Auth from ProtonPass (pass-cli)
 get_vpn_config() {
     local env="${1:-stage}"
-    local vault="E2E"  # Your vault name
+    local vault="E2E"
     local item
 
     case "$env" in
-        stage|staging)
-            item="VPN Stage Credentials"
-            ;;
-        prod|production)
-            item="VPN Production Credentials"
-            ;;
+        stage|staging)  item="VPN Stage Credentials" ;;
+        prod|production) item="VPN Production Credentials" ;;
+        vyoma|chennai)  item="VPN SCP - Chennai" ;;
         *)
             echo "Error: Unknown environment '$env'" >&2
-            echo "Available: stage, prod, dev" >&2
+            echo "Available: stage, prod, chennai" >&2
             return 1
             ;;
     esac
 
     echo "Retrieving $env config from ProtonPass..." >&2
-
     local data
-    data=$(pass-cli item view --vault-name "$vault" --item-title "$item" --output json 2>/dev/null)
-
-    if [ $? -ne 0 ]; then
+    data=$(pass-cli item view --vault-name "$vault" --item-title "$item" --output json 2>/dev/null) || {
         echo "Error: Failed to retrieve from ProtonPass" >&2
         return 1
-    fi
+    }
 
-    # Extract basic fields
-    local username password host
+    local username password host port cert
     username=$(echo "$data" | jq -r '.item.content.content.Login.username')
     password=$(echo "$data" | jq -r '.item.content.content.Login.password')
-
-    # Extract host from URLs (remove https:// and trailing /)
     host=$(echo "$data" | jq -r '.item.content.content.Login.urls[0]' | sed 's|https://||' | sed 's|/$||')
-
-    # Extract from extra_fields
-    local port cert
     port=$(echo "$data" | jq -r '.item.content.extra_fields[] | select(.name == "port") | .content.Text')
     cert=$(echo "$data" | jq -r '.item.content.extra_fields[] | select(.name == "cert") | .content.Hidden')
 
-    # Return as JSON
     jq -n \
         --arg host "$host" \
         --arg port "$port" \
@@ -53,22 +43,23 @@ get_vpn_config() {
         '{host: $host, port: $port, username: $username, password: $password, cert: $cert}'
 }
 
-# Connect to VPN
+# Get PIDs of openfortivpn for an env (one per line; empty if none)
+_vpn_pids_for_env() {
+    local env="$1"
+    pgrep -f "openfortivpn.*${env}" 2>/dev/null || true
+}
+
+# Connect to VPN. Usage: vpn_connect [env] [true|false]
+# Second arg true = background with log file; default = foreground.
 vpn_connect() {
     local env="${1:-stage}"
+    local background="${2:-false}"
 
     echo "=== Connecting to $env VPN ==="
 
-    # Get config from ProtonPass
     local config_json
-    config_json=$(get_vpn_config "$env")
+    config_json=$(get_vpn_config "$env") || return 1
 
-    if [ $? -ne 0 ]; then
-        echo "Failed to retrieve VPN config" >&2
-        return 1
-    fi
-
-    # Extract values
     local host port username password cert
     host=$(echo "$config_json" | jq -r '.host')
     port=$(echo "$config_json" | jq -r '.port')
@@ -76,87 +67,208 @@ vpn_connect() {
     password=$(echo "$config_json" | jq -r '.password')
     cert=$(echo "$config_json" | jq -r '.cert')
 
-    # Validate required fields
     if [ -z "$host" ] || [ -z "$password" ]; then
         echo "Error: Missing required config (host or password)" >&2
-        echo "Debug: host=$host, port=$port, username=$username" >&2
         return 1
     fi
 
-    echo "✓ Config retrieved"
-    echo "  Host: $host:$port"
-    echo "  User: $username"
+    echo "✓ Config retrieved — Host: $host:${port:-10443}, User: $username"
     [ -n "$cert" ] && [ "$cert" != "null" ] && echo "  Cert: ${cert:0:20}..."
 
-    # Generate temp config on-the-fly
-    local temp_config="/tmp/openfortivpn_${env}_$$.conf"
-
-    cat > "$temp_config" << EOF
-host = $host
-port = ${port:-10443}
-username = $username
-password = $password
-EOF
-
-    # Add cert if present
-    if [ -n "$cert" ] && [ "$cert" != "null" ]; then
-        echo "trusted-cert = $cert" >> "$temp_config"
+    if [ "$background" = "true" ]; then
+        if [ -n "$(_vpn_pids_for_env "$env")" ]; then
+            echo "Error: $env VPN is already running. Use vpn_restart_bg $env or vpn_disconnect_all first." >&2
+            return 1
+        fi
     fi
 
+    local temp_config="/tmp/openfortivpn_${env}.conf"
+    cat > "$temp_config" <<-EOF
+		host = $host
+		port = ${port:-10443}
+		username = $username
+		password = $password
+	EOF
+    [ -n "$cert" ] && [ "$cert" != "null" ] && echo "trusted-cert = $cert" >> "$temp_config"
     chmod 600 "$temp_config"
 
-    echo "Connecting..."
-    sudo openfortivpn -c "$temp_config"
-
-    # Cleanup
-    rm -f "$temp_config"
-    unset host port username password cert config_json
+    if [ "$background" = "true" ]; then
+        local log_file="/tmp/vpn_${env}.log"
+        echo "Connecting in background..."
+        nohup sudo openfortivpn -c "$temp_config" > "$log_file" 2>&1 &
+        echo "✓ Started in background (Log: $log_file)"
+    else
+        echo "Connecting..."
+        sudo openfortivpn -c "$temp_config"
+        rm -f "$temp_config"
+    fi
 }
 
-# Disconnect VPN
+# Disconnect: all VPNs (no arg) or one env (e.g. vpn_disconnect stage)
 vpn_disconnect() {
-    echo "Disconnecting VPN..."
-    sudo killall openfortivpn 2>/dev/null
-    if [ $? -eq 0 ]; then
-        echo "✓ VPN disconnected"
+    local env="$1"
+    if [ -n "$env" ]; then
+        local pids
+        pids=$(_vpn_pids_for_env "$env")
+        if [ -z "$pids" ]; then
+            echo "✗ $env VPN was not running"
+            return 1
+        fi
+        echo "Disconnecting $env VPN..."
+        echo "$pids" | xargs sudo kill
+        echo "✓ $env VPN disconnected"
     else
-        echo "✗ VPN was not running"
+        echo "Disconnecting all VPNs..."
+        if pgrep -x openfortivpn >/dev/null; then
+            sudo killall openfortivpn 2>/dev/null
+            echo "✓ All VPNs disconnected"
+        else
+            echo "✗ No VPN was running"
+        fi
+        rm -f /tmp/openfortivpn_*.conf
     fi
 }
 
-# VPN Status
+# VPN status: all envs if no arg, else single env
 vpn_status() {
-    if pgrep -x "openfortivpn" > /dev/null; then
-        echo "✓ VPN is connected"
-        ps aux | grep openfortivpn | grep -v grep | awk '{print "  PID:", $2, "Config:", $NF}'
-        return 0
+    local env="$1"
+    if [ -n "$env" ]; then
+        local pids
+        pids=$(_vpn_pids_for_env "$env")
+        if [ -n "$pids" ]; then
+            echo "✓ $env: Connected"
+            echo "$pids" | while read -r pid; do echo "  PID: $pid"; done
+            [ -f "/tmp/vpn_${env}.log" ] && echo "  Log: /tmp/vpn_${env}.log"
+        else
+            echo "✗ $env: Disconnected"
+            return 1
+        fi
     else
-        echo "✗ VPN is not connected"
-        return 1
+        if pgrep -x openfortivpn >/dev/null; then
+            echo "✓ VPN process(es) running:"
+            ps aux | awk '/[o]penfortivpn/ { print "  PID:", $2, "—", $NF }'
+        else
+            echo "✗ VPN is not connected"
+            return 1
+        fi
     fi
 }
 
-# Switch VPN to new env
+# Switch to another env (disconnect all, then connect to given env in foreground)
 vpn_switch() {
     local new_env="$1"
-
     if [ -z "$new_env" ]; then
-        echo "Usage: vpn_switch {stage|prod|dev}"
+        echo "Usage: vpn_switch {stage|prod|chennai}" >&2
         return 1
     fi
-
-    # Disconnect current VPN if running
-    if pgrep -x "openfortivpn" > /dev/null; then
-        echo "Disconnecting current VPN..."
-        sudo killall openfortivpn
-        sleep 2
-    fi
-
-    # Connect to new environment
-    vpn_connect "$new_env"
+    vpn_disconnect
+    sleep 2
+    vpn_connect "$new_env" false
 }
 
-# Reconnect
+# Reconnect: optional env (default: try detect from running process, else stage)
 vpn_reconnect() {
-  vpn_disconnect
+    local current_env=""
+    local config_path
+    config_path=$(ps aux | awk '/[o]penfortivpn/ { print $NF }' | head -1)
+    if [ -n "$config_path" ]; then
+        current_env=$(echo "$config_path" | sed -n 's|/tmp/openfortivpn_\([^.]*\)\.conf|\1|p')
+    fi
+    local env="${1:-${current_env:-stage}}"
+    echo "=== Reconnecting to $env VPN ==="
+    vpn_disconnect "$env"
+    sleep 2
+    vpn_connect "$env" false
+}
+
+# Start all VPNs in background
+vpn_connect_all() {
+    echo "=== Starting all VPNs in background ==="
+    for env in "${VPN_ENVS[@]}"; do
+        vpn_connect "$env" true
+        sleep 1
+    done
+    echo "=== All VPNs started — vpn_status_all / vpn_disconnect_all ==="
+}
+
+# Status for all configured envs (single PID per env shown; no duplicate lines)
+vpn_status_all() {
+    echo "=== VPN Status ==="
+    local connected=0
+    local disconnected=0
+    for env in "${VPN_ENVS[@]}"; do
+        local pids
+        pids=$(_vpn_pids_for_env "$env")
+        if [ -n "$pids" ]; then
+            local first_pid
+            first_pid=$(echo "$pids" | head -1)
+            local count
+            count=$(echo "$pids" | wc -l | tr -d ' ')
+            if [ "$count" -gt 1 ]; then
+                echo "⚠ $env: Multiple connections (PIDs: $pids) — consider vpn_restart_bg $env"
+            else
+                echo "✓ $env: Connected (PID: $first_pid)"
+            fi
+            [ -f "/tmp/vpn_${env}.log" ] && echo "  Log: /tmp/vpn_${env}.log"
+            ((connected++)) || true
+        else
+            echo "✗ $env: Disconnected"
+            ((disconnected++)) || true
+        fi
+    done
+    echo ""
+    echo "Summary: $connected connected, $disconnected disconnected"
+}
+
+# Disconnect all VPNs and remove temp configs
+vpn_disconnect_all() {
+    echo "=== Disconnecting all VPNs ==="
+    for env in "${VPN_ENVS[@]}"; do
+        local pids
+        pids=$(_vpn_pids_for_env "$env")
+        if [ -n "$pids" ]; then
+            echo "$pids" | xargs sudo kill
+            echo "✓ $env disconnected"
+        else
+            echo "○ $env was not running"
+        fi
+    done
+    rm -f /tmp/openfortivpn_*.conf
+    echo "=== All VPNs stopped ==="
+}
+
+# Restart one env in background (kill all PIDs for that env, then connect)
+vpn_restart_bg() {
+    local env="${1:-stage}"
+    echo "=== Restarting $env VPN ==="
+    local pids
+    pids=$(_vpn_pids_for_env "$env")
+    if [ -n "$pids" ]; then
+        echo "Stopping existing connection(s)..."
+        echo "$pids" | xargs sudo kill
+        sleep 2
+    fi
+    vpn_connect "$env" true
+}
+
+vpn_logs() {
+    local env="${1:-stage}"
+    local log_file="/tmp/vpn_${env}.log"
+    if [ -f "$log_file" ]; then
+        echo "=== $env VPN Log (last 50 lines) ==="
+        tail -n 50 "$log_file"
+    else
+        echo "No log file for $env. Start with: vpn_connect $env true"
+    fi
+}
+
+vpn_logs_follow() {
+    local env="${1:-stage}"
+    local log_file="/tmp/vpn_${env}.log"
+    if [ -f "$log_file" ]; then
+        echo "=== Following $env VPN Log (Ctrl+C to stop) ==="
+        tail -f "$log_file"
+    else
+        echo "No log file for $env. Start with: vpn_connect $env true"
+    fi
 }
