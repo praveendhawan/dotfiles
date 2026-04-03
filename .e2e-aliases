@@ -1,5 +1,5 @@
 # Gitlab cli Alias
-alias gh="glab"
+# alias gh="glab"
 # SCP Aliases
 SCP_CD="cd ~/workspace/Office/E2E/scp-backend/sovereign/"
 LOCAL_SETTINGS="--settings=sovereign.config.dev_settings"
