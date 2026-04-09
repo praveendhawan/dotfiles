@@ -1,6 +1,5 @@
 brew "coreutils"
 brew "exercism"
-brew "ice"
 brew "juju"
 brew "kubernetes-cli"
 brew "libpq"

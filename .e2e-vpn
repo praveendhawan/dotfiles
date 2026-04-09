@@ -115,12 +115,12 @@ vpn_disconnect() {
             return 1
         fi
         echo "Disconnecting $env VPN..."
-        echo "$pids" | xargs sudo kill
+        echo "$pids" | xargs sudo kill -9 2>/dev/null
         echo "✓ $env VPN disconnected"
     else
         echo "Disconnecting all VPNs..."
         if pgrep -x openfortivpn >/dev/null; then
-            sudo killall openfortivpn 2>/dev/null
+            sudo killall -9 openfortivpn 2>/dev/null
             echo "✓ All VPNs disconnected"
         else
             echo "✗ No VPN was running"
@@ -227,7 +227,7 @@ vpn_disconnect_all() {
         local pids
         pids=$(_vpn_pids_for_env "$env")
         if [ -n "$pids" ]; then
-            echo "$pids" | xargs sudo kill
+            echo "$pids" | xargs sudo kill -9 2>/dev/null
             echo "✓ $env disconnected"
         else
             echo "○ $env was not running"
@@ -245,7 +245,7 @@ vpn_restart_bg() {
     pids=$(_vpn_pids_for_env "$env")
     if [ -n "$pids" ]; then
         echo "Stopping existing connection(s)..."
-        echo "$pids" | xargs sudo kill
+        echo "$pids" | xargs sudo kill -9 2>/dev/null
         sleep 2
     fi
     vpn_connect "$env" true
