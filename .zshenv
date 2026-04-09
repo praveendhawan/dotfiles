@@ -40,6 +40,9 @@ export TEALDEER_CONFIG_DIR=~/.config/tealdeer/
 # Created by `pipx` on 2024-08-13 07:59:31
 export PATH="$PATH:/Users/praveen/.local/bin"
 
+# For GPG
+export GPG_TTY=$(tty)
+
 # pnpm
 export PNPM_HOME="/Users/praveen/Library/pnpm"
 case ":$PATH:" in
