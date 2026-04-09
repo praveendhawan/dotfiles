@@ -272,3 +272,7 @@ vpn_logs_follow() {
         echo "No log file for $env. Start with: vpn_connect $env true"
     fi
 }
+
+alias vca="vpn_connect_all"
+alias vda="vpn_disconnect_all"
+alias vra="vpn_disconnect_all && vpn_connect_all"
