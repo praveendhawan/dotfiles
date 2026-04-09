@@ -74,7 +74,7 @@ end
 -- if current_dir ~= "spree-jiffyshirts" then
 -- local ruby_lsp_path = vim.fn.system("mise which ruby-lsp"):gsub("\n", "")
 local ruby_lsp_config = {
-  cmd = { "mise x -- ruby-lsp" },
+  cmd = { "ruby-lsp" },
 }
 
 -- lspconfig.ruby_lsp.setup { ruby_lsp_config }

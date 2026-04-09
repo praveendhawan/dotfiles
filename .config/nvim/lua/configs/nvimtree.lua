@@ -4,7 +4,7 @@ local ignore_dirs = {
   "^storage",
   "^.yardoc",
   "^node_modules",
-  "^cache",
+  -- "^cache/",
   "^pids",
   "^sockets",
   "^public",
