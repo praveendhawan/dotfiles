@@ -1,9 +1,48 @@
-#!/bin/sh
+#!/usr/bin/env bash
+#
+# Default bootstrap script, used on macOS and Debian/Ubuntu Linux.
+# Arch Linux uses bootstrap##distro.arch,extension.sh instead.
 
-# Utility Function to install packages
+set -eu
+
+# ---------------------------------------------------------------------------
+# Logging — tee stdout/stderr to a log file so failed runs are debuggable.
+# ---------------------------------------------------------------------------
+mkdir -p "$HOME/.cache"
+exec > >(tee -a "$HOME/.cache/yadm-bootstrap.log") 2>&1
+echo ""
+echo "=== bootstrap run: $(date) ==="
+
+SYSTEM_TYPE="$(uname -s)"
+
+# Optional: create a new user account (Linux only, run as root).
+# Set via env: NEW_USER=praveen ./bootstrap
+NEW_USER="${NEW_USER:-}"
+
+# Load brew into the current shell if it's installed but not on PATH yet
+# (e.g. immediately after the Homebrew installer runs).
+load_brew_env() {
+  if command -v brew >/dev/null 2>&1; then
+    return 0
+  fi
+  for candidate in \
+    /opt/homebrew/bin/brew \
+    /usr/local/bin/brew \
+    /home/linuxbrew/.linuxbrew/bin/brew \
+    "$HOME/.linuxbrew/bin/brew"; do
+    if [ -x "$candidate" ]; then
+      eval "$("$candidate" shellenv)"
+      return 0
+    fi
+  done
+  return 1
+}
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 install_packages() {
-  packages=("$@")
-
+  local packages=("$@")
   for package in "${packages[@]}"; do
     if ! dpkg -s "$package" >/dev/null 2>&1; then
       sudo apt install -y "$package"
@@ -13,49 +52,58 @@ install_packages() {
   done
 }
 
-SYSTEM_TYPE=$(uname -s)
-
-# Install Oh My Zsh (optional)
-if [ ! -d ~/.oh-my-zsh ]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  # Install Zsh Autosuggestions
-  if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  fi
+# ---------------------------------------------------------------------------
+# Oh My Zsh (install non-interactively so bootstrap doesn't get exec'd into zsh)
+# ---------------------------------------------------------------------------
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-# MAC Specific setup
-if [ "$SYSTEM_TYPE" == "Darwin" ]; then
-  # Install homebrew if it's missing
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions \
+    "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+fi
+
+# ---------------------------------------------------------------------------
+# macOS setup
+# ---------------------------------------------------------------------------
+if [ "$SYSTEM_TYPE" = "Darwin" ]; then
   if ! command -v brew >/dev/null 2>&1; then
     echo "Installing homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
+  load_brew_env
 
-  if [ -f "$HOME/config/brewfile/.Brewfile" ]; then
+  if [ -f "$HOME/.config/brewfile/.Brewfile" ]; then
     echo "Updating homebrew bundle"
     brew bundle --file="$HOME/.config/brewfile/.Brewfile"
   fi
 
-  if [ -f "$HOME/config/brewfile/.Brewfile.darwin" ]; then
+  if [ -f "$HOME/.config/brewfile/.Brewfile.darwin" ]; then
     echo "Updating homebrew bundle for mac"
     brew bundle --file="$HOME/.config/brewfile/.Brewfile.darwin"
   fi
 
-  # force the linking of libpq to avoid issue with installing pg gem
+  # force the linking of libpq to avoid issues with installing pg gem
   if brew list libpq >/dev/null 2>&1; then
     brew link --force libpq
   fi
 fi
 
-# Linux specific setup
-if [[ "$SYSTEM_TYPE" == "Linux" ]] ; then
-  # Add a new non-sudo user
-  sudo adduser praveen
+# ---------------------------------------------------------------------------
+# Debian/Ubuntu setup
+# ---------------------------------------------------------------------------
+if [ "$SYSTEM_TYPE" = "Linux" ]; then
+  # Create a new user account if requested (set NEW_USER env var; typically
+  # run as root during a fresh machine setup, then log back in as that user).
+  if [ -n "$NEW_USER" ] && ! id -u "$NEW_USER" >/dev/null 2>&1; then
+    sudo adduser "$NEW_USER"
+  fi
 
-  # Install necessary packages
   sudo apt update
-  # Install necessary packages
+
   packages=(
     git
     build-essential
@@ -68,28 +116,24 @@ if [[ "$SYSTEM_TYPE" == "Linux" ]] ; then
     unzip
     zsh
   )
-
   install_packages "${packages[@]}"
 
-  # install linuxbrew
+  # Linuxbrew
   if ! command -v brew >/dev/null 2>&1; then
     echo "Installing homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  load_brew_env
 
-    test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
-
-    if [ -f "$HOME/config/brewfile/.Brewfile" ]; then
-      echo "Updating homebrew bundle"
-      brew bundle --file="$HOME/config/brewfile/.Brewfile"
-    fi
-
-    if [ -f "$HOME/config/brewfile/.Brewfile.linux" ]; then
-      echo "Updating homebrew bundle for linux"
-      brew bundle --file="$HOME/config/brewfile/.Brewfile.linux"
-    fi
+  if [ -f "$HOME/.config/brewfile/.Brewfile" ]; then
+    echo "Updating homebrew bundle"
+    brew bundle --file="$HOME/.config/brewfile/.Brewfile"
   fi
 
-  install_packages packages
+  if [ -f "$HOME/.config/brewfile/.Brewfile.linux" ]; then
+    echo "Updating homebrew bundle for linux"
+    brew bundle --file="$HOME/.config/brewfile/.Brewfile.linux"
+  fi
 
   optional_packages=(
     libsqlite3-dev
@@ -102,115 +146,102 @@ if [[ "$SYSTEM_TYPE" == "Linux" ]] ; then
   )
 
   for package in "${optional_packages[@]}"; do
-    read -p "$package is not installed. Do you want to install it? (y/n) > " choice
+    read -rp "Install optional package '$package'? (y/n) > " choice
     case "$choice" in
-      y|Y ) sudo apt install -y "$package";;
-      n|N ) echo "Skipping $package";;
-      * ) echo "Invalid choice. Skipping $package";;
+      y|Y) sudo apt install -y "$package" ;;
+      *)   echo "Skipping $package" ;;
     esac
   done
 
-  # Install nerd fonts
-  if fc-list | grep -i "FiraMono" >/dev/null 2>&1; then
+  # Nerd font
+  if fc-list | grep -iq "FiraMono"; then
     echo "FiraMono is already installed"
   else
     echo "Installing FiraMono"
-    git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts
-    cd nerd-fonts
-    ./install.sh FiraMono
-
-    # cleanup
-    cd ..
+    git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts
+    ( cd nerd-fonts && ./install.sh FiraMono )
     rm -rf nerd-fonts
   fi
-fi
 
-# OS agnostic setup
-#
-# NODE JS
-read -p "Do you want to install nodejs > " choice
-INSTALL_NODE=false
-case "$choice" in
-  y|Y) INSTALL_NODE=true;;
-  *) echo "Skipping nodejs installation";;
-esac
-
-if $INSTALL_NODE; then
-  if ! command -v asdf &> /dev/null 2>&1; then
-    brew install asdf
+  # fd is packaged as fd-find on Debian/Ubuntu; expose it as `fd`
+  if command -v fdfind >/dev/null 2>&1 && [ ! -e /usr/local/bin/fd ]; then
+    sudo ln -s "$(command -v fdfind)" /usr/local/bin/fd
   fi
-  # Load asdf
-  . $(brew --prefix asdf)/libexec/asdf.sh
-  asdf plugin add nodejs
-  asdf install nodejs latest
-  asdf install nodejs 16.5.0
-  asdf global nodejs 16.5.0
 fi
 
-# RVM
-read -p "Do you want to install rvm > " choice
-INSTALL_RUBY=false
-case "$choice" in
-  y|Y ) INSTALL_RUBY=true;;
-  * ) echo "Skipping ruby installation";;
-esac
-
-if $INSTALL_RUBY; then
-  if ! command -v asdf &> /dev/null 2>&1; then
-    brew install asdf
-  fi
-  # Load asdf
-  . $(brew --prefix asdf)/libexec/asdf.sh
-  asdf plugin add ruby
-  asdf install ruby 2.7.6
-  asdf global ruby 2.7.6
+# ---------------------------------------------------------------------------
+# Language runtimes via mise (versions come from ~/.config/mise/config.toml,
+# which is managed by yadm, so it's already on disk when this runs).
+# ---------------------------------------------------------------------------
+if ! command -v mise >/dev/null 2>&1; then
+  load_brew_env
+  brew install mise
 fi
+mise install
 
-# Postgres
-if ! command -v psql &> /dev/null 2>&1; then
-CREATE_POSTGRES_USER=false
-  read -p "Do you want to create a new postgres user > " choice
+# ---------------------------------------------------------------------------
+# Postgres superuser (Linux only — macOS uses brew services / different flow)
+# ---------------------------------------------------------------------------
+if [ "$SYSTEM_TYPE" = "Linux" ] && command -v psql >/dev/null 2>&1; then
+  read -rp "Create a postgres superuser for '$USER'? (y/n) > " choice
   case "$choice" in
-    y|Y ) CREATE_POSTGRES_USER=1;;
-    * ) echo "Skipping postgres user creation";;
+    y|Y)
+      if ! sudo -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='$USER'" | grep -q 1; then
+        sudo -u postgres createuser -s "$USER"
+        sudo -u postgres createdb "$USER"
+        sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $USER TO $USER;"
+      else
+        echo "PostgreSQL role for '$USER' already exists"
+      fi
+      ;;
+    *) echo "Skipping postgres user creation" ;;
   esac
-
-  if $CREATE_POSTGRES_USER; then
-    read -p "Enter the username: " username
-    if ! sudo -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='$username'" | grep -q 1; then
-      sudo -u postgres createuser -s $username
-      sudo -u postgres createdb $username
-      sudo su - postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE $username TO $username;\""
-    else
-      echo "PostgreSQL is already configured for $username user"
-    fi
-  fi
 fi
 
-# Check if fd symlink already exists before creating
-if [ ! -L /usr/local/bin/fd ]; then
-  ln -s "$(which fdfind)" /usr/local/bin/fd
-fi
+# ---------------------------------------------------------------------------
+# component_tree (ctree) — disabled; re-enable if you start using it again.
+# ---------------------------------------------------------------------------
+# if [ "$SYSTEM_TYPE" = "Linux" ]; then
+#   ctree_dir=/usr/local/bin/component_tree
+# else
+#   ctree_dir=/opt/component_tree
+# fi
+# if [ ! -d "$ctree_dir" ]; then
+#   tmp="$(mktemp -d)"
+#   git clone https://github.com/shkrt/component_tree.git "$tmp/component_tree"
+#   sudo cp -R "$tmp/component_tree" "$ctree_dir"
+#   sudo chmod a+x "$ctree_dir/bin/ctree"
+#   rm -rf "$tmp"
+# fi
 
-# Check if ctree is already installed before attempting to install
-if [[ "$uname" == "Linux" ]] ; then
-  dir=/usr/local/bin
-else
-  dir=/opt/
-fi
-
-if [ ! -d "$dir" ]; then
-  git clone git@github.com:shkrt/component_tree.git
-  sudo cp -R component_tree/ "$dir/component_tree"
-  sudo chmod a+x "$dir/component_tree/bin/ctree"
-  export PATH="$PATH:$dir/component_tree/bin"
-fi
-
-# Configure Nvim
-if ! command -v nvim &> /dev/null 2>&1; then
+# ---------------------------------------------------------------------------
+# Neovim (NvChad + custom config)
+# ---------------------------------------------------------------------------
+if ! command -v nvim >/dev/null 2>&1; then
+  load_brew_env
   brew install neovim
 fi
 
-git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-ln -s ~/.config/nvim_custom ~/.config/nvim/lua/custom
+if [ ! -d "$HOME/.config/nvim" ]; then
+  git clone https://github.com/NvChad/NvChad "$HOME/.config/nvim" --depth 1
+fi
+
+if [ -d "$HOME/.config/nvim_custom" ] && [ ! -e "$HOME/.config/nvim/lua/custom" ]; then
+  ln -s "$HOME/.config/nvim_custom" "$HOME/.config/nvim/lua/custom"
+fi
+
+# Launch nvim so Lazy runs and installs plugins interactively.
 nvim
+
+# ---------------------------------------------------------------------------
+# Set zsh as default shell (done last so OMZ etc. are already in place)
+# ---------------------------------------------------------------------------
+if command -v zsh >/dev/null 2>&1; then
+  current_shell="$(getent passwd "$USER" 2>/dev/null | cut -d: -f7 || dscl . -read "/Users/$USER" UserShell 2>/dev/null | awk '{print $2}')"
+  zsh_path="$(command -v zsh)"
+  if [ "$current_shell" != "$zsh_path" ]; then
+    sudo chsh -s "$zsh_path" "$USER" || chsh -s "$zsh_path"
+  fi
+fi
+
+echo "=== bootstrap complete: $(date) ==="
