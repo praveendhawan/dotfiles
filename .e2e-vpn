@@ -1,6 +1,7 @@
 # VPN Aliases — E2E (openfortivpn + ProtonPass)
 
-VPN_ENVS=(stage prod chennai prod-chennai)
+# VPN_ENVS=(stage prod chennai prod-chennai)
+VPN_ENVS=(stage prod chennai)
 
 # ── Private Helpers ────────────────────────────────────────────────────────────
 
