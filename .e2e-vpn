@@ -1,7 +1,7 @@
 # VPN Aliases — E2E (openfortivpn + ProtonPass)
 
-# VPN_ENVS=(stage prod chennai prod-chennai)
-VPN_ENVS=(stage prod chennai)
+VPN_ENVS=(stage prod chennai prod-chennai)
+# VPN_ENVS=(stage prod chennai)
 
 # ── Private Helpers ────────────────────────────────────────────────────────────
 
@@ -10,19 +10,83 @@ _vpn_pids_for_env() {
     pgrep -f "openfortivpn.*${env}" 2>/dev/null || true
 }
 
+_vpn_gw_file() {
+    echo "/tmp/openfortivpn_${1}.gw"
+}
+
+# Delete the VPN gateway's host route and remove the sidecar file.
+# Run on disconnect because openfortivpn can't do its own cleanup when we
+# SIGKILL it, which leaves a stale host route that poisons `connect()` on
+# future sessions if we move to a different physical network.
+_vpn_cleanup_gateway_route() {
+    local env="$1"
+    local gw_file
+    gw_file=$(_vpn_gw_file "$env")
+    if [ -f "$gw_file" ]; then
+        local gw
+        gw=$(cat "$gw_file" 2>/dev/null)
+        if [ -n "$gw" ]; then
+            sudo route -n delete -host "$gw" 2>/dev/null || true
+        fi
+        rm -f "$gw_file"
+    fi
+}
+
+# Clean up gateway-route sidecars for any env whose openfortivpn process is
+# no longer running. Safe to call before connecting — never touches routes
+# belonging to an active tunnel. Defends against leftovers from crashes,
+# sleep/wake cycles, or earlier sessions that predate sidecar tracking.
+_vpn_cleanup_stale() {
+    local env
+    for env in "${VPN_ENVS[@]}"; do
+        if [ -z "$(_vpn_pids_for_env "$env")" ]; then
+            _vpn_cleanup_gateway_route "$env"
+        fi
+    done
+}
+
 _vpn_kill_env() {
     local env="$1"
     local pids
     pids=$(_vpn_pids_for_env "$env")
+    local killed=1
     if [ -n "$pids" ]; then
         echo "$pids" | xargs sudo kill -9 2>/dev/null
-        return 0
+        killed=0
     fi
-    return 1
+    # Always try route cleanup — sidecar may exist from a previous crash even
+    # if no process is currently running.
+    _vpn_cleanup_gateway_route "$env"
+    return $killed
 }
 
 _vpn_log_file() {
     echo "/tmp/vpn_${1}.log"
+}
+
+_vpn_wait_ready() {
+    # Poll until the VPN is either up, has exited, or we time out.
+    # Returns 0 if the tunnel came up, 1 otherwise.
+    local env="$1"
+    local timeout="${2:-30}"
+    local log_file
+    log_file=$(_vpn_log_file "$env")
+    local deadline=$(( $(date +%s) + timeout ))
+
+    # Give nohup a moment to actually spawn the process before we start checking
+    # liveness, so we don't race the fork.
+    sleep 1
+
+    while [ "$(date +%s)" -lt "$deadline" ]; do
+        if [ -f "$log_file" ] && grep -q "Tunnel is up and running" "$log_file"; then
+            return 0
+        fi
+        if [ -z "$(_vpn_pids_for_env "$env")" ]; then
+            return 1
+        fi
+        sleep 1
+    done
+    return 1
 }
 
 _vpn_write_config() {
@@ -109,6 +173,11 @@ vpn_connect() {
     local temp_config
     temp_config=$(_vpn_write_config "$env" "$host" "$port" "$username" "$password" "$cert")
 
+    # Record the VPN gateway so _vpn_cleanup_gateway_route can delete its host
+    # route on disconnect. Currently ProtonPass returns a bare IP; if that ever
+    # becomes a hostname, resolve it here.
+    echo "$host" > "$(_vpn_gw_file "$env")"
+
     if [ "$background" = "true" ]; then
         local log_file
         log_file=$(_vpn_log_file "$env")
@@ -123,12 +192,25 @@ vpn_connect() {
 }
 
 vpn_connect_all() {
-    echo "=== Starting all VPNs in background ==="
+    echo "=== Starting all VPNs in background (serialized) ==="
+    # Clear stale gateway routes from crashed/slept sessions before we try to
+    # connect — without this, an old host route can poison `connect()`.
+    _vpn_cleanup_stale
+    local env failed=()
     for env in "${VPN_ENVS[@]}"; do
         vpn_connect "$env" true
-        sleep 1
+        if _vpn_wait_ready "$env" 30; then
+            echo "✓ $env is up and running"
+        else
+            echo "✗ $env failed to come up within 30s — see $(_vpn_log_file "$env")"
+            failed+=("$env")
+        fi
     done
-    echo "=== All VPNs started ==="
+    if [ ${#failed[@]} -eq 0 ]; then
+        echo "=== All VPNs started ==="
+    else
+        echo "=== Done with failures: ${failed[*]} ==="
+    fi
 }
 
 # ── Disconnect ─────────────────────────────────────────────────────────────────
@@ -205,6 +287,12 @@ vpn_reconnect() {
         echo "=== Reconnecting $env VPN ==="
         _vpn_kill_env "$env" && sleep 2
         vpn_connect "$env" true   # always background
+        if _vpn_wait_ready "$env" 30; then
+            echo "✓ $env is up and running"
+        else
+            echo "✗ $env failed to come up within 30s — see $(_vpn_log_file "$env")"
+            return 1
+        fi
     else
         echo "=== Reconnecting all VPNs ==="
         vpn_disconnect
