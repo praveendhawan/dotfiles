@@ -7,7 +7,7 @@ local vlsp = vim.lsp
 local lspconfig = vlsp.config
 
 -- local servers = { "html", "cssls" }
-local servers = { "zls", "ty" }
+local servers = { "zls", "ty", "rust_analyzer", "ruby_lsp" }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -70,14 +70,3 @@ end
 --   lspconfig.solargraph.setup(server_options)
 -- end
 
--- Only setup ruby-lsp if not in jiffy
--- if current_dir ~= "spree-jiffyshirts" then
--- local ruby_lsp_path = vim.fn.system("mise which ruby-lsp"):gsub("\n", "")
-local ruby_lsp_config = {
-  cmd = { "ruby-lsp" },
-}
-
--- lspconfig.ruby_lsp.setup { ruby_lsp_config }
-lspconfig("ruby_lsp", ruby_lsp_config)
-vlsp.enable("ruby_lsp")
--- end

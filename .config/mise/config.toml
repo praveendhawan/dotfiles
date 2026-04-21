@@ -11,6 +11,7 @@ erlang = "28.2"
 elixir = "1.19.4"
 zls = "0.15.1"
 python = "3.12"
+rust = "1.95.0"
 
 [settings]
 # configure `mise install` to always keep the downloaded archive

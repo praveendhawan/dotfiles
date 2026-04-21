@@ -4,6 +4,12 @@ return {
     "lua-language-server",
     "stylua",
 
+    -- rust
+    "rust-analyzer",
+
+    -- python
+    "ty",
+
     -- web dev stuff
     "css-lsp",
     "html-lsp",
