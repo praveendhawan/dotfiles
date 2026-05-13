@@ -10,6 +10,23 @@
 // Figma key is defined in jiffy project settings
 // zed: open project settings
 {
+  "session": {
+    "trust_all_worktrees": true
+  },
+  "agent_servers": {
+    "opencode": {
+      "type": "registry"
+    },
+    "cursor": {
+      "type": "registry"
+    },
+    "codex-acp": {
+      "type": "registry"
+    },
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 16,
@@ -32,7 +49,10 @@
     }
   ],
   "agent": {
-    "always_allow_tool_actions": true,
+    "sidebar_side": "right",
+    "tool_permissions": {
+      "default": "allow"
+    },
     "default_model": {
       "provider": "zed.dev",
       "model": "claude-sonnet-4-5"
@@ -40,6 +60,7 @@
     "model_parameters": []
   },
   "telemetry": {
+    "diagnostics": true,
     "metrics": false
   },
   "languages": {
@@ -67,10 +88,8 @@
     }
   },
   "context_servers": {},
-  "features": {
-    "edit_prediction_provider": "zed"
-  },
   "edit_predictions": {
+    "provider": "zed",
     "mode": "eager"
   }
 }
