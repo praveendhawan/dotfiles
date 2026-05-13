@@ -214,6 +214,20 @@ fi
 #   rm -rf "$tmp"
 # fi
 
+
+# ---------------------------------------------------------------------------
+# Navi Cheatsheets Download
+# ---------------------------------------------------------------------------
+repos=(
+  "denisidoro/cheats"
+  "denisidoro/navi-tldr-pages"
+)
+for repo in "${repos[@]}"; do
+  dir="$(navi info cheats-path)/${repo//\//__}"
+  [ -d "$dir" ] || git clone "https://github.com/${repo}" "$dir"
+done
+
+
 # ---------------------------------------------------------------------------
 # Neovim (NvChad + custom config)
 # ---------------------------------------------------------------------------

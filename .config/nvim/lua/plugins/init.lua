@@ -20,11 +20,6 @@ return {
       require "configs.lspconfig"
     end,
   },
-  -- Treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = require "configs.treesitter",
-  },
   -- Split and Join Blocks
   {
     "Wansmer/treesj",
