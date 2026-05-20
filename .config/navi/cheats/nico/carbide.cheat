@@ -1,0 +1,17 @@
+% nico, carbide
+
+# Port forward carbide-api (NICo management cluster)
+ssh -t -L <port>:localhost:<port> <host> "export KUBECONFIG=/root/.kube/nico-mgmt.config && kubectl -n forge-system port-forward svc/carbide-api <port>:<port>"
+
+# Inspect config map for carbide-api (NICo management cluster)
+ssh <host> "export KUBECONFIG=/root/.kube/nico-mgmt.config && kubectl -n forge-system get cm carbide-api-site-config-files -o jsonpath='{.data.carbide-api-site-config\.toml}'"
+
+# Rollout Restart
+ssh <host> "export KUBECONFIG=/root/.kube/nico-mgmt.config && kubectl -n forge-system rollout restart deploy -l <label>"
+
+# Deploy Status
+ssh <host> "export KUBECONFIG=/root/.kube/nico-mgmt.config && kubectl -n forge-system rollout status deploy -l <label>"
+
+$ port: echo 1079
+$ host: grep -rh "^Host " ~/.ssh/configs/e2e/ 2>/dev/null | awk '{for(i=2;i<=NF;i++) print $i}' | grep -v '[*?]' | sort -u
+$ label: ssh <host> "export KUBECONFIG=/root/.kube/nico-mgmt.config && kubectl -n forge-system get deploy --show-labels --no-headers" | awk '{print $NF}' | tr ',' '\n' | grep -v '^<none>$' | sort -u
