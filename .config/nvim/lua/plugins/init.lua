@@ -77,70 +77,13 @@ return {
     "nvim-telescope/telescope.nvim",
     opts = require "configs.telescope",
   },
-  -- Copilot
-  {
-    "zbirenbaum/copilot.lua",
-    enabled = false,
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require "configs.copilot"
-    end,
-  },
-  -- AI
-  {
-    "olimorris/codecompanion.nvim",
-    enabled = false,
-    cmd = {
-      "CodeCompanionChat",
-      "CodeCompanion",
-      "CodeCompanionActions",
-      "CodeCompanionCmd",
-    },
-    opts = require "configs.codecompanion",
-    dependencies = {
-      "nvim-lua/plenary.nvim", -- For async
-      "nvim-treesitter/nvim-treesitter", -- For file pickers
-      -- For MCP
-      {
-        "ravitemer/mcphub.nvim",
-        cmd = "MCPHub",
-        build = "bundled_build.lua",
-        config = function()
-          require("mcphub").setup()
-        end
-      },
-      -- For rendering the markdown in the chat buffer
-      {
-        "MeanderingProgrammer/render-markdown.nvim",
-        ft = { "markdown", "codecompanion" }
-      },
-      -- to copy images from your system clipboard into a chat buffer via :PasteImage
-      -- For Mac it depends on pngpaste - `brew install pngpaste`
-      {
-        "HakonHarnes/img-clip.nvim",
-        opts = {
-          filetypes = {
-            codecompanion = {
-              prompt_for_file_name = false,
-              template = "[Image]($FILE_PATH)",
-              use_absolute_path = true,
-            },
-          },
-        },
-      },
-    },
-  },
-    -- CMP
+  -- CMP
   { import = "nvchad.blink.lazyspec" },
   {
     "Saghen/blink.cmp",
     opts = {
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
-        -- per_filetype = {
-        --   codecompanion = { 'codecompanion', 'lsp', 'path', 'buffer' }
-        -- }
       }
     },
   },
