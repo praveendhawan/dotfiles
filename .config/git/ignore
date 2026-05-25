@@ -63,3 +63,11 @@ yank.sh
 
 .claude/
 .cursor/
+
+# Python pycache
+*__pycache__
+
+# ruflo files
+*.rvf
+*.rvf.lock
+ruvector.db

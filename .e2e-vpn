@@ -1,6 +1,6 @@
 # VPN Aliases — E2E (openfortivpn + ProtonPass)
 
-VPN_ENVS=(stage prod chennai prod-chennai)
+VPN_ENVS=(stage prod chennai prod-chennai prod-b200)
 
 # ── Sidecar paths ──────────────────────────────────────────────────────────────
 
@@ -253,6 +253,7 @@ get_vpn_config() {
         prod|production) item="VPN Production Credentials" ;;
         vyoma|chennai)   item="VPN SCP - Chennai" ;;
         prod-chennai)    item="VPN Prod - Chennai" ;;
+        prod-b200)       item="VPN Prod - B200" ;;
         *)
             echo "Error: Unknown environment '$env'" >&2
             echo "Available: stage, prod, chennai, prod-chennai" >&2
