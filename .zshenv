@@ -51,3 +51,4 @@ case ":$PATH:" in
 esac
 # pnpm end
 export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+export PATH="$PATH:/Applications/Codex.app/Contents/Resources"

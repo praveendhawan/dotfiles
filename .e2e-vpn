@@ -1,24 +1,61 @@
 # VPN Aliases — E2E (openfortivpn + ProtonPass)
+#
+# To add a VPN:    add an entry to _VPN_ITEM (and optionally _VPN_ALIAS).
+# To remove a VPN: delete its _VPN_ITEM entry (and any aliases).
 
-VPN_ENVS=(stage prod chennai prod-chennai prod-b200)
+# ━━ Registry ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# ── Sidecar paths ──────────────────────────────────────────────────────────────
+VPN_VAULT="E2E"
+
+# env name → ProtonPass item title
+typeset -gA _VPN_ITEM
+_VPN_ITEM=(
+    stage        "VPN Stage Credentials"
+    prod         "VPN Production Credentials"
+    chennai      "VPN SCP - Chennai"
+    prod-chennai "VPN Prod - Chennai"
+    # prod-b200    "VPN Prod - B200"
+)
+
+# alternate name → canonical env name
+typeset -gA _VPN_ALIAS
+_VPN_ALIAS=(
+    # staging    stage
+    production prod
+    vyoma      chennai
+)
+
+VPN_ENVS=(${(ko)_VPN_ITEM})
+
+_vpn_resolve_env() {
+    local input="$1"
+    if (( ${+_VPN_ITEM[$input]} )); then
+        echo "$input"; return 0
+    fi
+    if (( ${+_VPN_ALIAS[$input]} )); then
+        echo "${_VPN_ALIAS[$input]}"; return 0
+    fi
+    echo "Error: Unknown environment '$input'" >&2
+    echo "Available: ${(j:, :)VPN_ENVS}" >&2
+    return 1
+}
+
+# ━━ Internals ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# ── Paths ─────────────────────────────────────────────────────────────────────
 
 _vpn_gw_file()      { echo "/tmp/openfortivpn_${1}.gw"; }
 _vpn_state_file()   { echo "/tmp/openfortivpn_${1}.state"; }
 _vpn_log_file()     { echo "/tmp/vpn_${1}.log"; }
 _vpn_temp_config()  { echo "/tmp/openfortivpn_${1}.conf"; }
 
-# ── Process discovery ──────────────────────────────────────────────────────────
+# ── Process discovery ─────────────────────────────────────────────────────────
 
-# All PIDs whose cmdline references this env's config (sudo wrapper + child).
 _vpn_pids_for_env() {
     local env="$1"
     pgrep -f "openfortivpn.*openfortivpn_${env}\.conf" 2>/dev/null || true
 }
 
-# True iff PID is alive AND its cmdline contains $needle. Defends against PID
-# reuse — saved PIDs from prior sessions can collide with unrelated processes.
 _vpn_proc_matches() {
     local pid="$1" needle="$2"
     [ -n "$pid" ] || return 1
@@ -27,9 +64,6 @@ _vpn_proc_matches() {
     [[ "$cmd" == *"$needle"* ]]
 }
 
-# True iff some OTHER env's state file still claims this ppp interface.
-# Prevents per-env disconnect from tearing down an interface that has been
-# recycled by a different env's tunnel.
 _vpn_iface_claimed_by_other() {
     local iface="$1" my_env="$2"
     local other state_file other_iface
@@ -43,17 +77,8 @@ _vpn_iface_claimed_by_other() {
     return 1
 }
 
-# ── State file (per-env) ───────────────────────────────────────────────────────
-#
-# /tmp/openfortivpn_${env}.state  — written after _vpn_wait_ready succeeds.
-#
-#   ofv_pid=<openfortivpn child PID>
-#   pppd_pid=<pppd PID, parented by ofv_pid>
-#   ppp_iface=<pppN, captured from pppd's "Connect:" log line>
-#   gw=<VPN gateway IP, copied from .gw sidecar>
-#
-# Sets globals OFV_PID, PPPD_PID, PPP_IFACE, GW. Falls back to legacy .gw file
-# for GW only if the state file is missing.
+# ── State ─────────────────────────────────────────────────────────────────────
+
 _vpn_load_state() {
     local env="$1"
     OFV_PID="" PPPD_PID="" PPP_IFACE="" GW=""
@@ -77,8 +102,6 @@ _vpn_load_state() {
     fi
 }
 
-# Capture a fresh state snapshot. Caller must have ensured the tunnel is
-# actually up (i.e. _vpn_wait_ready returned 0).
 _vpn_capture_state() {
     local env="$1"
     local state_file log_file gw_file
@@ -86,7 +109,6 @@ _vpn_capture_state() {
     log_file=$(_vpn_log_file "$env")
     gw_file=$(_vpn_gw_file "$env")
 
-    # The openfortivpn child (not the sudo wrapper).
     local pid cmd ofv_pid=""
     for pid in $(_vpn_pids_for_env "$env"); do
         cmd=$(ps -o command= -p "$pid" 2>/dev/null)
@@ -95,15 +117,12 @@ _vpn_capture_state() {
         esac
     done
 
-    # pppd parented by our openfortivpn child.
     local pppd_pid=""
     [ -n "$ofv_pid" ] && pppd_pid=$(pgrep -P "$ofv_pid" -x pppd 2>/dev/null | head -1)
 
-    # ppp interface — pppd logs "Connect: pppN <-->" through openfortivpn's logfd.
     local ppp_iface=""
     [ -f "$log_file" ] && ppp_iface=$(grep -oE 'Connect: ppp[0-9]+' "$log_file" 2>/dev/null | tail -1 | awk '{print $2}')
 
-    # Gateway IP — already written to the .gw sidecar by vpn_connect.
     local gw=""
     [ -f "$gw_file" ] && gw=$(cat "$gw_file" 2>/dev/null)
 
@@ -115,13 +134,8 @@ gw=$gw
 EOF
 }
 
-# ── Cleanup ────────────────────────────────────────────────────────────────────
+# ── Cleanup ───────────────────────────────────────────────────────────────────
 
-# Per-env teardown. Kills openfortivpn (precise via state, broad via pgrep
-# fallback), waits a beat, then sweeps pppd/iface remnants — but only when we
-# actually killed something, to avoid wiping another env's recycled resources
-# from stale state. Always drops the gateway route and clears sidecars.
-# Returns 0 if it killed something, 1 if nothing was running.
 _vpn_kill_env() {
     local env="$1"
     _vpn_load_state "$env"
@@ -162,8 +176,6 @@ _vpn_kill_env() {
     return $killed
 }
 
-# Clean per-env sidecars + gateway routes for envs that aren't running. Safe
-# before connecting — never touches an active env's state.
 _vpn_cleanup_stale() {
     local env
     for env in "${VPN_ENVS[@]}"; do
@@ -173,9 +185,6 @@ _vpn_cleanup_stale() {
     done
 }
 
-# Global safety net — only safe to call when EVERY env is down. Sweeps stray
-# pppd processes and ppp* interfaces that escaped per-env cleanup (very old
-# crashes, sleep/wake artifacts, manual debugging).
 _vpn_cleanup_orphans() {
     local env
     for env in "${VPN_ENVS[@]}"; do
@@ -199,9 +208,8 @@ _vpn_cleanup_orphans() {
     done
 }
 
-# ── Wait for tunnel ────────────────────────────────────────────────────────────
+# ── Wait ──────────────────────────────────────────────────────────────────────
 
-# Poll log + process until the tunnel comes up, the process exits, or timeout.
 _vpn_wait_ready() {
     local env="$1"
     local timeout="${2:-30}"
@@ -209,7 +217,6 @@ _vpn_wait_ready() {
     log_file=$(_vpn_log_file "$env")
     local deadline=$(( $(date +%s) + timeout ))
 
-    # Give nohup/sudo a moment to fork.
     sleep 1
 
     while [ "$(date +%s)" -lt "$deadline" ]; do
@@ -224,7 +231,7 @@ _vpn_wait_ready() {
     return 1
 }
 
-# ── Config files ───────────────────────────────────────────────────────────────
+# ── Config files ──────────────────────────────────────────────────────────────
 
 _vpn_write_config() {
     local env="$1" host="$2" port="$3" username="$4" password="$5" cert="$6"
@@ -241,34 +248,20 @@ _vpn_write_config() {
     echo "$temp_config"
 }
 
-# ── ProtonPass ─────────────────────────────────────────────────────────────────
+# ━━ ProtonPass ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 get_vpn_config() {
-    local env="${1:-stage}"
-    local vault="E2E"
-    local item
-
-    case "$env" in
-        stage|staging)   item="VPN Stage Credentials" ;;
-        prod|production) item="VPN Production Credentials" ;;
-        vyoma|chennai)   item="VPN SCP - Chennai" ;;
-        prod-chennai)    item="VPN Prod - Chennai" ;;
-        prod-b200)       item="VPN Prod - B200" ;;
-        *)
-            echo "Error: Unknown environment '$env'" >&2
-            echo "Available: stage, prod, chennai, prod-chennai" >&2
-            return 1
-            ;;
-    esac
+    local env
+    env=$(_vpn_resolve_env "${1:-stage}") || return 1
+    local item="${_VPN_ITEM[$env]}"
 
     echo "Retrieving $env config from ProtonPass..." >&2
     local data
-    data=$(pass-cli item view --vault-name "$vault" --item-title "$item" --output json 2>/dev/null) || {
+    data=$(pass-cli item view --vault-name "$VPN_VAULT" --item-title "$item" --output json 2>/dev/null) || {
         echo "Error: Failed to retrieve from ProtonPass" >&2
         return 1
     }
 
-    # Single-pass extraction (was 5 separate jq invocations).
     echo "$data" | jq -r '
         .item.content as $c
         | {
@@ -280,11 +273,13 @@ get_vpn_config() {
         }'
 }
 
-# ── Connect ────────────────────────────────────────────────────────────────────
+# ━━ Public API ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# Usage: vpn_connect [env] [true|false]
+# ── Connect ───────────────────────────────────────────────────────────────────
+
 vpn_connect() {
-    local env="${1:-stage}"
+    local env
+    env=$(_vpn_resolve_env "${1:-stage}") || return 1
     local background="${2:-false}"
 
     echo "=== Connecting to $env VPN ==="
@@ -315,8 +310,6 @@ vpn_connect() {
     local temp_config
     temp_config=$(_vpn_write_config "$env" "$host" "$port" "$username" "$password" "$cert")
 
-    # Record gateway IP early so cleanup can find it even if the tunnel never
-    # comes up. (State file is written later, after _vpn_wait_ready succeeds.)
     echo "$host" > "$(_vpn_gw_file "$env")"
 
     if [ "$background" = "true" ]; then
@@ -332,8 +325,6 @@ vpn_connect() {
     fi
 }
 
-# Connect (background) + wait for the tunnel + capture state. Returns 0 on
-# success. Used by both vpn_connect_all and per-env vpn_reconnect.
 _vpn_connect_and_wait() {
     local env="$1"
     local timeout="${2:-30}"
@@ -349,8 +340,6 @@ _vpn_connect_and_wait() {
 
 vpn_connect_all() {
     echo "=== Starting all VPNs in background (serialized) ==="
-    # Clear stale gateway routes/sidecars from crashed/slept sessions before we
-    # try to connect — without this, an old host route can poison `connect()`.
     _vpn_cleanup_stale
     local env failed=()
     for env in "${VPN_ENVS[@]}"; do
@@ -363,12 +352,12 @@ vpn_connect_all() {
     fi
 }
 
-# ── Disconnect ─────────────────────────────────────────────────────────────────
+# ── Disconnect ────────────────────────────────────────────────────────────────
 
-# Usage: vpn_disconnect [env]  (no arg = all)
 vpn_disconnect() {
     local env="$1"
     if [ -n "$env" ]; then
+        env=$(_vpn_resolve_env "$env") || return 1
         if _vpn_kill_env "$env"; then
             echo "✓ $env disconnected"
         else
@@ -384,17 +373,14 @@ vpn_disconnect() {
                 echo "○ $e was not running"
             fi
         done
-        # Defensive sweep for any temp configs not tied to a tracked env.
         rm -f /tmp/openfortivpn_*.conf(N)
         _vpn_cleanup_orphans
         echo "=== All VPNs stopped ==="
     fi
 }
 
-# ── Status ─────────────────────────────────────────────────────────────────────
+# ── Status ────────────────────────────────────────────────────────────────────
 
-# Sets OFV_PID/PPPD_PID/PPP_IFACE/GW. Returns: 0=connected, 1=disconnected,
-# 2=broken-tunnel (openfortivpn alive but pppd or interface gone).
 _vpn_check_status() {
     local env="$1"
     OFV_PID="" PPPD_PID="" PPP_IFACE="" GW=""
@@ -405,9 +391,6 @@ _vpn_check_status() {
 
     _vpn_load_state "$env"
 
-    # If saved OFV_PID doesn't match any current process, the state file is
-    # from a previous session — still report connected (per pgrep) but skip
-    # broken-tunnel detection since we can't trust the saved pppd/iface either.
     if [ -n "$OFV_PID" ] && ! echo "$pids" | grep -qx "$OFV_PID"; then
         PPPD_PID="" PPP_IFACE=""
     fi
@@ -422,10 +405,10 @@ _vpn_check_status() {
     return 0
 }
 
-# Usage: vpn_status [env]  (no arg = all)
 vpn_status() {
     local env="$1"
     if [ -n "$env" ]; then
+        env=$(_vpn_resolve_env "$env") || return 1
         _vpn_check_status "$env"
         local rc=$?
         case "$rc" in
@@ -470,12 +453,12 @@ vpn_status() {
     echo "Summary: $connected connected, $broken broken, $disconnected disconnected"
 }
 
-# ── Reconnect ──────────────────────────────────────────────────────────────────
+# ── Reconnect ─────────────────────────────────────────────────────────────────
 
-# Usage: vpn_reconnect [env]  (no arg = all)
 vpn_reconnect() {
     local env="$1"
     if [ -n "$env" ]; then
+        env=$(_vpn_resolve_env "$env") || return 1
         echo "=== Reconnecting $env VPN ==="
         _vpn_kill_env "$env" && sleep 2
         _vpn_connect_and_wait "$env" 30 || return 1
@@ -487,9 +470,8 @@ vpn_reconnect() {
     fi
 }
 
-# ── Logs ───────────────────────────────────────────────────────────────────────
+# ── Logs ──────────────────────────────────────────────────────────────────────
 
-# Usage: vpn_logs [env] [-f|--follow]
 vpn_logs() {
     local env="stage" follow=false arg
     for arg in "$@"; do
@@ -498,6 +480,7 @@ vpn_logs() {
             *)           env="$arg" ;;
         esac
     done
+    env=$(_vpn_resolve_env "$env") || return 1
     local log_file
     log_file=$(_vpn_log_file "$env")
     if [ ! -f "$log_file" ]; then
@@ -513,7 +496,7 @@ vpn_logs() {
     fi
 }
 
-# ── Aliases ────────────────────────────────────────────────────────────────────
+# ━━ Aliases ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 alias vca="vpn_connect_all"
 alias vda="vpn_disconnect"

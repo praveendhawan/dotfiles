@@ -10,10 +10,19 @@
 // Figma key is defined in jiffy project settings
 // zed: open project settings
 {
+  "disable_ai": false,
+  "project_panel": {
+    "button": true
+  },
+  "diff_view_style": "unified",
+  "icon_theme": "Material Icon Theme",
   "session": {
     "trust_all_worktrees": true
   },
   "agent_servers": {
+    "glm-acp-agent": {
+      "type": "registry"
+    },
     "opencode": {
       "type": "registry"
     },
@@ -21,6 +30,9 @@
       "type": "registry"
     },
     "codex-acp": {
+      "default_config_options": {
+        "reasoning_effort": "high"
+      },
       "type": "registry"
     },
     "claude-acp": {
@@ -37,7 +49,7 @@
   "format_on_save": "on",
   "remove_trailing_whitespace_on_save": true,
   "ensure_final_newline_on_save": true,
-  "theme": "Catppuccin Mocha",
+  "theme": "Ayu Dark",
   "ssh_connections": [
     {
       "host": "linp",
@@ -49,7 +61,8 @@
     }
   ],
   "agent": {
-    "sidebar_side": "right",
+    "show_turn_stats": true,
+    "sidebar_side": "left",
     "tool_permissions": {
       "default": "allow"
     },
@@ -89,6 +102,7 @@
   },
   "context_servers": {},
   "edit_predictions": {
+    "allow_data_collection": "no",
     "provider": "zed",
     "mode": "eager"
   }

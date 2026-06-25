@@ -14,3 +14,6 @@ alias spy="$SCP_CD && $SCP_BASE_LOCAL"
 alias celd="$SCP_CD && celery -A sovereign worker --loglevel=info -Q default -n short_worker@%h"
 alias cello="$SCP_CD && celery -A sovereign worker --loglevel=info -Q migrations -n long_worker@%h"
 alias esh="ssh -i ~/.ssh/e2eNew"
+
+NICO_CD="cd ~/workspace/Office/E2E/ncx-poc/"
+alias nico="$NICO_CD"

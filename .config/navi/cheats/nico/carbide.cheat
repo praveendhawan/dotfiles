@@ -1,20 +1,19 @@
 % nico, carbide
 
 # Port forward carbide-api (NICo management cluster)
-ssh -t -L <port>:localhost:<port> <host> "fuser -k <port>/tcp 2>/dev/null; sleep 1; export KUBECONFIG=/root/.kube/nico-mgmt.config && kubectl -n forge-system port-forward svc/carbide-api <port>:<port>"
+ssh -t -L <port>:localhost:<port> <host> "fuser -k <port>/tcp 2>/dev/null; sleep 1; export KUBECONFIG=/etc/kubernetes/admin.conf && kubectl -n nico-system port-forward svc/nico-api <port>:<port>"
 
 # Kill process listening on port (NICo management cluster)
 ssh <host> "fuser -k <port>/tcp"
 
-# Inspect config map for carbide-api (NICo management cluster)
-ssh <host> "export KUBECONFIG=/root/.kube/nico-mgmt.config && kubectl -n forge-system get cm carbide-api-site-config-files -o jsonpath='{.data.carbide-api-site-config\.toml}'"
-
-# Rollout Restart
-ssh <host> "export KUBECONFIG=/root/.kube/nico-mgmt.config && kubectl -n forge-system rollout restart deploy -l <label>"
-
-# Deploy Status
-ssh <host> "export KUBECONFIG=/root/.kube/nico-mgmt.config && kubectl -n forge-system rollout status deploy -l <label>"
+# update Kubeconfig
+ssh <host> "sed -E 's#server: https://[^:]+:6443#server: https://<api_ip>:6443#' /etc/kubernetes/admin.conf" > ~/.kube/nico-mgmt.config
 
 $ port: echo 1079
+
 $ host: grep -rh "^Host " ~/.ssh/configs/e2e/ 2>/dev/null | awk '{for(i=2;i<=NF;i++) print $i}' | grep -v '[*?]' | sort -u
+
 $ label: ssh <host> "export KUBECONFIG=/root/.kube/nico-mgmt.config && kubectl -n forge-system get deploy --show-labels --no-headers" | awk '{print $NF}' | tr ',' '\n' | grep -v '^<none>$' | sort -u
+
+$ api_ip: grep '^KUBE_API_VIP=' .env | cut -d= -f2-
+
