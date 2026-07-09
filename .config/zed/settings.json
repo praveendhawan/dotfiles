@@ -12,81 +12,69 @@
 {
   "disable_ai": false,
   "project_panel": {
-    "button": true
+    "button": true,
   },
   "diff_view_style": "unified",
   "icon_theme": "Material Icon Theme",
   "session": {
-    "trust_all_worktrees": true
+    "trust_all_worktrees": true,
   },
   "agent_servers": {
     "glm-acp-agent": {
-      "type": "registry"
+      "type": "registry",
     },
     "opencode": {
-      "type": "registry"
-    },
-    "cursor": {
-      "type": "registry"
+      "type": "registry",
     },
     "codex-acp": {
       "default_config_options": {
-        "reasoning_effort": "high"
+        "reasoning_effort": "high",
       },
-      "type": "registry"
+      "type": "registry",
     },
     "claude-acp": {
-      "type": "registry"
-    }
+      "type": "registry",
+    },
   },
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 16,
   "buffer_font_family": "FiraMono Nerd Font",
   "tab_size": 2,
-  "soft_wrap": "preferred_line_length",
+  "soft_wrap": "prefer_line",
   "file_scan_inclusions": ["tmp/raw_dev/*"],
   "format_on_save": "on",
   "remove_trailing_whitespace_on_save": true,
   "ensure_final_newline_on_save": true,
   "theme": "Ayu Dark",
-  "ssh_connections": [
-    {
-      "host": "linp",
-      "projects": [
-        {
-          "paths": ["~/work"]
-        }
-      ]
-    }
-  ],
+  "ssh_connections": [],
   "agent": {
     "show_turn_stats": true,
     "sidebar_side": "left",
     "tool_permissions": {
-      "default": "allow"
+      "default": "allow",
     },
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-sonnet-4-5"
+      "model": "claude-sonnet-4-5",
     },
-    "model_parameters": []
+    "model_parameters": [],
   },
   "telemetry": {
     "diagnostics": true,
-    "metrics": false
+    "metrics": false,
   },
   "languages": {
     "Ruby": {
-      "language_servers": ["ruby-lsp", "rubocop", "!solargraph"]
-    }
+      "language_servers": ["ruby-lsp", "rubocop", "!solargraph"],
+    },
   },
   "lsp": {
     "rubocop": {
       "initialization_options": {
         "safeAutocorrect": false,
-        "lintMode": true
-      }
+        "lintMode": true,
+      },
     },
     "ruby-lsp": {
       "initialization_options": {
@@ -95,15 +83,15 @@
           // Ruby LSP uses pull-based diagnostics which Zed doesn't support yet.
           // https://zed.dev/docs/languages/ruby#setting-up-ruby-lsp
           "diagnostics": false,
-          "workspaceSymbol": true
-        }
-      }
-    }
+          "workspaceSymbol": true,
+        },
+      },
+    },
   },
   "context_servers": {},
   "edit_predictions": {
     "allow_data_collection": "no",
     "provider": "zed",
-    "mode": "eager"
-  }
+    "mode": "eager",
+  },
 }

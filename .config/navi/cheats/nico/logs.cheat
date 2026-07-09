@@ -1,0 +1,5 @@
+% nico, logs
+
+# Kubernetes logs pods
+export KUBECONFIG=~/workspace/Office/E2E/ncx-poc/tmp/kube-api-tunnel/kubeconfig && stern -n nico-system -l 'app.kubernetes.io/name in (h2-dhcp-relay,nico-api,nico-pxe,nico-dhcp)' --tail 20 --timestamps
+

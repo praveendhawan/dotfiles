@@ -1,0 +1,16 @@
+% redmine, mcp, docker
+
+# Run Redmine MCP server (detached)
+(cd <redmine_dir> && (docker rm -f redmine-mcp 2>/dev/null || true) && docker run -p <port>:8000 --env-file .env.docker --name redmine-mcp -d redmine-mcp-server:latest)
+
+$ port: echo 8000
+$ redmine_dir: echo ~/workspace/Office/E2E/Archived/pub_projects/redmine-mcp-server
+
+# Tail Redmine MCP logs
+(cd <redmine_dir> && docker logs -f redmine-mcp --tail 10)
+
+# Stop Redmine MCP server
+(cd <redmine_dir> && docker stop redmine-mcp)
+
+# Shell into Redmine MCP container
+(cd <redmine_dir> && docker exec -it redmine-mcp /bin/bash)

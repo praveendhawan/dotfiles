@@ -1,0 +1,8 @@
+% nico, carbide
+
+# Copy Certificates
+```
+kubectl -n nico-system get secret nico-admin-cli-client -o jsonpath='{.data.client\.crt}' | base64 -d > tmp/clis/config/client.crt
+kubectl -n nico-system get secret nico-admin-cli-client -o jsonpath='{.data.client\.key}' | base64 -d > tmp/clis/config/client.key
+kubectl -n nico-system get secret nico-admin-cli-client -o jsonpath='{.data.ca\.crt}' | base64 -d > tmp/clis/config/ca.crt
+```

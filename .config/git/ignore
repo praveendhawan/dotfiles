@@ -63,6 +63,7 @@ yank.sh
 
 .claude/
 .cursor/
+.claude-flow/
 
 # Python pycache
 *__pycache__

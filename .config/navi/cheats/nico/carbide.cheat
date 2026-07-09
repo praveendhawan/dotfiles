@@ -3,9 +3,6 @@
 # Port forward carbide-api (NICo management cluster)
 ssh -t -L <port>:localhost:<port> <host> "fuser -k <port>/tcp 2>/dev/null; sleep 1; export KUBECONFIG=/etc/kubernetes/admin.conf && kubectl -n nico-system port-forward svc/nico-api <port>:<port>"
 
-# Kill process listening on port (NICo management cluster)
-ssh <host> "fuser -k <port>/tcp"
-
 # update Kubeconfig
 ssh <host> "sed -E 's#server: https://[^:]+:6443#server: https://<api_ip>:6443#' /etc/kubernetes/admin.conf" > ~/.kube/nico-mgmt.config
 
