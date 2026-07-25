@@ -4,6 +4,21 @@ return {
     branch = "main",
     lazy = false,
     build = ":TSUpdate",
+    config = function(plugin)
+      vim.opt.runtimepath:prepend(plugin.dir .. "/runtime")
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
+      })
+      vim.schedule(function()
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype ~= "" then
+            pcall(vim.treesitter.start, buf)
+          end
+        end
+      end)
+    end,
   },
   -- Prettier
   {
