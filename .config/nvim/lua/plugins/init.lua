@@ -1,4 +1,10 @@
 return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
+    build = ":TSUpdate",
+  },
   -- Prettier
   {
     "stevearc/conform.nvim",

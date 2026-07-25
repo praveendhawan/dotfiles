@@ -106,3 +106,7 @@ if [[ "$uname" == Darwin ]]; then
 fi
 eval "$(~/.local/bin/mise activate zsh)"
 # eval "$(mise activate zsh)"
+
+# >>> zeroclaw >>>
+export PATH="/Users/praveen/.cargo/bin:$PATH"
+# <<< zeroclaw <<<
