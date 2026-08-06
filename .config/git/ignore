@@ -72,3 +72,6 @@ yank.sh
 *.rvf
 *.rvf.lock
 ruvector.db
+
+*.review-mr*
+*review-*
