@@ -1,0 +1,33 @@
+# NvChad material-deep-ocean palette
+
+[colors.primary]
+background = "#0f111a"
+foreground = "#eeffff"
+
+[colors.cursor]
+text = "#0f111a"
+cursor = "#eeffff"
+
+[colors.selection]
+text = "#0f111a"
+background = "#80cbc4"
+
+[colors.normal]
+black   = "#0f111a"
+red     = "#f07178"
+green   = "#c3e88d"
+yellow  = "#ffcb6b"
+blue    = "#82aaff"
+magenta = "#c792ea"
+cyan    = "#89ddff"
+white   = "#eeffff"
+
+[colors.bright]
+black   = "#374162"
+red     = "#f6aaae"
+green   = "#c3e88d"
+yellow  = "#ffc14e"
+blue    = "#6e98eb"
+magenta = "#a652de"
+cyan    = "#80cbc4"
+white   = "#ffffff"

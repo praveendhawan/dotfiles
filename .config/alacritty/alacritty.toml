@@ -1,6 +1,6 @@
 [general]
 import = [
-    "~/.config/alacritty/themes/themes/nightfox.toml"
+    "~/.config/alacritty/custom_themes/material_deep_ocean.toml"
 ]
 
 [font]
