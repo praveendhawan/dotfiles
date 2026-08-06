@@ -11,6 +11,19 @@ return {
           pcall(vim.treesitter.start)
         end,
       })
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "TSUpdate",
+        callback = function()
+          require("nvim-treesitter.parsers").tmux = {
+            tier = 3,
+            install_info = {
+              url = "https://github.com/Freed-Wu/tree-sitter-tmux",
+              branch = "main",
+              queries = "queries",
+            },
+          }
+        end,
+      })
       vim.schedule(function()
         for _, buf in ipairs(vim.api.nvim_list_bufs()) do
           if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype ~= "" then
