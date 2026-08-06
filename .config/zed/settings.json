@@ -10,6 +10,69 @@
 // Figma key is defined in jiffy project settings
 // zed: open project settings
 {
+  "proxy": "",
+  "language_models": {
+    "openai_compatible": {
+      "GLM": {
+        "api_url": "https://api.z.ai/api/coding/",
+        "available_models": [
+          {
+            "name": "GLM-5.2",
+            "max_tokens": 200000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000,
+            "reasoning_effort": "medium",
+            "capabilities": {
+              "tools": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true,
+              "interleaved_reasoning": false,
+              "max_tokens_parameter": false
+            }
+          }
+        ]
+      },
+      "Minimax": {
+        "api_url": "https://api.minimax.io/v1",
+        "available_models": [
+          {
+            "name": "MiniMax-M3",
+            "max_tokens": 200000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000,
+            "reasoning_effort": "medium",
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true,
+              "interleaved_reasoning": false,
+              "max_tokens_parameter": false
+            }
+          },
+          {
+            "name": "MiniMax-M2.7",
+            "max_tokens": 200000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000,
+            "reasoning_effort": "medium",
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true,
+              "interleaved_reasoning": false,
+              "max_tokens_parameter": false
+            }
+          }
+        ]
+      }
+    }
+  },
   "disable_ai": false,
   "project_panel": {
     "button": true,
@@ -20,12 +83,6 @@
     "trust_all_worktrees": true,
   },
   "agent_servers": {
-    "glm-acp-agent": {
-      "type": "registry",
-    },
-    "opencode": {
-      "type": "registry",
-    },
     "codex-acp": {
       "default_config_options": {
         "reasoning_effort": "high",
