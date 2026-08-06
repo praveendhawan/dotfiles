@@ -12,5 +12,5 @@ $ host: grep -rh "^Host " ~/.ssh/configs/e2e/ 2>/dev/null | awk '{for(i=2;i<=NF;
 
 $ label: ssh <host> "export KUBECONFIG=/root/.kube/nico-mgmt.config && kubectl -n forge-system get deploy --show-labels --no-headers" | awk '{print $NF}' | tr ',' '\n' | grep -v '^<none>$' | sort -u
 
-$ api_ip: grep '^KUBE_API_VIP=' .env | cut -d= -f2-
+$ api_ip: grep '^KUBE_API_TUNNEL_REMOTE_HOST=' .env | cut -d= -f2-
 
