@@ -41,6 +41,11 @@ ZSH_COMPDUMP=$XDG_CACH_HOME/zsh/zcompdump
 
 # User configuration
 
+# Option+Left/Right: move by word.
+# Alacritty + tmux send CSI 1;3. Ctrl+arrows stay bound to macOS Spaces.
+bindkey '^[[1;3C' forward-word
+bindkey '^[[1;3D' backward-word
+
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
@@ -110,3 +115,9 @@ eval "$(~/.local/bin/mise activate zsh)"
 # >>> zeroclaw >>>
 export PATH="/Users/praveen/.cargo/bin:$PATH"
 # <<< zeroclaw <<<
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
