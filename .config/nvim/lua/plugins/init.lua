@@ -99,6 +99,16 @@ return {
       require "configs.nvim-tests"
     end,
   },
+  -- Project roots and history
+  {
+    "DrKJeff16/project.nvim",
+    cmd = "Project",
+    opts = require "configs.projects",
+    config = function(_, opts)
+      require("project").setup(opts)
+      require("telescope").load_extension "projects"
+    end,
+  },
   -- Telescope
   {
     "nvim-telescope/telescope-fzf-native.nvim",

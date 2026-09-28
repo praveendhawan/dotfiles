@@ -1,5 +1,7 @@
 local map = vim.keymap.set
 
+map("n", "<leader>fp", "<cmd>Project telescope<CR>", { desc = "Telescope Projects" })
+
 map("n", "<leader>ft", "<cmd> Telescope treesitter <CR>", { desc = "Telescope Treesitter symbols", noremap = true })
 map(
   "n",
