@@ -38,10 +38,18 @@ brew bundle install --file=~/.Brewfile
 brew bundle install --file=~/.Brewfile.darwin
 ```
 
-## 7. Reload shell
+## 7. Run bootstrap
+Runs every script in `~/.config/yadm/bootstrap.d/`: the macOS setup (`bootstrap`), then
+`sofaktry` (clones the factory repo and links `factory` into `~/.local/bin`). Needs the SSH
+keys from step 5 for the private repo.
+```bash
+yadm bootstrap
+```
+
+## 8. Reload shell
 ```bash
 source ~/.zshrc
 ```
 
-## 8. Set up VPN
+## 9. Set up VPN
 - Install pass-cli and authenticate with Proton Pass

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+#
+# Install sofaktry (the `factory` CLI): clone or update the repo, then link
+# `factory` into ~/.local/bin. Runs after `bootstrap` (sorted order), so git is
+# already installed. Never fails the whole bootstrap: a private repo needs
+# GitHub access, which a fresh machine may not have yet.
+
+set -u
+
+DIR="${SOFAKTRY_DIR:-$HOME/workspace/Personal/sofaktry}"
+REPO="git@github.com:praveendhawan/sofaktry.git"
+
+if [ -d "$DIR/.git" ]; then
+  git -C "$DIR" pull --ff-only -q || echo "sofaktry: could not fast-forward $DIR, leaving it as is"
+else
+  mkdir -p "$(dirname "$DIR")"
+  if ! git clone -q "$REPO" "$DIR"; then
+    echo "sofaktry: clone failed (GitHub SSH access?). Rerun later: ~/.config/yadm/bootstrap.d/sofaktry"
+    exit 0
+  fi
+fi
+
+mkdir -p "$HOME/.local/bin"
+ln -sfn "$DIR/factory" "$HOME/.local/bin/factory"
+echo "sofaktry: $HOME/.local/bin/factory -> $DIR/factory"
+
+for tool in jq claude codex glab; do
+  command -v "$tool" > /dev/null || echo "sofaktry: '$tool' not found; factory needs it (see $DIR/README.md)"
+done
