@@ -37,8 +37,8 @@ export LEDGER_FILE="$HOME/Documents/paisa/2025.journal"
 # Tealdeer config override
 export TEALDEER_CONFIG_DIR=~/.config/tealdeer/
 
-# Created by `pipx` on 2024-08-13 07:59:31
-export PATH="$PATH:/Users/praveen/.local/bin"
+# User-local binaries (pipx, factory, ...). $HOME so it works for any username; skip if already on PATH.
+[[ ":$PATH:" == *":$HOME/.local/bin:"* ]] || export PATH="$PATH:$HOME/.local/bin"
 
 # For GPG
 export GPG_TTY=$(tty)
