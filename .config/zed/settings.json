@@ -10,6 +10,10 @@
 // Figma key is defined in jiffy project settings
 // zed: open project settings
 {
+  "git_panel": {
+    "group_by": "none",
+    "tree_view": true
+  },
   "proxy": "",
   "language_models": {
     "openai_compatible": {
