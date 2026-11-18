@@ -75,3 +75,5 @@ ruvector.db
 
 *.review-mr*
 *review-*
+
+**/.claude/settings.local.json
