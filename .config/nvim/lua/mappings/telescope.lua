@@ -18,6 +18,7 @@ map(
   { desc = "Telescope current buffer fuzzy find", noremap = true }
 )
 map("n", "<leader>fk", "<cmd> Telescope keymaps <CR>", { desc = "Telescope keymaps", noremap = true })
+map("n", "<leader>fg", "<cmd> Telescope git_status <CR>", { desc = "Telescope git status", noremap = true })
 map(
   "n",
   "<leader>fl",
