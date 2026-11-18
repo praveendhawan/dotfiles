@@ -24,6 +24,12 @@ mkdir -p "$HOME/.local/bin"
 ln -sfn "$DIR/factory" "$HOME/.local/bin/factory"
 echo "sofaktry: $HOME/.local/bin/factory -> $DIR/factory"
 
+# /factory agent skill: ~/.agents/skills is shared by agents; Claude Code reads ~/.claude/skills
+mkdir -p "$HOME/.agents/skills" "$HOME/.claude/skills"
+ln -sfn "$DIR/skills/factory" "$HOME/.agents/skills/factory"
+ln -sfn ../../.agents/skills/factory "$HOME/.claude/skills/factory"
+echo "sofaktry: skill linked into ~/.agents/skills and ~/.claude/skills"
+
 for tool in jq claude codex glab; do
   command -v "$tool" > /dev/null || echo "sofaktry: '$tool' not found; factory needs it (see $DIR/README.md)"
 done
