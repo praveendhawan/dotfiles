@@ -8,5 +8,6 @@ return {
     { path = expand "~/workspace/Office/E2E/networksmanagement", name = "networking" },
     { path = expand "~/workspace/Office/E2E/nico-redfish-proxy", name = "nico-proxy" },
     { path = expand "~/workspace/Office/E2E/nico-admin-backend", name = "nico-backend" },
+    { path = expand "~/workspace/Office/E2E/palau-ui", name = "palau-ui" },
   },
 }
