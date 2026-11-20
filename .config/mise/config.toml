@@ -13,6 +13,7 @@ zls = "0.15.1"
 python = "3.12"
 rust = "1.95.0"
 bun = "latest"
+"cargo:hunkpick" = "latest"   # sofaktry: hunk picking for atomic commits; needs rust above
 
 [settings]
 # configure `mise install` to always keep the downloaded archive

@@ -30,6 +30,7 @@ ln -sfn "$DIR/skills/factory" "$HOME/.agents/skills/factory"
 ln -sfn ../../.agents/skills/factory "$HOME/.claude/skills/factory"
 echo "sofaktry: skill linked into ~/.agents/skills and ~/.claude/skills"
 
-for tool in jq claude codex glab; do
+# hunkpick (cargo:hunkpick in ~/.config/mise/config.toml) is installed by `mise install` in bootstrap
+for tool in jq claude codex glab hunkpick; do
   command -v "$tool" > /dev/null || echo "sofaktry: '$tool' not found; factory needs it (see $DIR/README.md)"
 done
